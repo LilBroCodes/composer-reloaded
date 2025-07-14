@@ -1,6 +1,8 @@
 package org.lilbrocodes.composer_reloaded.api.targeting;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Tameable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -30,10 +32,14 @@ public class Targeting {
         if (!(player.getWorld() instanceof WorldMethodAccessor worldMethodAccessor)) return null;
         Entity entity = worldMethodAccessor.composerReloaded$getEntityByUuid(uuid);
         if (entity == null) return null;
+        if (!options.targetNonLiving && !(entity instanceof LivingEntity)) return null;
 
         double sqDist = entity.squaredDistanceTo(player);
         if (sqDist > options.maxDistance * options.maxDistance) return null;
         if (sqDist < options.minDistance * options.minDistance) return null;
+
+        if (!entity.isAlive() && !options.targetDead) return null;
+        if (!options.targetTamed && entity instanceof Tameable tameable && tameable.getOwner() != null) return null;
 
         return entity;
     }

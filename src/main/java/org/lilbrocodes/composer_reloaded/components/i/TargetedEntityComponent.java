@@ -11,5 +11,5 @@ public interface TargetedEntityComponent extends Component, AutoSyncedComponent 
     @Nullable UUID getUuid();
     void setUuid(PlayerEntity player, UUID pos);
     int getTicks();
-    void tick();
+    void tick(PlayerEntity player);
 }

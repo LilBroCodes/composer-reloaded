@@ -10,5 +10,5 @@ public interface TargetedBlockComponent extends Component, AutoSyncedComponent {
     @Nullable BlockPos getPos();
     void setPos(PlayerEntity player, BlockPos pos);
     int getTicks();
-    void tick();
+    void tick(PlayerEntity player);
 }

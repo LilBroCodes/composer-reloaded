@@ -49,7 +49,8 @@ public class TargetedEntityTracker implements TargetedEntityComponent {
     }
 
     @Override
-    public void tick() {
+    public void tick(PlayerEntity player) {
         ticks++;
+        ModEntityComponents.TARGETED_ENTITY.sync(player);
     }
 }

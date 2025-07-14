@@ -30,7 +30,7 @@ public class TargetingContext {
     }
 
     public static TargetingContext getIgnoring(PlayerEntity player) {
-        return builder(player).minDistance(0).maxDistance(Integer.MAX_VALUE).targetDead(true).targetTamed(true).targetNonLiving(true).build();
+        return builder(player).minDistance(0).maxDistance((int) Math.floor(Math.sqrt(Integer.MAX_VALUE))).targetDead(true).targetTamed(true).targetNonLiving(true).decayTicks(Integer.MAX_VALUE).build();
     }
 
     public static class Builder {

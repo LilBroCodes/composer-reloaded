@@ -49,7 +49,8 @@ public class TargetedBlockTracker implements TargetedBlockComponent {
     }
 
     @Override
-    public void tick() {
+    public void tick(PlayerEntity player) {
         ticks++;
+        ModEntityComponents.TARGETED_BLOCK.sync(player);
     }
 }

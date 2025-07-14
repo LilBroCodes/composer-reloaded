@@ -16,13 +16,13 @@ public class ServerPlayerEntityMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     public void composer$decayTarget(CallbackInfo ci) {
         ServerPlayerEntity self = (ServerPlayerEntity) (Object) this;
-        Entity entityTarget = Targeting.getTargetedEntity(self, TargetingContext.getDefault(self));
-        BlockPos blockTarget = Targeting.getTargetedBlock(self, TargetingContext.getDefault(self));
+        Entity entityTarget = Targeting.getTargetedEntity(self, TargetingContext.getIgnoring(self));
+        BlockPos blockTarget = Targeting.getTargetedBlock(self, TargetingContext.getIgnoring(self));
         if (entityTarget != null) {
-            ModEntityComponents.TARGETED_ENTITY.get(self).tick();
+            ModEntityComponents.TARGETED_ENTITY.get(self).tick(self);
         }
         if (blockTarget != null) {
-            ModEntityComponents.TARGETED_BLOCK.get(self).tick();
+            ModEntityComponents.TARGETED_BLOCK.get(self).tick(self);
         }
     }
 }
