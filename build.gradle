@@ -65,3 +65,37 @@ jar {
         rename { "${it}_${project.archivesBaseName}" }
     }
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            groupId = group
+            artifactId = 'composer-reloaded'
+            version = version
+
+            pom {
+                name = 'Composer Reloaded'
+                description = 'Higher quality remake of my library mod "Composer"'
+                url = 'https://github.com/your/repo'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'lilbrocodes'
+                        name = 'LilBro'
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.named('generatePomFileForMavenJavaPublication') {
+    destination = file("pom.xml")
+}
