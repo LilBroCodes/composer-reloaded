@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "composer_reloaded",
+  "version": "${version}",
+  "name": "Composer Reloaded",
+  "description": "Higher quality remake of my library mod \"Composer\"",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/composer_reloaded/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "org.lilbrocodes.composer_reloaded.client.ComposerReloadedClient"
+    ],
+    "main": [
+      "org.lilbrocodes.composer_reloaded.ComposerReloaded"
+    ],
+    "cardinal-components": [
+      "org.lilbrocodes.composer_reloaded.components.entry.ModEntityComponents"
+    ]
+  },
+  "mixins": [
+    "composer_reloaded.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}",
+    "cardinal-components": ">=${cca_version}"
+  },
+  "custom": {
+    "cardinal-components": [
+      "composer_reloaded:targeted_block",
+      "composer_reloaded:targeted_entity"
+    ]
+  }
+}
