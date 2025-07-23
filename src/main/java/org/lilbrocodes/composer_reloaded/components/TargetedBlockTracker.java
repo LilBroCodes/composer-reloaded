@@ -1,6 +1,5 @@
 package org.lilbrocodes.composer_reloaded.components;
 
-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
@@ -9,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lilbrocodes.composer_reloaded.components.entry.ModEntityComponents;
 import org.lilbrocodes.composer_reloaded.components.i.TargetedBlockComponent;
 
-public class TargetedBlockTracker implements TargetedBlockComponent {
+public class TargetedBlockTracker implements TargetedBlockComponent  {
     private BlockPos pos = null;
     private int ticks = -1;
 
