@@ -28,7 +28,7 @@ Replace `(latest_version)` with the latest Composer version compatible with your
 
 ---
 <details>
-<summary>Gradle (Groovy DSL) - `build.gradle`</summary>
+<summary>Gradle (Groovy DSL) - build.gradle</summary>
 
 ```properties
 # gradle.properties
@@ -56,7 +56,7 @@ dependencies {
 </details>
 
 <details>
-<summary>Gradle (Kotlin DSL) - `build.gradle.kts`</summary>
+<summary>Gradle (Kotlin DSL) - build.gradle.kts</summary>
 
 ```properties
 # gradle.properties
@@ -82,7 +82,7 @@ dependencies {
 </details>
 
 <details>
-<summary>Maven - `pom.xml`</summary>
+<summary>Maven - pom.xml</summary>
 
 ```xml
 <repositories>
