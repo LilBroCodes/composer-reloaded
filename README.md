@@ -56,6 +56,7 @@ dependencies {
 
 <details>
 <summary>Gradle (Kotlin DSL) - `build.gradle.kts`</summary>
+    
 ```properties
 # gradle.properties
 composer_version = (latest_version)
@@ -76,10 +77,12 @@ dependencies {
     modImplementation("org.lilbrocodes:composer-reloaded:$composer_version")
 }
 ```
+
 </details>
 
 <details>
 <summary>Maven - `pom.xml`</summary>
+
 ```xml
 <repositories>
     <repository>
