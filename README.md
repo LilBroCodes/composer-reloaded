@@ -12,10 +12,11 @@ It was set up in weird ways and never worked properly - so I remade it from scra
 
 # Installation
 
-You can download Composer from [Modrinth](https://modrinth.com/mod/composer).  
+You can download Composer from [Modrinth](https://modrinth.com/mod/composer-reloaded).  
 If none of your mods require it, you don’t need to install it - it doesn’t add any gameplay content on its own, only functionality for other mods.
 
-> **Note:** If you do use Composer in your own mod, or want to include it anyway, you must also install any version of **Cardinal Components** above `5.3.2`.
+> [!WARNING]
+> If you do use Composer in your own mod, or want to include it anyway, you must also install any version of **Cardinal Components** above (or equal to) `5.3.2`.
 
 ---
 
@@ -56,7 +57,7 @@ dependencies {
 
 <details>
 <summary>Gradle (Kotlin DSL) - `build.gradle.kts`</summary>
-    
+
 ```properties
 # gradle.properties
 composer_version = (latest_version)
@@ -96,12 +97,12 @@ dependencies {
 </repositories>
 
 <dependencies>
-    <dependency>
-        <groupId>org.lilbrocodes</groupId>
-        <artifactId>composer-reloaded</artifactId>
-        <version>${composer.version}</version>
-        <scope>compile</scope>
-    </dependency>
+<dependency>
+    <groupId>org.lilbrocodes</groupId>
+    <artifactId>composer-reloaded</artifactId>
+    <version>${composer.version}</version>
+    <scope>compile</scope>
+</dependency>
 </dependencies>
 ```
 Add the following property to your `<properties>` section:
