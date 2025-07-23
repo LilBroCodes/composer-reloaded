@@ -28,6 +28,27 @@ public class ToastManager {
         toast.init(MinecraftClient.getInstance().textRenderer);
     }
 
+    public boolean addToastToEmptySlot(AbstractToast toast) {
+        boolean alreadyExists = toastMap.values().stream()
+                .flatMap(List::stream)
+                .anyMatch(existing -> existing.getClass().equals(toast.getClass()));
+
+        if (alreadyExists) {
+            return false;
+        }
+
+        for (Corner corner : new Corner[]{ Corner.TOP_LEFT, Corner.TOP_RIGHT, Corner.BOTTOM_RIGHT, Corner.BOTTOM_LEFT }) {
+            List<AbstractToast> list = toastMap.get(corner);
+            if (list.isEmpty()) {
+                addToast(toast, corner);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     public void render(DrawContext context) {
         int screenWidth = context.getScaledWindowWidth();
         int screenHeight = context.getScaledWindowHeight();
