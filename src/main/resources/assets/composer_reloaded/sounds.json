@@ -1,0 +1,10 @@
+{
+  "lilbro_squish": {
+    "subtitle": "composer_reloaded.squish",
+    "sounds": [
+      { "name": "composer_reloaded:boom", "stream": false, "weight": 1 },
+      { "name": "composer_reloaded:horn1", "stream": false, "weight": 30 },
+      { "name": "composer_reloaded:horn2", "stream": false, "weight": 30 }
+    ]
+  }
+}

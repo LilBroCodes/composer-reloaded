@@ -8,6 +8,7 @@ import org.lilbrocodes.composer_reloaded.api.registry.ComposerRegistries;
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.networking.TargetBlockPayload;
 import org.lilbrocodes.composer_reloaded.networking.TargetEntityPayload;
+import org.lilbrocodes.composer_reloaded.registry.*;
 
 
 public class ComposerReloaded implements ModInitializer {
@@ -17,6 +18,12 @@ public class ComposerReloaded implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ComposerBlockEntities.initialize();
+        ComposerStatistics.initialize();
+        ComposerItemGroups.initialize();
+        ComposerBlocks.initialize();
+        ComposerSounds.initialize();
+
         ComposerRegistries.initialize();
         TargetEntityPayload.registerHandler();
         TargetBlockPayload.registerHandler();

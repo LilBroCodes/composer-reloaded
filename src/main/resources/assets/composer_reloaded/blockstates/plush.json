@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "composer_reloaded:block/plush",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "composer_reloaded:block/plush",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "composer_reloaded:block/plush",
+      "y": 270
+    },
+    "facing=west": {
+      "model": "composer_reloaded:block/plush",
+      "y": 0
+    }
+  }
+}

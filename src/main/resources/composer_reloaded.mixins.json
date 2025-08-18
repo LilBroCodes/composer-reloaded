@@ -4,9 +4,11 @@
   "package": "org.lilbrocodes.composer_reloaded.mixin.impl",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "CampfireBlockEntityMixin",
     "WorldMixin"
   ],
   "client": [
+    "BlockRenderManagerAccessor",
     "GameRendererMixin",
     "MinecraftClientMixin",
     "ServerPlayerEntityMixin"
