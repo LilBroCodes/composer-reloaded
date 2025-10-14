@@ -40,6 +40,12 @@ public class DeferredBlockRegistry {
         return new BlockWithItem<>(block, blockItem);
     }
 
+    public <T extends Block> BlockWithItem<T> register(
+            String name, T block
+    ) {
+        return register(name, block, true);
+    }
+
     public void finalizeRegistration() {
         if (itemGroupKey != null) {
             ItemGroupEvents.modifyEntriesEvent(itemGroupKey).register(entries -> {
