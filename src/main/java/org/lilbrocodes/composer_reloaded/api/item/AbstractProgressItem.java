@@ -17,13 +17,12 @@ public abstract class AbstractProgressItem extends Item {
 
     protected abstract ItemStack getCompletedItem(ItemStack oldStack);
 
-    protected void onProgressIncreased(ItemStack stack, PlayerEntity player, int newStep) {
+    protected void onProgressIncreased(ItemStack stack, PlayerEntity player, int newStep) {}
 
-    }
+    protected void onFinishProcess(ItemStack stack, World world, PlayerEntity player) {}
 
     public static int getStep(ItemStack stack) {
-        NbtCompound nbt = stack.getOrCreateNbt();
-        return nbt.getInt(STEP_KEY);
+        return stack.getOrCreateNbt().getInt(STEP_KEY);
     }
 
     public static void setStep(ItemStack stack, int value) {
@@ -31,28 +30,23 @@ public abstract class AbstractProgressItem extends Item {
     }
 
     public int getMaxSteps() {
-        return this.maxSteps;
+        return maxSteps;
     }
 
-    public boolean tryIncrementProgress(ItemStack stack, World world, PlayerEntity player, int amount) {
+    public ItemStack tryIncrementProgress(ItemStack stack, World world, PlayerEntity player, int amount) {
         int current = getStep(stack);
-        if (current >= maxSteps) return false;
+        if (current >= getMaxSteps()) return ItemStack.EMPTY;
 
-        int newStep = Math.min(current + amount, maxSteps);
+        int newStep = Math.min(current + amount, getMaxSteps());
         setStep(stack, newStep);
         onProgressIncreased(stack, player, newStep);
 
-        if (newStep >= maxSteps && !world.isClient) {
-            ItemStack completed = getCompletedItem(stack);
+        if (newStep >= getMaxSteps()) {
             onFinishProcess(stack, world, player);
-            player.setStackInHand(player.getActiveHand(), completed);
+            return getCompletedItem(stack);
         }
 
-        return true;
-    }
-
-    protected void onFinishProcess(ItemStack stack, World world, PlayerEntity player) {
-
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -63,6 +57,6 @@ public abstract class AbstractProgressItem extends Item {
     @Override
     public int getItemBarStep(ItemStack stack) {
         int step = getStep(stack);
-        return Math.round((float) step / maxSteps * 13);
+        return Math.round((float) step / getMaxSteps() * 13);
     }
 }
