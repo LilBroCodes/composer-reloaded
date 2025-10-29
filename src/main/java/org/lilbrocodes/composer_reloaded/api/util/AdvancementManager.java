@@ -3,7 +3,9 @@ package org.lilbrocodes.composer_reloaded.api.util;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import org.lilbrocodes.composer_reloaded.api.registry.ComposerRegistries;
 
 import java.util.Objects;
 
@@ -23,6 +25,16 @@ public class AdvancementManager {
                 progress.getUnobtainedCriteria().forEach(criterion ->
                         player.getAdvancementTracker().grantCriterion(advancement, criterion));
             }
+        }
+    }
+
+    public static void tick(ServerWorld world) {
+        for (ServerPlayerEntity player : world.getPlayers()) {
+            ComposerRegistries.COMPOSER_ADVANCEMENTS.streamEntries().forEach(advancementReference -> {
+                if (advancementReference.hasKeyAndValue() && advancementReference.value().advancementPredicate().test(player)) {
+                    AdvancementManager.grantAdvancement(player, advancementReference.value().advancementIdentifier());
+                }
+            });
         }
     }
 }

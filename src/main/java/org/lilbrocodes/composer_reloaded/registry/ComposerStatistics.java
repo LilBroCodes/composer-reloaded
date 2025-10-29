@@ -4,11 +4,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
+import org.lilbrocodes.composer_reloaded.api.util.Loadable;
 
-public class ComposerStatistics {
+public class ComposerStatistics extends Loadable {
     public static final Identifier PLUSH_BOOP = Registry.register(Registries.CUSTOM_STAT, "boop_plush", ComposerReloaded.identify("boop_plush"));
-
-    public static void initialize() {
-
-    }
 }

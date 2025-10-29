@@ -2,7 +2,6 @@ package org.lilbrocodes.composer_reloaded;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.registry.ComposerRegistries;
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
@@ -28,15 +27,7 @@ public class ComposerReloaded implements ModInitializer {
         TargetEntityPayload.registerHandler();
         TargetBlockPayload.registerHandler();
 
-        ServerTickEvents.END_WORLD_TICK.register(world -> {
-            for (ServerPlayerEntity player : world.getPlayers()) {
-                ComposerRegistries.COMPOSER_ADVANCEMENTS.streamEntries().forEach(advancementReference -> {
-                    if (advancementReference.hasKeyAndValue() && advancementReference.value().advancementPredicate().test(player)) {
-                        AdvancementManager.grantAdvancement(player, advancementReference.value().advancementIdentifier());
-                    }
-                });
-            }
-        });
+        ServerTickEvents.END_WORLD_TICK.register(AdvancementManager::tick);
     }
 
     public static Identifier identify(String name) {
