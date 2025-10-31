@@ -1,5 +1,9 @@
 {
   "composer.name": "Composer Reloaded",
   "block.composer_reloaded.plush": "LilBro Plush",
-  "stat.composer_reloaded.boop_plush": "LilBro Plushies Booped"
+  "stat.composer_reloaded.boop_plush": "LilBro Plushies Booped",
+  "itemGroup.composer": "Composer's Silly Little  ",
+  "composer_reloaded.binds_mode.NONE": "None",
+  "composer_reloaded.binds_mode.MC_AND_CM": "Vanilla & LilBroCodes' mods",
+  "composer_reloaded.binds_mode.ALL": "All"
 }

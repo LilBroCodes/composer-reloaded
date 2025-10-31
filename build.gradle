@@ -1,4 +1,6 @@
 plugins {
+    id 'java'
+    id 'com.modrinth.minotaur' version '2.+'
     id 'fabric-loom' version '1.10.2'
     id 'maven-publish'
 }
@@ -10,19 +12,28 @@ base {
     archivesName = archives_base_name
 }
 
+loom {
+    accessWidenerPath = file "src/main/resources/composer_reloaded.accesswidener"
+}
+
 repositories {
     maven {
-        name = "Ladysnake"
-        url = "https://maven.ladysnake.org/releases"
+        name "Ladysnake [CCA]"
+        url "https://maven.ladysnake.org/releases"
+    }
+    maven {
+        name "FzzyMaven [Fzzy Config]"
+        url "https://maven.fzzyhmstrs.me/"
     }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:$minecraft_version"
-    mappings "net.fabricmc:yarn:$yarn_mappings}:v2"
+    mappings "net.fabricmc:yarn:$yarn_mappings:v2"
     modImplementation "net.fabricmc:fabric-loader:$loader_version"
     modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
 
+    modImplementation "me.fzzyhmstrs:fzzy_config:$project.fzzy_version+$project.minecraft_version"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:$cca_version"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:$cca_version"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:$cca_version"
@@ -63,6 +74,39 @@ java {
 jar {
     from("LICENSE") {
         rename { "${it}_${archives_base_name}" }
+    }
+}
+
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            from(components.java)
+
+            groupId = group
+            artifactId = archives_base_name
+            version = version
+        }
+    }
+
+    repositories {
+        maven {
+            name = "cloudsmith"
+            url = "https://maven.cloudsmith.io/lilbrocodes/composer-reloaded/"
+            credentials {
+                username = System.getenv("CLOUDSMITH_USERNAME")
+                password = System.getenv("CLOUDSMITH_API_KEY")
+            }
+        }
+    }
+}
+
+modrinth {
+    projectId = "composer-reloaded"
+    uploadFile = remapJar
+    versionName = "Composer Reloaded $version"
+    gameVersions = [minecraft_version.toString()]
+    dependencies {
+        required.project "cardinal-components-api"
     }
 }
 

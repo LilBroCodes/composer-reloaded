@@ -11,6 +11,9 @@
     "BlockRenderManagerAccessor",
     "GameRendererMixin",
     "MinecraftClientMixin",
+    "duped_binds.GetBindsMixin",
+    "duped_binds.RecolorKeybindMixin",
+    "duped_binds.TriggerAllBindsMixin",
     "velora.ParticleRenderHook"
   ],
   "injectors": {

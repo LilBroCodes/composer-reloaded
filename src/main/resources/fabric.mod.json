@@ -9,6 +9,7 @@
   "license": "All-Rights-Reserved",
   "icon": "assets/composer_reloaded/icon.png",
   "environment": "*",
+  "accessWidener": "composer_reloaded.accesswidener",
   "entrypoints": {
     "client": [
       "org.lilbrocodes.composer_reloaded.client.ComposerReloadedClient"
