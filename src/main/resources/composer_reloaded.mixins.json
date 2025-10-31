@@ -11,7 +11,7 @@
     "BlockRenderManagerAccessor",
     "GameRendererMixin",
     "MinecraftClientMixin",
-    "ServerPlayerEntityMixin"
+    "velora.ParticleRenderHook"
   ],
   "injectors": {
     "defaultRequire": 1

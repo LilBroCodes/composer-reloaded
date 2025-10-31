@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.registry;
+package org.lilbrocodes.composer_reloaded.common.registry;
 
 import net.minecraft.sound.SoundEvent;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;

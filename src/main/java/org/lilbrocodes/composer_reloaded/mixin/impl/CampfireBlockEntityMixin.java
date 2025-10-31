@@ -5,7 +5,7 @@ import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.lilbrocodes.composer_reloaded.registry.ComposerBlocks;
+import org.lilbrocodes.composer_reloaded.common.registry.ComposerBlocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

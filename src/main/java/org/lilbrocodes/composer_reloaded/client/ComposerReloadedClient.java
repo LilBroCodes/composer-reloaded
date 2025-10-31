@@ -5,8 +5,8 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import org.lilbrocodes.composer_reloaded.client.render.block_entity.PlushBlockEntityRenderer;
-import org.lilbrocodes.composer_reloaded.registry.ComposerBlockEntities;
-import org.lilbrocodes.composer_reloaded.registry.ComposerBlocks;
+import org.lilbrocodes.composer_reloaded.common.registry.ComposerBlockEntities;
+import org.lilbrocodes.composer_reloaded.common.registry.ComposerBlocks;
 
 public class ComposerReloadedClient implements ClientModInitializer {
 

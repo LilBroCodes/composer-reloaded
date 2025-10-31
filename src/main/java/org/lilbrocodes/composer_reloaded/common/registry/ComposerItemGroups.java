@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.registry;
+package org.lilbrocodes.composer_reloaded.common.registry;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

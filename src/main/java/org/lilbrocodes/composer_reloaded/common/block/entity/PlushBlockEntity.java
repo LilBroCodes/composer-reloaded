@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.block.entity;
+package org.lilbrocodes.composer_reloaded.common.block.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.lilbrocodes.composer_reloaded.registry.ComposerBlockEntities;
+import org.lilbrocodes.composer_reloaded.common.registry.ComposerBlockEntities;
 
 public class PlushBlockEntity extends BlockEntity {
     public double squash;

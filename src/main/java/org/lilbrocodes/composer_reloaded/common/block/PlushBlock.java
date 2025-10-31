@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.block;
+package org.lilbrocodes.composer_reloaded.common.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -10,8 +10,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -30,10 +28,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.lilbrocodes.composer_reloaded.block.entity.PlushBlockEntity;
-import org.lilbrocodes.composer_reloaded.registry.ComposerBlockEntities;
-import org.lilbrocodes.composer_reloaded.registry.ComposerSounds;
-import org.lilbrocodes.composer_reloaded.registry.ComposerStatistics;
+import org.lilbrocodes.composer_reloaded.common.block.entity.PlushBlockEntity;
+import org.lilbrocodes.composer_reloaded.common.registry.ComposerBlockEntities;
+import org.lilbrocodes.composer_reloaded.common.registry.ComposerSounds;
+import org.lilbrocodes.composer_reloaded.common.registry.ComposerStatistics;
 
 @SuppressWarnings("deprecation")
 public class PlushBlock extends BlockWithEntity implements Waterloggable {

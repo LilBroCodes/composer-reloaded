@@ -11,7 +11,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
-import org.lilbrocodes.composer_reloaded.block.entity.PlushBlockEntity;
+import org.lilbrocodes.composer_reloaded.common.block.entity.PlushBlockEntity;
 import org.lilbrocodes.composer_reloaded.mixin.impl.BlockRenderManagerAccessor;
 
 @Environment(EnvType.CLIENT)

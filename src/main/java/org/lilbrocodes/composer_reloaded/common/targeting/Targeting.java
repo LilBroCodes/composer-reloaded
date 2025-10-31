@@ -1,9 +1,8 @@
-package org.lilbrocodes.composer_reloaded.targeting;
+package org.lilbrocodes.composer_reloaded.common.targeting;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;

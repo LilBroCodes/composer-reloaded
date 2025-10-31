@@ -6,15 +6,15 @@ import net.minecraft.entity.Tameable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import org.lilbrocodes.composer_reloaded.components.entry.ModEntityComponents;
+import org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents;
 import org.lilbrocodes.composer_reloaded.mixin.accessor.WorldMethodAccessor;
 
 import java.util.UUID;
 
 public class Targeting {
     public static BlockPos getTargetedBlock(PlayerEntity player, TargetingContext options) {
-        if (ModEntityComponents.TARGETED_BLOCK.get(player).getTicks() > options.decayTicks) return null;
-        BlockPos pos = ModEntityComponents.TARGETED_BLOCK.get(player).getPos();
+        if (ModCardinalComponents.TARGETED_BLOCK.get(player).getTicks() > options.decayTicks) return null;
+        BlockPos pos = ModCardinalComponents.TARGETED_BLOCK.get(player).getPos();
 
         if (pos == null) return null;
         if (!pos.isWithinDistance(player.getBlockPos(), options.maxDistance)) return null;
@@ -24,9 +24,9 @@ public class Targeting {
     }
 
     public static Entity getTargetedEntity(PlayerEntity player, TargetingContext options) {
-        if (ModEntityComponents.TARGETED_ENTITY.get(player).getTicks() > options.decayTicks) return null;
+        if (ModCardinalComponents.TARGETED_ENTITY.get(player).getTicks() > options.decayTicks) return null;
 
-        UUID uuid = ModEntityComponents.TARGETED_ENTITY.get(player).getUuid();
+        UUID uuid = ModCardinalComponents.TARGETED_ENTITY.get(player).getUuid();
         if (uuid == null) return null;
 
         if (!(player.getWorld() instanceof WorldMethodAccessor worldMethodAccessor)) return null;

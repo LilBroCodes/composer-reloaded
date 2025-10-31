@@ -1,10 +1,10 @@
-package org.lilbrocodes.composer_reloaded.registry;
+package org.lilbrocodes.composer_reloaded.common.registry;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredBlockRegistry;
-import org.lilbrocodes.composer_reloaded.block.PlushBlock;
+import org.lilbrocodes.composer_reloaded.common.block.PlushBlock;
 
 public class ComposerBlocks {
     private static final DeferredBlockRegistry BLOCKS = new DeferredBlockRegistry(ComposerReloaded.MOD_ID, ComposerItemGroups.COMPOSER);

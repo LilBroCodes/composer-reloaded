@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.networking;
+package org.lilbrocodes.composer_reloaded.common.networking;
 
 import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
-import org.lilbrocodes.composer_reloaded.components.entry.ModEntityComponents;
+import org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents;
 
 import java.util.UUID;
 
@@ -30,7 +30,7 @@ public record TargetEntityPayload(UUID uuid) implements FabricPacket {
 
     public static void registerHandler() {
         ServerPlayNetworking.registerGlobalReceiver(ID, (server, player, playNetworkHandler, buf, sender) -> {
-            ModEntityComponents.TARGETED_ENTITY.get(player).setUuid(player, read(buf).uuid);
+            ModCardinalComponents.TARGETED_ENTITY.get(player).setUuid(read(buf).uuid);
         });
     }
 }

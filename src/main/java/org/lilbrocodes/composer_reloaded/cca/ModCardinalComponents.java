@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.components.entry;
+package org.lilbrocodes.composer_reloaded.cca;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
@@ -6,12 +6,10 @@ import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
-import org.lilbrocodes.composer_reloaded.components.TargetedBlockTracker;
-import org.lilbrocodes.composer_reloaded.components.TargetedEntityTracker;
-import org.lilbrocodes.composer_reloaded.components.i.TargetedBlockComponent;
-import org.lilbrocodes.composer_reloaded.components.i.TargetedEntityComponent;
+import org.lilbrocodes.composer_reloaded.cca.entity.TargetedBlockComponent;
+import org.lilbrocodes.composer_reloaded.cca.entity.TargetedEntityComponent;
 
-public class ModEntityComponents implements EntityComponentInitializer {
+public class ModCardinalComponents implements EntityComponentInitializer {
     public static final ComponentKey<TargetedBlockComponent> TARGETED_BLOCK = ComponentRegistry
             .getOrCreate(ComposerReloaded.identify("targeted_block"), TargetedBlockComponent.class);
     public static final ComponentKey<TargetedEntityComponent> TARGETED_ENTITY = ComponentRegistry
@@ -19,7 +17,7 @@ public class ModEntityComponents implements EntityComponentInitializer {
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-        registry.registerForPlayers(TARGETED_ENTITY, player -> new TargetedEntityTracker(), RespawnCopyStrategy.NEVER_COPY);
-        registry.registerForPlayers(TARGETED_BLOCK, player -> new TargetedBlockTracker(), RespawnCopyStrategy.NEVER_COPY);
+        registry.registerForPlayers(TARGETED_ENTITY, TargetedEntityComponent::new, RespawnCopyStrategy.NEVER_COPY);
+        registry.registerForPlayers(TARGETED_BLOCK, TargetedBlockComponent::new, RespawnCopyStrategy.NEVER_COPY);
     }
 }

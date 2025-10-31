@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.networking;
+package org.lilbrocodes.composer_reloaded.common.networking;
 
 import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
@@ -7,7 +7,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
-import org.lilbrocodes.composer_reloaded.components.entry.ModEntityComponents;
+import org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents;
 
 public record TargetBlockPayload(BlockPos pos) implements FabricPacket {
     private static final Identifier ID = ComposerReloaded.TARGET_BLOCK;
@@ -29,7 +29,7 @@ public record TargetBlockPayload(BlockPos pos) implements FabricPacket {
 
     public static void registerHandler() {
         ServerPlayNetworking.registerGlobalReceiver(ID, (server, player, playNetworkHandler, buf, sender) -> {
-            ModEntityComponents.TARGETED_BLOCK.get(player).setPos(player, read(buf).pos);
+            ModCardinalComponents.TARGETED_BLOCK.get(player).setPos(read(buf).pos);
         });
     }
 }

@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.targeting;
+package org.lilbrocodes.composer_reloaded.common.targeting;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.hit.BlockHitResult;
