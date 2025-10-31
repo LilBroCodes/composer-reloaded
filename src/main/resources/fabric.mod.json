@@ -17,7 +17,7 @@
       "org.lilbrocodes.composer_reloaded.ComposerReloaded"
     ],
     "cardinal-components": [
-      "org.lilbrocodes.composer_reloaded.components.entry.ModEntityComponents"
+      "org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents"
     ]
   },
   "mixins": [

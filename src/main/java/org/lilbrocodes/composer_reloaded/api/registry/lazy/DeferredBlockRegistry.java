@@ -48,12 +48,11 @@ public class DeferredBlockRegistry {
 
     public void finalizeRegistration() {
         if (itemGroupKey != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroupKey).register(entries -> {
-                itemsToGroup.forEach(entries::add);
-            });
+            ItemGroupEvents.modifyEntriesEvent(itemGroupKey).register(entries -> itemsToGroup.forEach(entries::add));
         }
     }
 
+    @SuppressWarnings("ClassCanBeRecord")
     public static class BlockWithItem<T extends Block> {
         public final T block;
         public final BlockItem item;

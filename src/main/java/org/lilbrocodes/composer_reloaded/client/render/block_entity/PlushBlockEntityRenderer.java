@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.lilbrocodes.composer_reloaded.common.block.entity.PlushBlockEntity;
 import org.lilbrocodes.composer_reloaded.mixin.impl.BlockRenderManagerAccessor;
 
+@SuppressWarnings("ClassCanBeRecord")
 @Environment(EnvType.CLIENT)
 public class PlushBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
     private final BlockRenderManager renderManager;

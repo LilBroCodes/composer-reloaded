@@ -28,8 +28,6 @@ public record TargetBlockPayload(BlockPos pos) implements FabricPacket {
     }
 
     public static void registerHandler() {
-        ServerPlayNetworking.registerGlobalReceiver(ID, (server, player, playNetworkHandler, buf, sender) -> {
-            ModCardinalComponents.TARGETED_BLOCK.get(player).setPos(read(buf).pos);
-        });
+        ServerPlayNetworking.registerGlobalReceiver(ID, (server, player, playNetworkHandler, buf, sender) -> ModCardinalComponents.TARGETED_BLOCK.get(player).setPos(read(buf).pos));
     }
 }

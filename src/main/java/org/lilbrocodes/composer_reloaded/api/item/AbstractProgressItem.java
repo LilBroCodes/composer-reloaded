@@ -3,9 +3,9 @@ package org.lilbrocodes.composer_reloaded.api.item;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 
+@SuppressWarnings("EmptyMethod")
 public abstract class AbstractProgressItem extends Item {
     private static final String STEP_KEY = "Step";
     private final int maxSteps;

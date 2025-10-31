@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class DeferredItemGroupRegistry {
     private final String modId;
 

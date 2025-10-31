@@ -10,7 +10,7 @@ public class BurstEmitterGroup {
     private final Map<UUID, EmitterEntry<?>> emitters = new HashMap<>();
 
     public <T extends BurstParticleEmitter> UUID addEmitter(UUID uuid, Vec2 position, T emitter) {
-        emitters.put(uuid, new EmitterEntry<T>(position, emitter));
+        emitters.put(uuid, new EmitterEntry<>(position, emitter));
         return uuid;
     }
 

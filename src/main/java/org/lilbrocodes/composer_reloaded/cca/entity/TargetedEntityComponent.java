@@ -8,6 +8,7 @@ import net.minecraft.nbt.NbtHelper;
 import org.jetbrains.annotations.Nullable;
 import org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class TargetedEntityComponent implements AutoSyncedComponent, ServerTickingComponent {
@@ -56,7 +57,7 @@ public class TargetedEntityComponent implements AutoSyncedComponent, ServerTicki
     @Override
     public void readFromNbt(NbtCompound tag) {
         if (tag.contains(UUID_KEY)) {
-            this.uuid = tag.contains(UUID_KEY) ? NbtHelper.toUuid(tag.get(UUID_KEY)) : null;
+            this.uuid = tag.contains(UUID_KEY) ? NbtHelper.toUuid(Objects.requireNonNull(tag.get(UUID_KEY))) : null;
         } else {
             this.uuid = null;
         }

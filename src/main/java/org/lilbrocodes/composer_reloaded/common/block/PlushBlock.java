@@ -9,7 +9,6 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -43,10 +42,6 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
         super(settings);
     }
 
-    public static SoundEvent getSound(BlockState state) {
-        return ComposerSounds.LILBRO_SQUISH;
-    }
-
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
@@ -68,7 +63,7 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
     public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             var mid = Vec3d.ofCenter(pos);
-            world.playSound(null, mid.getX(), mid.getY(), mid.getZ(), PlushBlock.getSound(state), SoundCategory.BLOCKS, 1.0f, 1.0f);
+            world.playSound(null, mid.getX(), mid.getY(), mid.getZ(), ComposerSounds.LILBRO_SQUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
 
             if (world.getBlockEntity(pos) instanceof PlushBlockEntity plushie) plushie.squish(1);
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@SuppressWarnings("UnusedReturnValue")
 public class VeloraParticleManager {
     private static VeloraParticleManager INSTANCE;
     private final List<ParticleEntry<?>> aliveParticles = new ArrayList<>();
@@ -23,7 +24,7 @@ public class VeloraParticleManager {
     }
 
     public <T extends VeloraParticle> T spawnParticle(Vec2 origin, T particle) {
-        aliveParticles.add(new ParticleEntry<T>(particle, origin, System.currentTimeMillis()));
+        aliveParticles.add(new ParticleEntry<>(particle, origin, System.currentTimeMillis()));
         return particle;
     }
 

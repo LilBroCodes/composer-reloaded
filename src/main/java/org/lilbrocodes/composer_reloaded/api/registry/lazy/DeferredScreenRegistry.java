@@ -6,24 +6,20 @@ import net.minecraft.registry.Registry;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@SuppressWarnings("ClassCanBeRecord")
 public class DeferredScreenRegistry {
     private final String modId;
-    private final List<ScreenHandlerType<?>> handlers = new ArrayList<>();
 
     public DeferredScreenRegistry(String modId) {
         this.modId = modId;
     }
 
     public <T extends ScreenHandler> ScreenHandlerType<T> register(String name, ScreenHandlerType.Factory<T> factory) {
-        ScreenHandlerType<T> type = Registry.register(
-                Registries.SCREEN_HANDLER, name,
+        return Registry.register(
+                Registries.SCREEN_HANDLER, Identifier.of(modId, name),
                 new ScreenHandlerType<>(factory, FeatureFlags.VANILLA_FEATURES));
-        handlers.add(type);
-        return type;
     }
 
     public <T extends ScreenHandler> void registerClient(ScreenHandlerType<T> type,

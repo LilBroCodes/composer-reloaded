@@ -9,6 +9,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 
+@SuppressWarnings("ClassCanBeRecord")
 public class DeferredBlockEntityRegistry {
     private final String modId;
 

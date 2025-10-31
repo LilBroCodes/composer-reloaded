@@ -2,9 +2,10 @@ package org.lilbrocodes.composer_reloaded.api.util;
 
 import java.lang.Math;
 
+@SuppressWarnings({"UnusedReturnValue", "ClassCanBeRecord"})
 public class Vec2 {
-    public double x;
-    public double y;
+    public final double x;
+    public final double y;
 
     public Vec2(double x, double y) {
         this.x = x;
@@ -12,7 +13,7 @@ public class Vec2 {
     }
 
     public Vec2(int x, int y) {
-        this((double) x, (double) y);
+        this(x, (double) y);
     }
 
     public Vec2 add(Vec2 b) {

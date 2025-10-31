@@ -29,8 +29,6 @@ public record TargetEntityPayload(UUID uuid) implements FabricPacket {
     }
 
     public static void registerHandler() {
-        ServerPlayNetworking.registerGlobalReceiver(ID, (server, player, playNetworkHandler, buf, sender) -> {
-            ModCardinalComponents.TARGETED_ENTITY.get(player).setUuid(read(buf).uuid);
-        });
+        ServerPlayNetworking.registerGlobalReceiver(ID, (server, player, playNetworkHandler, buf, sender) -> ModCardinalComponents.TARGETED_ENTITY.get(player).setUuid(read(buf).uuid));
     }
 }
