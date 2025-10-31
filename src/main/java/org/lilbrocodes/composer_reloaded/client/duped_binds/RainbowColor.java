@@ -1,5 +1,6 @@
 package org.lilbrocodes.composer_reloaded.client.duped_binds;
 
+import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
 
 import java.awt.*;
@@ -29,6 +30,7 @@ public class RainbowColor {
     }
 
     public static void stepColor() {
+        if (!ComposerReloaded.dupedBinds()) return;
         if (tick >= 10 - ComposerConfig.INSTANCE.rainbowEffectSpeed.get()) {
             tick = 0;
             currentColor = getNextColor();

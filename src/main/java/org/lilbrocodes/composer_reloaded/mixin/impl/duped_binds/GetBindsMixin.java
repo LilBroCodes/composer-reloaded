@@ -2,6 +2,7 @@ package org.lilbrocodes.composer_reloaded.mixin.impl.duped_binds;
 
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
+import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.client.duped_binds.BindTracker;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,6 +19,7 @@ public class GetBindsMixin {
 
     @Inject(method = "load", at = @At("HEAD"))
     private void flowed_combat$getBaseBinds(CallbackInfo ci) {
+        if (!ComposerReloaded.dupedBinds()) return;
         BindTracker.MC_CM_BINDS.addAll(Arrays.asList(allKeys));
     }
 }
