@@ -107,6 +107,7 @@ modrinth {
     gameVersions = [minecraft_version.toString()]
     dependencies {
         required.project "cardinal-components-api"
+        required.project "fzzy-config"
     }
 }
 
