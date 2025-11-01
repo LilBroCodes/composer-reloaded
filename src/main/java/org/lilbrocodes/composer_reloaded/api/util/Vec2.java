@@ -2,10 +2,10 @@ package org.lilbrocodes.composer_reloaded.api.util;
 
 import java.lang.Math;
 
-@SuppressWarnings({"UnusedReturnValue", "ClassCanBeRecord"})
+@SuppressWarnings({"UnusedReturnValue"})
 public class Vec2 {
-    public final double x;
-    public final double y;
+    public double x;
+    public double y;
 
     public Vec2(double x, double y) {
         this.x = x;
