@@ -16,50 +16,12 @@ import java.util.List;
 
 public class DeferredBlockRegistry {
     private final String modId;
-    private final RegistryKey<ItemGroup> itemGroupKey;
-    private final List<Item> itemsToGroup = new ArrayList<>();
 
-    public DeferredBlockRegistry(String modId, RegistryKey<ItemGroup> itemGroupKey) {
+    public DeferredBlockRegistry(String modId) {
         this.modId = modId;
-        this.itemGroupKey = itemGroupKey;
     }
 
-    public <T extends Block> BlockWithItem<T> register(
-            String name, T block, boolean registerItem) {
-
-        Identifier id = new Identifier(modId, name);
-        BlockItem blockItem = null;
-
-        Registry.register(Registries.BLOCK, id, block);
-        if (registerItem) {
-            blockItem = Registry.register(Registries.ITEM, id,
-                    new BlockItem(block, new FabricItemSettings()));
-            itemsToGroup.add(blockItem);
-        }
-
-        return new BlockWithItem<>(block, blockItem);
-    }
-
-    public <T extends Block> BlockWithItem<T> register(
-            String name, T block
-    ) {
-        return register(name, block, true);
-    }
-
-    public void finalizeRegistration() {
-        if (itemGroupKey != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroupKey).register(entries -> itemsToGroup.forEach(entries::add));
-        }
-    }
-
-    @SuppressWarnings("ClassCanBeRecord")
-    public static class BlockWithItem<T extends Block> {
-        public final T block;
-        public final BlockItem item;
-
-        public BlockWithItem(T block, BlockItem item) {
-            this.block = block;
-            this.item = item;
-        }
+    public <T extends Block> T register(String name, T block) {
+        return Registry.register(Registries.BLOCK, new Identifier(modId, name), block);
     }
 }

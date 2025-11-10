@@ -11,7 +11,7 @@ public class ComposerItemGroups {
 
     public static final RegistryKey<ItemGroup> COMPOSER = REGISTRY.registerItemGroup(
             "composer",
-            () -> new ItemStack(ComposerBlocks.PLUSH.item)
+            () -> new ItemStack(ComposerItems.PLUSHIE)
     );
 
     public static void initialize() {

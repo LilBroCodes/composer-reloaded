@@ -11,7 +11,7 @@ public class ComposerBlockEntities {
     public static final BlockEntityType<PlushBlockEntity> PLUSH = REGISTRY.register(
             "plush",
             PlushBlockEntity::new,
-            ComposerBlocks.PLUSH.block
+            ComposerBlocks.PLUSH
     );
 
     public static void initialize() {

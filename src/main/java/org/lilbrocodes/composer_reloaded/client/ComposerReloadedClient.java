@@ -12,7 +12,7 @@ public class ComposerReloadedClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(ComposerBlocks.PLUSH.block, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ComposerBlocks.PLUSH, RenderLayer.getCutout());
         BlockEntityRendererFactories.register(ComposerBlockEntities.PLUSH, PlushBlockEntityRenderer::new);
     }
 }
