@@ -47,6 +47,10 @@ repositories {
         name = "Cardinal Components"
         url = "https://maven.ladysnake.org/releases"
     }
+    maven {
+        name "FzzyMaven"
+        url "https://maven.fzzyhmstrs.me/"
+    }
 }
 
 dependencies {
@@ -72,6 +76,9 @@ repositories {
     maven("https://maven.ladysnake.org/releases") {
         name = "Cardinal Components"
     }
+    maven("https://maven.fzzyhmstrs.me/") {
+        name = "FzzyMaven"
+    }
 }
 
 dependencies {
@@ -93,6 +100,10 @@ dependencies {
     <repository>
         <id>cardinal-components</id>
         <url>https://maven.ladysnake.org/releases</url>
+    </repository>
+    <repository>
+        <id>fzzy-maven</id>
+        <url>https://maven.fzzyhmstrs.me/</url>
     </repository>
 </repositories>
 
