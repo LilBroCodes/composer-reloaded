@@ -31,6 +31,10 @@ public class DeferredItemRegistry {
         return registered;
     }
 
+    public <T extends Item> T register(String name, T item) {
+        return register(name, item, true);
+    }
+
     public Item register(String name) {
         return register(name, new Item(new FabricItemSettings()), true);
     }
