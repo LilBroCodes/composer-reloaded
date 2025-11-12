@@ -42,6 +42,7 @@ public class ComposerReloaded implements ModInitializer {
         ComposerBlockEntities.initialize();
         ComposerStatistics.initialize();
         ComposerItemGroups.initialize();
+        ComposerItems.initialize();
         ComposerBlocks.initialize();
         ComposerSounds.initialize();
 
