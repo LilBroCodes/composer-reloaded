@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.api.controls.scroll;
+package org.lilbrocodes.composer_reloaded.api.events;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

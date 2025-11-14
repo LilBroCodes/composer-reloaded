@@ -6,7 +6,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import org.lilbrocodes.composer_reloaded.api.controls.scroll.ScrollEvents;
+import org.lilbrocodes.composer_reloaded.api.events.ScrollEvents;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
