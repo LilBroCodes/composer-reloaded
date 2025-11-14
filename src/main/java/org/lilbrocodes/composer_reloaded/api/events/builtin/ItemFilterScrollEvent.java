@@ -23,10 +23,10 @@ public abstract class ItemFilterScrollEvent implements ScrollEvents.ScrollAction
         if (player == null) return false;
 
         ItemStack stack = player.getStackInHand(hand);
-        if (stack.isOf(item)) return onScroll(stack);
+        if (stack.isOf(item)) return onScroll(client, stack, world, player, scrollAmount);
 
         return false;
     }
 
-    public abstract boolean onScroll(ItemStack stack);
+    public abstract boolean onScroll(MinecraftClient client, ItemStack stack, @Nullable ClientWorld world, @Nullable ClientPlayerEntity player, double scrollAmount);
 }
