@@ -1,6 +1,7 @@
 package org.lilbrocodes.composer_reloaded.client.duped_binds;
 
 import net.minecraft.client.option.KeyBinding;
+import org.jetbrains.annotations.ApiStatus;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
 
@@ -8,8 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BindTracker {
+    @ApiStatus.Internal
     public static final Set<KeyBinding> MC_CM_BINDS = new HashSet<>();
 
+    @ApiStatus.Internal
     public static boolean bindAllowed(KeyBinding keyBinding) {
         if (!ComposerReloaded.dupedBinds()) return false;
         if (keyBinding == null) return false;
