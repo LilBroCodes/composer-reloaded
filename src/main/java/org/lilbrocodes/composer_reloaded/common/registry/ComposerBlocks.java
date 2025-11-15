@@ -14,6 +14,7 @@ public class ComposerBlocks {
             new PlushBlock(AbstractBlock.Settings.copy(Blocks.BLACK_WOOL).nonOpaque())
     );
 
+    @SuppressWarnings("EmptyMethod")
     public static void initialize() {
 
     }

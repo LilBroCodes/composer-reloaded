@@ -14,6 +14,7 @@ public class ComposerBlockEntities {
             ComposerBlocks.PLUSH
     );
 
+    @SuppressWarnings("EmptyMethod")
     public static void initialize() {
 
     }

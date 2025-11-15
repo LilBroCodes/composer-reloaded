@@ -10,6 +10,7 @@ import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 import org.jetbrains.annotations.NotNull;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 
+@SuppressWarnings("CanBeFinal")
 public class ComposerConfig extends Config {
     public ComposerConfig() {
         super(ComposerReloaded.identify("config"));

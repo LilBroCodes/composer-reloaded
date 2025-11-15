@@ -14,6 +14,7 @@ public class ComposerItemGroups {
             () -> new ItemStack(ComposerItems.PLUSHIE)
     );
 
+    @SuppressWarnings("EmptyMethod")
     public static void initialize() {
 
     }

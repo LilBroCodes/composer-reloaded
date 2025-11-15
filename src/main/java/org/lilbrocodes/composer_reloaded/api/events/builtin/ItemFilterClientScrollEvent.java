@@ -7,13 +7,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import org.jetbrains.annotations.Nullable;
-import org.lilbrocodes.composer_reloaded.api.events.ScrollEvents;
+import org.lilbrocodes.composer_reloaded.api.events.ClientScrollEvents;
 
-public abstract class ItemFilterScrollEvent implements ScrollEvents.ScrollAction {
+public abstract class ItemFilterClientScrollEvent implements ClientScrollEvents.ClientScrollAction {
     private final Hand hand;
     private final Item item;
 
-    protected ItemFilterScrollEvent(Hand hand, Item item) {
+    protected ItemFilterClientScrollEvent(Hand hand, Item item) {
         this.hand = hand;
         this.item = item;
     }

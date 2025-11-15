@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.registry.ComposerRegistries;
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
+import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;
 import org.lilbrocodes.composer_reloaded.common.networking.TargetBlockPayload;
 import org.lilbrocodes.composer_reloaded.common.networking.TargetEntityPayload;
 import org.lilbrocodes.composer_reloaded.common.registry.*;
@@ -19,6 +20,7 @@ public class ComposerReloaded implements ModInitializer {
     public static final String MOD_ID = "composer_reloaded";
     public static final Identifier TARGET_ENTITY = identify("target_entity_c2s");
     public static final Identifier TARGET_BLOCK = identify("target_block_c2s");
+    public static final Identifier SCROLL_ACTION = identify("scroll_action_c2s");
     private static boolean dupedKeybindsEnabled = false;
 
     @Override
@@ -50,6 +52,7 @@ public class ComposerReloaded implements ModInitializer {
         ComposerRegistries.initialize();
         TargetEntityPayload.registerHandler();
         TargetBlockPayload.registerHandler();
+        ScrollActionPayload.registerHandler();
 
         ServerTickEvents.END_WORLD_TICK.register(AdvancementManager::tick);
     }

@@ -2,7 +2,7 @@ package org.lilbrocodes.composer_reloaded.api.util;
 
 import java.lang.Math;
 
-@SuppressWarnings({"UnusedReturnValue"})
+@SuppressWarnings({"UnusedReturnValue", "CanBeFinal"})
 public class Vec2 {
     public double x;
     public double y;
