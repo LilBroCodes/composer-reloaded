@@ -1,0 +1,75 @@
+package org.lilbrocodes.composer_reloaded.api.datagen;
+
+import com.google.gson.JsonElement;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.block.Block;
+import net.minecraft.data.DataOutput;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.DataWriter;
+import net.minecraft.data.client.BlockStateModelGenerator;
+import net.minecraft.data.client.BlockStateSupplier;
+import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+public abstract class ComposerModelProvider implements DataProvider {
+    private final DataOutput.PathResolver blockstatesPathResolver;
+    private final DataOutput.PathResolver modelsPathResolver;
+
+    public ComposerModelProvider(FabricDataOutput output) {
+        this.blockstatesPathResolver = output.getResolver(DataOutput.OutputType.RESOURCE_PACK, "blockstates");
+        this.modelsPathResolver = output.getResolver(DataOutput.OutputType.RESOURCE_PACK, "models");
+    }
+
+    public abstract void generateBlocks(BlockStateModelGenerator generator);
+    public abstract void generateItems(ItemModelGenerator generator);
+
+    @Override
+    public CompletableFuture<?> run(DataWriter writer) {
+        Map<Block, BlockStateSupplier> blockStates = new HashMap<>();
+        Consumer<BlockStateSupplier> blockConsumer = blockStateSupplier -> {
+            Block block = blockStateSupplier.getBlock();
+            if (blockStates.put(block, blockStateSupplier) != null) {
+                throw new IllegalStateException("Duplicate blockstate definition for " + block);
+            }
+        };
+
+        Map<Identifier, Supplier<JsonElement>> models = new HashMap<>();
+        BiConsumer<Identifier, Supplier<JsonElement>> modelConsumer = (id, supplier) -> {
+            if (models.put(id, supplier) != null) {
+                throw new IllegalStateException("Duplicate model definition for " + id);
+            }
+        };
+
+        Set<Item> itemModels = new HashSet<>();
+        Consumer<Item> itemConsumer = itemModels::add;
+
+        BlockStateModelGenerator blockStateModelGenerator = new BlockStateModelGenerator(blockConsumer, modelConsumer, itemConsumer);
+        ItemModelGenerator itemModelGenerator = new ItemModelGenerator(modelConsumer);
+
+        generateBlocks(blockStateModelGenerator);
+        generateItems(itemModelGenerator);
+
+        return CompletableFuture.allOf(
+                writeJsons(writer, blockStates, b -> blockstatesPathResolver.resolveJson(b.getRegistryEntry().registryKey().getValue())),
+                writeJsons(writer, models, modelsPathResolver::resolveJson)
+        );
+    }
+
+    private <T> CompletableFuture<?> writeJsons(DataWriter writer, Map<T, ? extends Supplier<com.google.gson.JsonElement>> map, Function<T, Path> pathGetter) {
+        return CompletableFuture.allOf(map.entrySet().stream()
+                .map(entry -> DataProvider.writeToPath(writer, entry.getValue().get(), pathGetter.apply(entry.getKey())))
+                .toArray(CompletableFuture[]::new));
+    }
+}
