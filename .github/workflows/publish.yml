@@ -29,11 +29,8 @@ jobs:
       - name: Gradle Setup
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Q&D Fix
+      - name: Make Gradle executable
         run: chmod +x gradlew
-
-      - name: Build
-        run: ./gradlew build
 
       - name: Publish to Cloudsmith
         if: github.event.inputs.target == 'cloudsmith' || github.event.inputs.target == 'both'
@@ -42,7 +39,7 @@ jobs:
           CLOUDSMITH_USERNAME: ${{ secrets.CLOUDSMITH_USERNAME }}
         run: |
           echo "Publishing to Cloudsmith..."
-          ./gradlew build generatePomFileForMavenJavaPublication publish
+          ./gradlew generatePomFileForMavenJavaPublication publish
 
       - name: Publish to Modrinth
         if: github.event.inputs.target == 'modrinth' || github.event.inputs.target == 'both'
@@ -50,4 +47,4 @@ jobs:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: |
           echo "Publishing to Modrinth..."
-          ./gradlew build generatePomFileForMavenJavaPublication modrinth
+          ./gradlew modrinth
