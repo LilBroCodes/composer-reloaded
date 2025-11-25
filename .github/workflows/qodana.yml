@@ -1,4 +1,4 @@
-name: qodana.yml
+name: Qodana
 on:
   - push
   - pull_request
