@@ -113,7 +113,7 @@ def getLastGitCommitMessage() {
 modrinth {
     projectId = "composer-reloaded"
     uploadFile = remapJar
-    versionName = "Composer Reloaded $version"
+    versionName = "$mod_version for $minecraft_version"
     changelog = getLastGitCommitMessage()
     gameVersions = [minecraft_version.toString()]
     dependencies {
