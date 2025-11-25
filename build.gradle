@@ -12,8 +12,9 @@ var build_num = providers.environmentVariable("GITHUB_RUN_NUMBER")
         .getOrElse(() -> "")
 
 version = "$mod_version+mc$minecraft_version$build_num"
-package_version = "$mod_version+mc$minecraft_version"
 group = maven_group
+
+var package_version = "$mod_version+mc$minecraft_version"
 
 base {
     archivesName = archives_base_name
