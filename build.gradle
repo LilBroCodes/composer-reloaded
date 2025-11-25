@@ -11,10 +11,8 @@ var build_num = providers.environmentVariable("GITHUB_RUN_NUMBER")
         .orElse(() -> "-local")
         .getOrElse(() -> "")
 
-version = "$mod_version+mc$minecraft_version$build_num"
+version = "$mod_version$build_num"
 group = maven_group
-
-var package_version = "$mod_version+mc$minecraft_version"
 
 base {
     archivesName = archives_base_name
@@ -92,7 +90,7 @@ publishing {
 
             groupId = group
             artifactId = archives_base_name
-            version = package_version
+            version = mod_version
         }
     }
 
@@ -115,6 +113,7 @@ def getLastGitCommitMessage() {
 modrinth {
     projectId = "composer-reloaded"
     uploadFile = remapJar
+    versionNumber = mod_version
     versionName = "$mod_version for $minecraft_version"
     changelog = getLastGitCommitMessage()
     gameVersions = [minecraft_version.toString()]
