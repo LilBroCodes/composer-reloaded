@@ -1,0 +1,59 @@
+name: Build & Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        type: choice
+        description: "Where should the release be published?"
+        required: true
+        options:
+          - cloudsmith
+          - modrinth
+          - both
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Java Setup
+        uses: actions/setup-java@v4
+        with:
+          distribution: "corretto"
+          java-version: 17
+
+      - name: Gradle Setup
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Q&D Fix
+        run: chmod +x gradlew
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Artifacts
+          path: build/libs
+
+      - name: Publish to Cloudsmith
+        if: github.event.inputs.target == 'cloudsmith' || github.event.inputs.target == 'both'
+        env:
+          CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
+          CLOUDSMITH_USERNAME: ${{ secrets.CLOUDSMITH_USERNAME }}
+        run: |
+          echo "Publishing to Cloudsmith..."
+          ./gradlew build generatePomFileForMavenJavaPublication publish
+
+      - name: Publish to Modrinth
+        if: github.event.inputs.target == 'modrinth' || github.event.inputs.target == 'both'
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: |
+          echo "Publishing to Modrinth..."
+          ./gradlew build generatePomFileForMavenJavaPublication modrinth
