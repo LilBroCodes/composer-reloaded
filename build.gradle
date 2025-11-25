@@ -114,7 +114,7 @@ modrinth {
     projectId = "composer-reloaded"
     uploadFile = remapJar
     versionNumber = mod_version
-    versionName = "$mod_version for $minecraft_version"
+    versionName = "Composer Reloaded $mod_version"
     changelog = getLastGitCommitMessage()
     gameVersions = [minecraft_version.toString()]
     dependencies {
