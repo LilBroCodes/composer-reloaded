@@ -1,7 +1,7 @@
 name: Build & Qodana
 on:
-#  - push
-#  - pull_request
+  - push
+  - pull_request
   - workflow_dispatch
 
 jobs:
@@ -63,5 +63,5 @@ jobs:
         with:
           pr-mode: false
         env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_979676491 }}
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
