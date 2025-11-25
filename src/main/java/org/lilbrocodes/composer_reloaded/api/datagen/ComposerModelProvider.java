@@ -52,6 +52,7 @@ public abstract class ComposerModelProvider implements DataProvider {
             }
         };
 
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
         Set<Item> itemModels = new HashSet<>();
         Consumer<Item> itemConsumer = itemModels::add;
 

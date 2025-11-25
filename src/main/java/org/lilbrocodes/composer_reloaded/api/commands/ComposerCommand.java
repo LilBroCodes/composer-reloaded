@@ -3,6 +3,7 @@ package org.lilbrocodes.composer_reloaded.api.commands;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -69,7 +70,7 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
     }
 
     public Text appendPrefix(Text text) {
-        return buildPrefix().copy().append(text);
+        return buildPrefix().copy().append(ScreenTexts.space()).append(text);
     }
 
     public Text wrapBrackets(Text text) {
@@ -103,5 +104,5 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
         return 0xAAAAAA;
     }
 
-    protected abstract <T extends Text> T buildPrefix();
+    protected abstract Text buildPrefix();
 }
