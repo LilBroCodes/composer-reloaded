@@ -5,7 +5,13 @@ plugins {
     id 'maven-publish'
 }
 
-version = mod_version
+var build_num = providers.environmentVariable("GITHUB_RUN_NUMBER")
+        .filter { !it.isEmpty() }
+        .map { "-build.$it" }
+        .orElse(() -> "-local")
+        .getOrElse(() -> "")
+
+version = "$mod_version+mc$minecraft_version$build_num"
 group = maven_group
 
 base {
