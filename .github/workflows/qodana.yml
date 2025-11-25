@@ -33,3 +33,5 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
+          QODANA_ENV: |
+            project.open.type=Gradle
