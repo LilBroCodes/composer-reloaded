@@ -7,6 +7,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.util.Identifier;
+import org.lilbrocodes.composer_reloaded.api.easytags.impl.DefaultSerializers;
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
 import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;
@@ -49,6 +50,7 @@ public class ComposerReloaded implements ModInitializer {
 
         ComposerConfig.initialize();
         ComposerRegistries.initialize();
+        DefaultSerializers.initialize();
         TargetEntityPayload.registerHandler();
         TargetBlockPayload.registerHandler();
         ScrollActionPayload.registerHandler();

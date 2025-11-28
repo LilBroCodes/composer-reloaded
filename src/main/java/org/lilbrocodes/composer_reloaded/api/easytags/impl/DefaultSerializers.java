@@ -1,20 +1,13 @@
 package org.lilbrocodes.composer_reloaded.api.easytags.impl;
 
+import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.ApiStatus;
-import org.lilbrocodes.composer_reloaded.api.easytags.exception.AutomataSerializationException;
 import org.lilbrocodes.composer_reloaded.api.easytags.registry.AutomataSerializable;
 import org.lilbrocodes.composer_reloaded.api.nbt.ComposerCompound;
-import org.lilbrocodes.composer_reloaded.api.nbt.NbtSerializable;
+import org.lilbrocodes.composer_reloaded.api.util.data.SerializableIdentifier;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import static org.lilbrocodes.composer_reloaded.api.easytags.registry.AutomataSerializers.get;
 import static org.lilbrocodes.composer_reloaded.api.easytags.registry.AutomataSerializers.register;
 
-@SuppressWarnings("unchecked")
 public class DefaultSerializers {
     @ApiStatus.Internal
     public static void initialize() {
@@ -124,65 +117,39 @@ public class DefaultSerializers {
         register(Character.class, charSerializer);
         register(char.class, charSerializer);
 
-        register(Object.class, new AutomataSerializable<>() {
+        register(SerializableIdentifier.class, new AutomataSerializable<>() {
             @Override
-            public void write(ComposerCompound tag, String key, Object value) {
-                if (value == null) return;
-                AutomataSerializable<Object> serializer = (AutomataSerializable<Object>) get(value.getClass());
-                serializer.write(tag, key, value);
+            public void write(ComposerCompound tag, String key, SerializableIdentifier value) {
+                tag.put(key, value.writeNbt());
             }
 
             @Override
-            public Object read(ComposerCompound tag, String key) {
-                throw new AutomataSerializationException("Cannot deserialize Object without a type hint. Use a typed field or generic collection serializer.");
+            public SerializableIdentifier read(ComposerCompound tag, String key) {
+                return new SerializableIdentifier(tag.getCompound(key));
             }
         });
 
-        register((Class) List.class, new AutomataSerializable<List<?>>() {
+        register(ComposerCompound.class, new AutomataSerializable<>() {
             @Override
-            public void write(ComposerCompound tag, String key, List<?> value) {
-                if (value == null) return;
-                for (Object elem : value) {
-                    if (!(elem instanceof NbtSerializable<?> ns)) {
-                        throw new AutomataSerializationException("List element not NbtSerializable: " + elem);
-                    }
-                }
-                tag.putList(key, (List<? extends NbtSerializable<?>>) value);
+            public void write(ComposerCompound tag, String key, ComposerCompound value) {
+                tag.put(key, value);
             }
 
             @Override
-            public List<?> read(ComposerCompound tag, String key) {
-                throw new AutomataSerializationException("Cannot deserialize raw List without type hint");
+            public ComposerCompound read(ComposerCompound tag, String key) {
+                return ComposerCompound.copy(tag.getCompound(key));
             }
         });
 
-        register((Class) Set.class, new AutomataSerializable<Set<? extends NbtSerializable<?>>>() {
+        register(NbtCompound.class, new AutomataSerializable<>() {
             @Override
-            public void write(ComposerCompound tag, String key, Set<? extends NbtSerializable<?>> value) {
-                if (value == null) return;
-                tag.putList(key, new ArrayList<>(value));
+            public void write(ComposerCompound tag, String key, NbtCompound value) {
+                tag.put(key, value);
             }
 
             @Override
-            public Set<? extends NbtSerializable<?>> read(ComposerCompound tag, String key) {
-                throw new AutomataSerializationException(
-                        "Cannot deserialize raw Set without type hint. Use a typed field or TypedSetSerializer."
-                );
-            }
-        });
-
-        register((Class) Map.class, new AutomataSerializable<Map<String, ? extends NbtSerializable<?>>>() {
-            @Override
-            public void write(ComposerCompound tag, String key, Map<String, ? extends NbtSerializable<?>> value) {
-                if (value == null) return;
-                tag.putMap(key, value);
-            }
-
-            @Override
-            public Map<String, ? extends NbtSerializable<?>> read(ComposerCompound tag, String key) {
-                throw new AutomataSerializationException(
-                        "Cannot deserialize raw Map without type hint. Use a typed field or TypedMapSerializer."
-                );
+            public NbtCompound read(ComposerCompound tag, String key) {
+                return tag.getCompound(key);
             }
         });
     }
