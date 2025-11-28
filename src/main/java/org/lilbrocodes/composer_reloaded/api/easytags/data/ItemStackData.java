@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.api.easytags.impl;
+package org.lilbrocodes.composer_reloaded.api.easytags.data;
 
 import org.lilbrocodes.composer_reloaded.api.nbt.NbtSerializable;
 

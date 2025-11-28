@@ -46,7 +46,7 @@ public class ComposerCompound extends NbtCompound implements Cloneable {
     /**
      * Serializes a collection of {@link NbtSerializable} objects into a list stored under the given key.
      */
-    public <T extends NbtSerializable<T>> void putList(String key, Collection<T> list) {
+    public <T extends NbtSerializable<?>> void putList(String key, Collection<T> list) {
         NbtList tagList = new NbtList();
         list.forEach(e -> tagList.add(e.writeNbt()));
         put(key, tagList);
@@ -83,7 +83,7 @@ public class ComposerCompound extends NbtCompound implements Cloneable {
     /**
      * Stores a single {@link NbtSerializable} object under the given key.
      */
-    public <T extends NbtSerializable<T>> void putSerializable(String key, T value) {
+    public void putSerializable(String key, NbtSerializable<?> value) {
         put(key, value.writeNbt());
     }
 
@@ -100,12 +100,12 @@ public class ComposerCompound extends NbtCompound implements Cloneable {
     /**
      * Serializes a map of {@link NbtSerializable} objects as a list of key-value pairs.
      */
-    public <T extends NbtSerializable<T>> void putMap(String key, Map<String, T> map) {
+    public <T extends NbtSerializable<?>> void putMap(String key, Map<String, T> map) {
         NbtList list = new NbtList();
-        for (Map.Entry<String, T> entry : map.entrySet()) {
+        for (Map.Entry<String, ?> entry : map.entrySet()) {
             ComposerCompound tag = new ComposerCompound();
             tag.putString("key", entry.getKey());
-            tag.putSerializable("value", entry.getValue());
+            tag.putSerializable("value", (NbtSerializable<?>) entry.getValue());
             list.add(tag);
         }
         put(key, list);
