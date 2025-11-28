@@ -10,6 +10,13 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;
 
+/**
+ * Provides client-side scroll events for mods.
+ * <p>
+ * Supports multiple priority levels (HIGH, MEDIUM, LOW) for event handling.
+ * Listeners can synchronize scroll actions to the server using {@link ClientScrollAction#sync}.
+ * </p>
+ */
 public class ClientScrollEvents {
     public static final Event<ClientScrollAction> HIGH_PRIORITY = createEvent();
     public static final Event<ClientScrollAction> MEDIUM_PRIORITY = createEvent();
@@ -23,8 +30,23 @@ public class ClientScrollEvents {
 
     @FunctionalInterface
     public interface ClientScrollAction {
+        /**
+         * Called when a scroll action occurs on the client.
+         *
+         * @param client       the Minecraft client instance
+         * @param world        the current client world, nullable
+         * @param player       the client player, nullable
+         * @param scrollAmount the amount scrolled
+         * @return true to cancel further processing, false otherwise
+         */
         boolean onScroll(MinecraftClient client, @Nullable ClientWorld world, @Nullable ClientPlayerEntity player, double scrollAmount);
 
+        /**
+         * Synchronizes a scroll action to the server using the specified channel and scroll amount.
+         *
+         * @param channel      the scroll channel identifier
+         * @param scrollAmount the amount scrolled
+         */
         default void sync(Identifier channel, double scrollAmount) {
             ClientPlayNetworking.send(new ScrollActionPayload(channel, scrollAmount));
         }

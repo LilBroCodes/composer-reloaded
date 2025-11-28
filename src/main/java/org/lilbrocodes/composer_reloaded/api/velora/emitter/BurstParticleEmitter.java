@@ -1,6 +1,7 @@
 package org.lilbrocodes.composer_reloaded.api.velora.emitter;
 
 import org.lilbrocodes.composer_reloaded.api.util.Vec2;
+import org.lilbrocodes.composer_reloaded.api.util.builder.BuilderFields;
 import org.lilbrocodes.composer_reloaded.api.velora.VeloraParticleManager;
 import org.lilbrocodes.composer_reloaded.api.velora.particle.VeloraParticle;
 
@@ -96,6 +97,7 @@ public class BurstParticleEmitter {
         }
 
         public BurstParticleEmitter build() {
+            BuilderFields.verify(this);
             return new BurstParticleEmitter(this);
         }
 

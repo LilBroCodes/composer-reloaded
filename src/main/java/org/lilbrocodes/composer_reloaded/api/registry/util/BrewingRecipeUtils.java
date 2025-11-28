@@ -18,8 +18,7 @@ public class BrewingRecipeUtils {
     }
 
     public static void register(Potion input, TagKey<Item> tag, Potion output) {
-        Ingredient ingredient = Ingredient.fromTag(tag);
-        register(input, ingredient, output);
+        register(input, Ingredient.fromTag(tag), output);
     }
 
     public static void awkward(Item item, Potion output) {

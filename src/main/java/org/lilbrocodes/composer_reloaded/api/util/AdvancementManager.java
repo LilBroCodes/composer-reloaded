@@ -5,7 +5,7 @@ import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
-import org.lilbrocodes.composer_reloaded.api.registry.ComposerRegistries;
+import org.lilbrocodes.composer_reloaded.common.registry.ComposerRegistries;
 
 import java.util.Objects;
 

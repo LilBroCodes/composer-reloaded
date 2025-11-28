@@ -23,6 +23,18 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * Abstract base class for generating block and item models for a Minecraft mod.
+ * <p>
+ * Extends {@link DataProvider} to integrate with Fabric's data generation system.
+ * Provides utilities to generate block states, item models, and automatically write
+ * them to the correct resource pack paths.
+ * </p>
+ * <p>
+ * Subclasses should implement {@link #generateBlocks(BlockStateModelGenerator)}
+ * and {@link #generateItems(ItemModelGenerator)} to define the mod's models.
+ * </p>
+ */
 public abstract class ComposerModelProvider implements DataProvider {
     private final DataOutput.PathResolver blockstatesPathResolver;
     private final DataOutput.PathResolver modelsPathResolver;
@@ -32,7 +44,26 @@ public abstract class ComposerModelProvider implements DataProvider {
         this.modelsPathResolver = output.getResolver(DataOutput.OutputType.RESOURCE_PACK, "models");
     }
 
+    /**
+     * Generates block state definitions for this provider.
+     * <p>
+     * Implementations should register blocks and their associated block state suppliers
+     * using the provided {@link BlockStateModelGenerator}.
+     * </p>
+     *
+     * @param generator the block state model generator
+     */
     public abstract void generateBlocks(BlockStateModelGenerator generator);
+
+    /**
+     * Generates item models for this provider.
+     * <p>
+     * Implementations should register items and their models using the provided
+     * {@link ItemModelGenerator}.
+     * </p>
+     *
+     * @param generator the item model generator
+     */
     public abstract void generateItems(ItemModelGenerator generator);
 
     @Override
@@ -62,6 +93,7 @@ public abstract class ComposerModelProvider implements DataProvider {
         generateBlocks(blockStateModelGenerator);
         generateItems(itemModelGenerator);
 
+        //noinspection deprecation
         return CompletableFuture.allOf(
                 writeJsons(writer, blockStates, b -> blockstatesPathResolver.resolveJson(b.getRegistryEntry().registryKey().getValue())),
                 writeJsons(writer, models, modelsPathResolver::resolveJson)

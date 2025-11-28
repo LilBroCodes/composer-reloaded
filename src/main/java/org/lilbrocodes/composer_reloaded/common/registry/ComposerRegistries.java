@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.api.registry;
+package org.lilbrocodes.composer_reloaded.common.registry;
 
 import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;

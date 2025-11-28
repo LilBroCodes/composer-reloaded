@@ -2,39 +2,32 @@ package org.lilbrocodes.composer_reloaded.api.velora.particle;
 
 import net.minecraft.client.gui.DrawContext;
 import org.lilbrocodes.composer_reloaded.api.util.Vec2;
+import org.lilbrocodes.composer_reloaded.api.util.builder.BuilderFields;
 import org.lilbrocodes.composer_reloaded.client.render.ParticleRenderer;
 
 import static org.lilbrocodes.composer_reloaded.api.util.Math.*;
 
-@SuppressWarnings("unused")
 public class SimpleParticle extends VeloraParticle {
     public final ParticleShape shape;
-    public final double startSize;
-    public final double endSize;
-    public final int startColor;
-    public final int endColor;
-    public final double startRotation;
-    public final double endRotation;
-    public final Vec2 startVelocity;
-    public final Vec2 endVelocity;
+    public final double startSize, endSize;
+    public final int startColor, endColor;
+    public final double startRotation, endRotation;
+    public final Vec2 startVelocity, endVelocity;
 
-    protected final long creationTime;
     private Vec2 pos;
+    protected final long creationTime;
 
-    public SimpleParticle(ParticleShape shape, double lifeTimeSeconds, double startSize, double endSize,
-                          int startColor, int endColor, double startRotation, double endRotation,
-                          Vec2 startVelocity, Vec2 endVelocity) {
-        super(lifeTimeSeconds);
-        this.shape = shape;
-        this.startSize = startSize;
-        this.endSize = endSize;
-        this.startColor = startColor;
-        this.endColor = endColor;
-        this.startRotation = startRotation;
-        this.endRotation = endRotation;
-        this.startVelocity = startVelocity;
-        this.endVelocity = endVelocity;
-
+    protected SimpleParticle(Builder builder) {
+        super(builder.lifetimeSeconds);
+        this.shape = builder.shape;
+        this.startSize = builder.startSize;
+        this.endSize = builder.endSize;
+        this.startColor = builder.startColor;
+        this.endColor = builder.endColor;
+        this.startRotation = builder.startRotation;
+        this.endRotation = builder.endRotation;
+        this.startVelocity = builder.startVelocity;
+        this.endVelocity = builder.endVelocity;
         this.creationTime = System.currentTimeMillis();
     }
 
@@ -42,15 +35,41 @@ public class SimpleParticle extends VeloraParticle {
     public void render(DrawContext ctx, Vec2 origin) {
         if (pos == null) pos = origin.copy();
 
-        double elapsedSeconds = (System.currentTimeMillis() - creationTime) / 1000.0;
-        double t = Math.min(1.0, elapsedSeconds / lifetimeSeconds);
+        double elapsed = (System.currentTimeMillis() - creationTime) / 1000.0;
+        double t = Math.min(1.0, elapsed / lifetimeSeconds);
 
         double size = lerp(startSize, endSize, t);
         double rotation = lerp(startRotation, endRotation, t);
         int color = lerpColor(startColor, endColor, t);
         Vec2 velocity = lerpVec2(startVelocity, endVelocity, t);
-        pos.add(velocity.x * elapsedSeconds, velocity.y * elapsedSeconds);
+        pos.add(velocity.x * elapsed, velocity.y * elapsed);
 
         ParticleRenderer.renderShape(shape, pos, size, rotation, color);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public static class Builder {
+        private ParticleShape shape;
+        private double startSize = 1.0, endSize = 1.0;
+        private int startColor = 0xFFFFFFFF, endColor = 0xFFFFFFFF;
+        private double startRotation = 0, endRotation = 0;
+        private Vec2 startVelocity = null, endVelocity = null;
+        private double lifetimeSeconds = 1.0;
+
+        public Builder shape(ParticleShape shape) { this.shape = shape; return this; }
+        public Builder startSize(double startSize) { this.startSize = startSize; return this; }
+        public Builder endSize(double endSize) { this.endSize = endSize; return this; }
+        public Builder startColor(int startColor) { this.startColor = startColor; return this; }
+        public Builder endColor(int endColor) { this.endColor = endColor; return this; }
+        public Builder startRotation(double startRotation) { this.startRotation = startRotation; return this; }
+        public Builder endRotation(double endRotation) { this.endRotation = endRotation; return this; }
+        public Builder startVelocity(Vec2 startVelocity) { this.startVelocity = startVelocity; return this; }
+        public Builder endVelocity(Vec2 endVelocity) { this.endVelocity = endVelocity; return this; }
+        public Builder lifetime(double seconds) { this.lifetimeSeconds = seconds; return this; }
+
+        public SimpleParticle build() {
+            BuilderFields.verify(this);
+            return new SimpleParticle(this);
+        }
     }
 }

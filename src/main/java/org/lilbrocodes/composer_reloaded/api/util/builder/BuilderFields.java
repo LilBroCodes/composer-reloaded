@@ -1,0 +1,35 @@
+package org.lilbrocodes.composer_reloaded.api.util.builder;
+
+import org.jetbrains.annotations.Nullable;
+
+import java.lang.reflect.Field;
+
+public class BuilderFields {
+    /**
+     * Verifies that all non-@Nullable fields of the given object are non-null.
+     * Throws an IllegalStateException if any field is null.
+     */
+    public static void verify(Object obj) {
+        if (obj == null) throw new IllegalArgumentException("Cannot verify null object");
+
+        Class<?> clazz = obj.getClass();
+
+        while (clazz != Object.class) { // also check superclasses
+            for (Field field : clazz.getDeclaredFields()) {
+                if (field.isAnnotationPresent(Nullable.class)) continue;
+
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(obj);
+                    if (value == null) {
+                        throw new NotAllFieldsFilledException("Field '" + field.getName() +
+                                "' in " + obj.getClass().getSimpleName() + " is null but not @Nullable");
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("Failed to access field " + field.getName(), e);
+                }
+            }
+            clazz = clazz.getSuperclass();
+        }
+    }
+}

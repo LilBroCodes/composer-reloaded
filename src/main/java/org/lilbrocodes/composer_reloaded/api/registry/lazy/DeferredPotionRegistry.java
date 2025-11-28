@@ -21,6 +21,7 @@ public class DeferredPotionRegistry {
         return Registry.register(Registries.POTION, new Identifier(modId, name), potion);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public Potion register(String name, StatusEffectInstance... effects) {
         return register(name, new Potion(effects));
     }

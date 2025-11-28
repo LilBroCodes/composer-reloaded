@@ -7,7 +7,6 @@ import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.util.Identifier;
-import org.lilbrocodes.composer_reloaded.api.registry.ComposerRegistries;
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
 import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;

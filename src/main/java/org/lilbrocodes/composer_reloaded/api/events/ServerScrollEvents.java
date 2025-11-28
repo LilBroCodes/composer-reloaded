@@ -6,6 +6,13 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
+/**
+ * Provides server-side scroll events.
+ * <p>
+ * Supports multiple priority levels (HIGH, MEDIUM, LOW) for event handling.
+ * Listeners can cancel further processing by returning true from {@link ServerScrollAction#onScroll}.
+ * </p>
+ */
 public class ServerScrollEvents {
     public static final Event<ServerScrollAction> HIGH_PRIORITY = createEvent();
     public static final Event<ServerScrollAction> MEDIUM_PRIORITY = createEvent();
@@ -19,7 +26,25 @@ public class ServerScrollEvents {
 
     @FunctionalInterface
     public interface ServerScrollAction {
+
+        /**
+         * Called when a scroll action occurs on the server.
+         *
+         * @param channel      the identifier for the scroll channel
+         * @param player       the player performing the scroll
+         * @param sender       the packet sender for replying
+         * @param scrollAmount the amount scrolled
+         * @return true to cancel further processing, false otherwise
+         */
         boolean onScroll(Identifier channel, ServerPlayerEntity player, PacketSender sender, double scrollAmount);
+
+        /**
+         * Checks whether this event is for the given channel.
+         *
+         * @param channel        the channel of the event
+         * @param correctChannel the channel to match
+         * @return true if they match, false otherwise
+         */
         default boolean onChannel(Identifier channel, Identifier correctChannel) {
             return channel.equals(correctChannel);
         }

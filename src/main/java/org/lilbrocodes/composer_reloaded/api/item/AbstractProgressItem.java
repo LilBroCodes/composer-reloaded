@@ -5,34 +5,71 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+/**
+ * Base class for items that have a multistep progress mechanic.
+ * <p>
+ * Each item tracks its current step in NBT and can produce a resulting
+ * item once fully completed. Subclasses define the final item and any
+ * behavior when progress changes or completes.
+ * </p>
+ */
 @SuppressWarnings("EmptyMethod")
 public abstract class AbstractProgressItem extends Item {
     private static final String STEP_KEY = "Step";
     private final int maxSteps;
 
+    /**
+     * @param settings Item settings
+     * @param steps    Maximum number of steps until completion
+     */
     public AbstractProgressItem(Settings settings, int steps) {
         super(settings);
         this.maxSteps = steps;
     }
 
+    /**
+     * Called when the item reaches its final step. Should return the item
+     * that represents the completed state.
+     *
+     * @param oldStack The original item stack
+     * @return New ItemStack representing the completed item
+     */
     protected abstract ItemStack getCompletedItem(ItemStack oldStack);
 
+    /**
+     * Called when the item's progress increases.
+     * Default implementation does nothing.
+     */
     protected void onProgressIncreased(ItemStack stack, PlayerEntity player, int newStep) {}
 
+    /**
+     * Called when the item finishes its process (reaches max steps).
+     * Default implementation does nothing.
+     */
     protected void onFinishProcess(ItemStack stack, World world, PlayerEntity player) {}
 
+    /** Returns the current step stored in the item's NBT. */
     public static int getStep(ItemStack stack) {
         return stack.getOrCreateNbt().getInt(STEP_KEY);
     }
 
+    /** Sets the current step in the item's NBT. */
     public static void setStep(ItemStack stack, int value) {
         stack.getOrCreateNbt().putInt(STEP_KEY, value);
     }
 
+    /** Returns the maximum number of steps this item can reach. */
     public int getMaxSteps() {
         return maxSteps;
     }
 
+    /**
+     * Attempts to increment the progress of this item by {@code amount}.
+     * <p>
+     * Returns {@link ItemStack#EMPTY} if progress is incomplete,
+     * or the completed item if progress reaches the max steps.
+     * </p>
+     */
     public ItemStack tryIncrementProgress(ItemStack stack, World world, PlayerEntity player, int amount) {
         int current = getStep(stack);
         if (current >= getMaxSteps()) return ItemStack.EMPTY;
