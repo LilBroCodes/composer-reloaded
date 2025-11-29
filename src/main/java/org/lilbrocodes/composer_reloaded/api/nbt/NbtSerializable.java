@@ -21,11 +21,6 @@ public interface NbtSerializable<T extends NbtSerializable<T>> {
      */
     NbtCompound writeNbt(NbtCompound tag);
 
-    /**
-     * Default implementation that creates a new {@link NbtCompound} and writes this object's state into it.
-     *
-     * @return a new {@link NbtCompound} containing serialized data
-     */
     default NbtCompound writeNbt() {
         return writeNbt(new NbtCompound());
     }
