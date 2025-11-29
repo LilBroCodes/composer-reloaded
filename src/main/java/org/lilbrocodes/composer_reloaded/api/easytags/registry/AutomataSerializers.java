@@ -24,11 +24,9 @@ public class AutomataSerializers {
      * @param clazz      the class type the serializer handles
      * @param serializer the serializer instance
      * @param <T>        the type handled by the serializer
-     * @return the registered serializer
      */
-    public static <T> AutomataSerializable<T> register(Class<T> clazz, AutomataSerializable<T> serializer) {
+    public static <T> void register(Class<T> clazz, AutomataSerializable<T> serializer) {
         registry.put(clazz, serializer);
-        return serializer;
     }
 
     /**

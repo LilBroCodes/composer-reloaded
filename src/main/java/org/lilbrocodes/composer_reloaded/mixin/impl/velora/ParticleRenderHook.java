@@ -14,7 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
 public class ParticleRenderHook {
-    @Shadow @Final MinecraftClient client;
+    @Shadow
+    @Final
+    MinecraftClient client;
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V", ordinal = 1))
     public void velora$renderParticles(float tickDelta, long startTime, boolean tick, CallbackInfo ci, @Local DrawContext drawContext) {

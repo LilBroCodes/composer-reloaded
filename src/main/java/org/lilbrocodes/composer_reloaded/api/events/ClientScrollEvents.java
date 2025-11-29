@@ -53,7 +53,8 @@ public class ClientScrollEvents {
     }
 
     private static boolean callActions(ClientScrollAction[] callbacks, MinecraftClient client, @Nullable ClientWorld world, @Nullable ClientPlayerEntity player, double scrollAmount) {
-        for (ClientScrollAction action : callbacks) if (action.onScroll(client, world, player, scrollAmount)) return true;
+        for (ClientScrollAction action : callbacks)
+            if (action.onScroll(client, world, player, scrollAmount)) return true;
         return false;
     }
 }

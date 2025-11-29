@@ -18,7 +18,8 @@ public class TriggerAllBindsMixin {
         if (!ComposerReloaded.dupedBinds()) return;
         if (BindTracker.bindAllowed(keyBinding)) {
             for (KeyBinding keyBinding2 : MinecraftClient.getInstance().options.allKeys) {
-                if (keyBinding != keyBinding2 && keyBinding.equals(keyBinding2) && BindTracker.bindAllowed(keyBinding2)) keyBinding2.timesPressed++;
+                if (keyBinding != keyBinding2 && keyBinding.equals(keyBinding2) && BindTracker.bindAllowed(keyBinding2))
+                    keyBinding2.timesPressed++;
             }
         }
     }
@@ -28,7 +29,8 @@ public class TriggerAllBindsMixin {
         if (!ComposerReloaded.dupedBinds()) return;
         if (BindTracker.bindAllowed(keyBinding)) {
             for (KeyBinding keyBinding2 : MinecraftClient.getInstance().options.allKeys) {
-                if (keyBinding != keyBinding2 && keyBinding.equals(keyBinding2) && BindTracker.bindAllowed(keyBinding2)) keyBinding2.setPressed(pressed);
+                if (keyBinding != keyBinding2 && keyBinding.equals(keyBinding2) && BindTracker.bindAllowed(keyBinding2))
+                    keyBinding2.setPressed(pressed);
             }
         }
     }

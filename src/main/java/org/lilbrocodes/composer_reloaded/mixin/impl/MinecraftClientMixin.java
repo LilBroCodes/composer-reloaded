@@ -26,9 +26,16 @@ import java.util.function.Predicate;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
-    @Shadow @Nullable public ClientPlayerEntity player;
-    @Shadow @Nullable public ClientWorld world;
-    @Shadow @Nullable public abstract Entity getCameraEntity();
+    @Shadow
+    @Nullable
+    public ClientPlayerEntity player;
+    @Shadow
+    @Nullable
+    public ClientWorld world;
+
+    @Shadow
+    @Nullable
+    public abstract Entity getCameraEntity();
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/tutorial/TutorialManager;tick(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/util/hit/HitResult;)V"))
     public void composerReloaded$getLastTarget(CallbackInfo ci) {

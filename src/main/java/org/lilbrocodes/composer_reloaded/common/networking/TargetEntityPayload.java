@@ -11,7 +11,8 @@ import org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents;
 import java.util.UUID;
 
 public record TargetEntityPayload(UUID uuid) implements FabricPacket {
-    private static final Identifier ID = ComposerReloaded.TARGET_ENTITY;
+    public static final Identifier TARGET_ENTITY = ComposerReloaded.identify("target_entity_c2s");
+    private static final Identifier ID = TARGET_ENTITY;
     private static final PacketType<TargetEntityPayload> TYPE = PacketType.create(ID, TargetEntityPayload::read);
 
     private static TargetEntityPayload read(PacketByteBuf buf) {

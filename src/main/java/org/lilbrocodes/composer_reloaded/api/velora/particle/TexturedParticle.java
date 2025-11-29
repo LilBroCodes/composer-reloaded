@@ -45,30 +45,80 @@ public class TexturedParticle extends SimpleParticle {
         private int frameCount = 1;
         private double frameDurationSeconds = 1.0;
 
-        public Builder texture(Identifier texture) { this.texture = texture; return this; }
-        public Builder frameCount(int frameCount) { this.frameCount = frameCount; return this; }
-        public Builder frameDuration(double seconds) { this.frameDurationSeconds = seconds; return this; }
+        public Builder texture(Identifier texture) {
+            this.texture = texture;
+            return this;
+        }
+
+        public Builder frameCount(int frameCount) {
+            this.frameCount = frameCount;
+            return this;
+        }
+
+        public Builder frameDuration(double seconds) {
+            this.frameDurationSeconds = seconds;
+            return this;
+        }
 
         @Override
-        public Builder shape(ParticleShape shape) { super.shape(shape); return this; }
+        public Builder shape(ParticleShape shape) {
+            super.shape(shape);
+            return this;
+        }
+
         @Override
-        public Builder startSize(double startSize) { super.startSize(startSize); return this; }
+        public Builder startSize(double startSize) {
+            super.startSize(startSize);
+            return this;
+        }
+
         @Override
-        public Builder endSize(double endSize) { super.endSize(endSize); return this; }
+        public Builder endSize(double endSize) {
+            super.endSize(endSize);
+            return this;
+        }
+
         @Override
-        public Builder startColor(int startColor) { super.startColor(startColor); return this; }
+        public Builder startColor(int startColor) {
+            super.startColor(startColor);
+            return this;
+        }
+
         @Override
-        public Builder endColor(int endColor) { super.endColor(endColor); return this; }
+        public Builder endColor(int endColor) {
+            super.endColor(endColor);
+            return this;
+        }
+
         @Override
-        public Builder startRotation(double startRotation) { super.startRotation(startRotation); return this; }
+        public Builder startRotation(double startRotation) {
+            super.startRotation(startRotation);
+            return this;
+        }
+
         @Override
-        public Builder endRotation(double endRotation) { super.endRotation(endRotation); return this; }
+        public Builder endRotation(double endRotation) {
+            super.endRotation(endRotation);
+            return this;
+        }
+
         @Override
-        public Builder startVelocity(Vec2 startVelocity) { super.startVelocity(startVelocity); return this; }
+        public Builder startVelocity(Vec2 startVelocity) {
+            super.startVelocity(startVelocity);
+            return this;
+        }
+
         @Override
-        public Builder endVelocity(Vec2 endVelocity) { super.endVelocity(endVelocity); return this; }
+        public Builder endVelocity(Vec2 endVelocity) {
+            super.endVelocity(endVelocity);
+            return this;
+        }
+
         @Override
-        public Builder lifetime(double seconds) { super.lifetime(seconds); return this; }
+        public Builder lifetime(double seconds) {
+            super.lifetime(seconds);
+            return this;
+        }
 
         @Override
         public TexturedParticle build() {

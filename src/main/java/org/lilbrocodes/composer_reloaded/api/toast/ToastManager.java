@@ -37,7 +37,7 @@ public class ToastManager {
             return false;
         }
 
-        for (Corner corner : new Corner[]{ Corner.TOP_LEFT, Corner.TOP_RIGHT, Corner.BOTTOM_RIGHT, Corner.BOTTOM_LEFT }) {
+        for (Corner corner : new Corner[]{Corner.TOP_LEFT, Corner.TOP_RIGHT, Corner.BOTTOM_RIGHT, Corner.BOTTOM_LEFT}) {
             List<AbstractToast> list = toastMap.get(corner);
             if (list.isEmpty()) {
                 addToast(toast, corner);

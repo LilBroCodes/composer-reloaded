@@ -23,7 +23,8 @@ public class Targeting {
         if (target instanceof LivingEntity living && living.isDead() && !options.targetDead) return false;
         if (target.isRemoved()) return false;
         if (!EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(target)) return false;
-        if (target instanceof TameableEntity tamed && tamed.isOwner(options.player) && !options.targetTamed) return false;
+        if (target instanceof TameableEntity tamed && tamed.isOwner(options.player) && !options.targetTamed)
+            return false;
         return target.canHit();
     }
 

@@ -15,7 +15,9 @@ import java.util.Arrays;
 
 @Mixin(value = GameOptions.class, priority = -1)
 public class GetBindsMixin {
-    @Shadow @Final public KeyBinding[] allKeys;
+    @Shadow
+    @Final
+    public KeyBinding[] allKeys;
 
     @Inject(method = "load", at = @At("HEAD"))
     private void flowed_combat$getBaseBinds(CallbackInfo ci) {

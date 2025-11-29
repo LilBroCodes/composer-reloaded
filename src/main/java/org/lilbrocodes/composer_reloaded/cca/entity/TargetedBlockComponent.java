@@ -12,7 +12,7 @@ import org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents;
 public class TargetedBlockComponent implements AutoSyncedComponent, ServerTickingComponent {
     private static final String POS_KEY = "pos";
     private static final String TICKS_KEY = "ticks";
-    
+
     private final PlayerEntity player;
     private BlockPos pos = null;
     private int ticks = -1;

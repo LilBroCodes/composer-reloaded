@@ -44,5 +44,6 @@ public class ContinuousEmitterGroup {
         toggle(id, false);
     }
 
-    private record EmitterEntry<E extends ContinuousParticleEmitter>(Vec2 pos, E emitter) {}
+    private record EmitterEntry<E extends ContinuousParticleEmitter>(Vec2 pos, E emitter) {
+    }
 }

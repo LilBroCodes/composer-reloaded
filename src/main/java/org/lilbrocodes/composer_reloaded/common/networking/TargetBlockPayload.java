@@ -10,7 +10,8 @@ import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents;
 
 public record TargetBlockPayload(BlockPos pos) implements FabricPacket {
-    private static final Identifier ID = ComposerReloaded.TARGET_BLOCK;
+    public static final Identifier TARGET_BLOCK = ComposerReloaded.identify("target_block_c2s");
+    private static final Identifier ID = TARGET_BLOCK;
     private static final PacketType<TargetBlockPayload> TYPE = PacketType.create(ID, TargetBlockPayload::read);
 
     private static TargetBlockPayload read(PacketByteBuf buf) {

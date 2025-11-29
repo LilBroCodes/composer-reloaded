@@ -21,9 +21,6 @@ import org.lilbrocodes.composer_reloaded.common.registry.*;
 
 public class ComposerReloaded implements ModInitializer {
     public static final String MOD_ID = "composer_reloaded";
-    public static final Identifier TARGET_ENTITY = identify("target_entity_c2s");
-    public static final Identifier TARGET_BLOCK = identify("target_block_c2s");
-    public static final Identifier SCROLL_ACTION = identify("scroll_action_c2s");
     private static boolean dupedKeybindsEnabled = false;
 
     @Override

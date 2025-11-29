@@ -51,7 +51,8 @@ public class ServerScrollEvents {
     }
 
     private static boolean callActions(ServerScrollAction[] callbacks, Identifier channel, ServerPlayerEntity player, PacketSender sender, double scrollAmount) {
-        for (ServerScrollAction action : callbacks) if (action.onScroll(channel, player, sender, scrollAmount)) return true;
+        for (ServerScrollAction action : callbacks)
+            if (action.onScroll(channel, player, sender, scrollAmount)) return true;
         return false;
     }
 }

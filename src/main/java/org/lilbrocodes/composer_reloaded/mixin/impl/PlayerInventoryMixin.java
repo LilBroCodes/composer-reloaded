@@ -19,8 +19,11 @@ import java.util.List;
 
 @Mixin(PlayerInventory.class)
 public class PlayerInventoryMixin {
-    @Shadow @Final public PlayerEntity player;
-    @Unique final List<Event<ClientScrollEvents.ClientScrollAction>> priorities = List.of(
+    @Shadow
+    @Final
+    public PlayerEntity player;
+    @Unique
+    final List<Event<ClientScrollEvents.ClientScrollAction>> priorities = List.of(
             ClientScrollEvents.HIGH_PRIORITY,
             ClientScrollEvents.MEDIUM_PRIORITY,
             ClientScrollEvents.LOW_PRIORITY

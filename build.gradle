@@ -1,3 +1,4 @@
+//file:noinspection GrUnresolvedAccess
 plugins {
     id 'java'
     id 'com.modrinth.minotaur' version '2.+'
@@ -33,7 +34,7 @@ repositories {
     }
 }
 
-dependencies  {
+dependencies {
     minecraft "com.mojang:minecraft:$minecraft_version"
     mappings "net.fabricmc:yarn:$yarn_mappings:v2"
     modImplementation "net.fabricmc:fabric-loader:$loader_version"
@@ -86,6 +87,7 @@ jar {
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
+            //noinspection GroovyAssignabilityCheck
             from(components.java)
 
             groupId = group

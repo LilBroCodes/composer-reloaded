@@ -14,6 +14,8 @@ import org.jetbrains.annotations.Nullable;
 import org.lilbrocodes.composer_reloaded.common.registry.ComposerBlockEntities;
 
 public class PlushBlockEntity extends BlockEntity {
+    private static final float SQUASH = 3f;
+    private static final float SQUASH_EPS = 0.01f;
     public double squash;
 
     public PlushBlockEntity(BlockPos pos, BlockState state) {
@@ -22,8 +24,8 @@ public class PlushBlockEntity extends BlockEntity {
 
     public static void tick(World world, BlockPos pos, BlockState state, @NotNull PlushBlockEntity spark) {
         if (spark.squash > 0) {
-            spark.squash /= 3f;
-            if (spark.squash < 0.01f) {
+            spark.squash /= SQUASH;
+            if (spark.squash < SQUASH_EPS) {
                 spark.squash = 0;
                 if (world != null) world.updateListeners(pos, state, state, Block.NOTIFY_LISTENERS);
             }

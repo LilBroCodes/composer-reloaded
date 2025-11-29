@@ -27,7 +27,9 @@ public abstract class AbstractToast {
     }
 
     protected abstract void draw(DrawContext context, long timeAlive, int x, int y);
+
     protected abstract Vector2i size();
+
     protected abstract int margin();
 
     public boolean shouldRemove() {

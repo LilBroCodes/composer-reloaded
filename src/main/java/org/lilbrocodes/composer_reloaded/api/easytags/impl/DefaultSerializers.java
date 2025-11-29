@@ -8,6 +8,7 @@ import org.lilbrocodes.composer_reloaded.api.util.data.SerializableIdentifier;
 
 import static org.lilbrocodes.composer_reloaded.api.easytags.registry.AutomataSerializers.register;
 
+@SuppressWarnings("FeatureEnvy")
 public class DefaultSerializers {
     @ApiStatus.Internal
     public static void initialize() {
@@ -16,6 +17,7 @@ public class DefaultSerializers {
             public void write(ComposerCompound tag, String key, Integer value) {
                 tag.putInt(key, value);
             }
+
             @Override
             public Integer read(ComposerCompound tag, String key) {
                 return tag.getInt(key);
@@ -29,6 +31,7 @@ public class DefaultSerializers {
             public void write(ComposerCompound tag, String key, Long value) {
                 tag.putLong(key, value);
             }
+
             @Override
             public Long read(ComposerCompound tag, String key) {
                 return tag.getLong(key);
@@ -42,6 +45,7 @@ public class DefaultSerializers {
             public void write(ComposerCompound tag, String key, Float value) {
                 tag.putFloat(key, value);
             }
+
             @Override
             public Float read(ComposerCompound tag, String key) {
                 return tag.getFloat(key);
@@ -55,6 +59,7 @@ public class DefaultSerializers {
             public void write(ComposerCompound tag, String key, Double value) {
                 tag.putDouble(key, value);
             }
+
             @Override
             public Double read(ComposerCompound tag, String key) {
                 return tag.getDouble(key);
@@ -68,6 +73,7 @@ public class DefaultSerializers {
             public void write(ComposerCompound tag, String key, Boolean value) {
                 tag.putBoolean(key, value);
             }
+
             @Override
             public Boolean read(ComposerCompound tag, String key) {
                 return tag.getBoolean(key);
@@ -81,6 +87,7 @@ public class DefaultSerializers {
             public void write(ComposerCompound tag, String key, Short value) {
                 tag.putShort(key, value);
             }
+
             @Override
             public Short read(ComposerCompound tag, String key) {
                 return tag.getShort(key);
@@ -94,6 +101,7 @@ public class DefaultSerializers {
             public void write(ComposerCompound tag, String key, Byte value) {
                 tag.putByte(key, value);
             }
+
             @Override
             public Byte read(ComposerCompound tag, String key) {
                 return tag.getByte(key);
@@ -107,6 +115,7 @@ public class DefaultSerializers {
             public void write(ComposerCompound tag, String key, Character value) {
                 tag.putString(key, value.toString());
             }
+
             @Override
             public Character read(ComposerCompound tag, String key) {
                 String s = tag.getString(key);

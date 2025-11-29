@@ -19,6 +19,7 @@ public class ScrollActionHandler implements ServerPlayNetworking.PlayPacketHandl
 
     @Override
     public void receive(ScrollActionPayload payload, ServerPlayerEntity player, PacketSender sender) {
-        for (Event<ServerScrollAction> event : priorities) if (event.invoker().onScroll(payload.channel(), player, sender, payload.scrollAmount())) return;
+        for (Event<ServerScrollAction> event : priorities)
+            if (event.invoker().onScroll(payload.channel(), player, sender, payload.scrollAmount())) return;
     }
 }

@@ -1,28 +1,34 @@
 # What is Composer?
+
 Composer is a library mod that I made for minecraft for my mods to use.
 You are free to use it in any project, and are free to use any of it's code as an example for your own mods.
 
 ---
 
 # Why is it reloaded?
+
 I made the original version of Composer a long time ago, when I was a lot worse at programming.
-It was set up in weird ways and never worked properly - so I remade it from scratch with actually good code, which is this mod.
+It was set up in weird ways and never worked properly - so I remade it from scratch with actually good code, which is
+this mod.
 
 ---
 
 # Installation
 
 You can download Composer from [Modrinth](https://modrinth.com/mod/composer-reloaded).  
-If none of your mods require it, you don’t need to install it - it doesn’t add any gameplay content on its own, only functionality for other mods.
+If none of your mods require it, you don’t need to install it - it doesn’t add any gameplay content on its own, only
+functionality for other mods.
 
 > [!WARNING]
-> If you do use Composer in your own mod, or want to include it anyway, you must also install any version of **Cardinal Components** above (or equal to) `5.3.2`.
+> If you do use Composer in your own mod, or want to include it anyway, you must also install any version of **Cardinal
+Components** above (or equal to) `5.3.2`.
 
 ---
 
 # Development Usage
 
-If you want to use Composer as a library in your mod, add the Composer Maven repository and Cardinal Components repository to your build file, then add Composer as a dependency.
+If you want to use Composer as a library in your mod, add the Composer Maven repository and Cardinal Components
+repository to your build file, then add Composer as a dependency.
 
 Replace `(latest_version)` with the latest Composer version compatible with your Minecraft version.
 
@@ -57,6 +63,7 @@ dependencies {
     modImplementation "org.lilbrocodes:composer-reloaded:${composer_version}"
 }
 ```
+
 </details>
 
 <details>
@@ -66,6 +73,7 @@ dependencies {
 # gradle.properties
 composer_version = (latest_version)
 ```
+
 ```groovy
 // build.gradle.kts
 
@@ -116,10 +124,13 @@ dependencies {
 </dependency>
 </dependencies>
 ```
+
 Add the following property to your `<properties>` section:
+
 ```xml
 <properties>
     <composer.version>(latest_version)</composer.version>
 </properties>
 ```
+
 </details>

@@ -9,7 +9,8 @@ import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.common.networking.handler.ScrollActionHandler;
 
 public record ScrollActionPayload(Identifier channel, double scrollAmount) implements FabricPacket {
-    private static final Identifier ID = ComposerReloaded.SCROLL_ACTION;
+    public static final Identifier SCROLL_ACTION = ComposerReloaded.identify("scroll_action_c2s");
+    private static final Identifier ID = SCROLL_ACTION;
     private static final PacketType<ScrollActionPayload> TYPE = PacketType.create(ID, ScrollActionPayload::read);
 
     private static ScrollActionPayload read(PacketByteBuf buf) {

@@ -46,12 +46,12 @@ public class ParticleRenderer {
 
         int r = (color >> 24) & 0xFF;
         int g = (color >> 16) & 0xFF;
-        int b = (color >> 8)  & 0xFF;
+        int b = (color >> 8) & 0xFF;
         int a = color & 0xFF;
 
         double half = size / 2;
 
-        Vec2[] vertices = new Vec2[] {
+        Vec2[] vertices = new Vec2[]{
                 new Vec2(-half, -half),
                 new Vec2(-half, half),
                 new Vec2(half, half),
@@ -73,7 +73,7 @@ public class ParticleRenderer {
 
     private static void renderTriangle(Vec2 center, double size, double rotation, int color) {
         double height = Math.sqrt(3) / 2 * size;
-        Vec2[] vertices = new Vec2[] {
+        Vec2[] vertices = new Vec2[]{
                 new Vec2(0, -2 * height / 3),
                 new Vec2(-size / 2, height / 3),
                 new Vec2(size / 2, height / 3)
@@ -115,7 +115,7 @@ public class ParticleRenderer {
 
         int r = (color >> 24) & 0xFF;
         int g = (color >> 16) & 0xFF;
-        int b = (color >> 8)  & 0xFF;
+        int b = (color >> 8) & 0xFF;
         int a = color & 0xFF;
 
         if (!ccw) {
@@ -144,7 +144,7 @@ public class ParticleRenderer {
 
         int r = (color >> 24) & 0xFF;
         int g = (color >> 16) & 0xFF;
-        int b = (color >> 8)  & 0xFF;
+        int b = (color >> 8) & 0xFF;
         int a = color & 0xFF;
 
         double half = size / 2;
@@ -196,7 +196,7 @@ public class ParticleRenderer {
 
         int r = (color >> 24) & 0xFF;
         int g = (color >> 16) & 0xFF;
-        int b = (color >> 8)  & 0xFF;
+        int b = (color >> 8) & 0xFF;
         int a = color & 0xFF;
 
         double half = size / 2;

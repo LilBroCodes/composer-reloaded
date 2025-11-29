@@ -9,7 +9,8 @@ public class PredicateVoid {
      * No-op method; can be used as a placeholder for lambdas that do nothing.
      */
     @SuppressWarnings("EmptyMethod")
-    public static void nil(Object... v) {}
+    public static void nil(Object... v) {
+    }
 
     /**
      * Returns null; can be used as a placeholder for lambdas that must return an object.

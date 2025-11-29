@@ -5,12 +5,12 @@ import org.jetbrains.annotations.ApiStatus;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 public class BindTracker {
     @ApiStatus.Internal
-    public static final Set<KeyBinding> MC_CM_BINDS = new HashSet<>();
+    public static final Collection<KeyBinding> MC_CM_BINDS = new HashSet<>();
 
     @ApiStatus.Internal
     public static boolean bindAllowed(KeyBinding keyBinding) {

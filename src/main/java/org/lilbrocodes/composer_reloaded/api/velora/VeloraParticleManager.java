@@ -45,5 +45,6 @@ public class VeloraParticleManager {
     }
 
     @ApiStatus.Internal
-    private record ParticleEntry<E extends VeloraParticle>(E particle, Vec2 origin, Long creationDate) { }
+    private record ParticleEntry<E extends VeloraParticle>(E particle, Vec2 origin, Long creationDate) {
+    }
 }

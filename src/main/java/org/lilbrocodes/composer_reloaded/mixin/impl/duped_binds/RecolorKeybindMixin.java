@@ -17,9 +17,12 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(ControlsListWidget.KeyBindingEntry.class)
 public abstract class RecolorKeybindMixin {
-    @Shadow @Final private KeyBinding binding;
+    @Shadow
+    @Final
+    private KeyBinding binding;
 
-    @Shadow protected abstract void update();
+    @Shadow
+    protected abstract void update();
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;fill(IIIII)V"), index = 4)
     private int flowed_combat$recolorBinding(int value) {

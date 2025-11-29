@@ -36,5 +36,6 @@ public class BurstEmitterGroup {
         emitters.put(id, new EmitterEntry<BurstParticleEmitter>(pos, entry.emitter));
     }
 
-    private record EmitterEntry<E extends BurstParticleEmitter>(Vec2 pos, E emitter) {}
+    private record EmitterEntry<E extends BurstParticleEmitter>(Vec2 pos, E emitter) {
+    }
 }

@@ -10,7 +10,8 @@ import java.util.UUID;
 
 @Mixin(net.minecraft.world.World.class)
 public abstract class WorldMixin implements WorldMethodAccessor {
-    @Shadow protected abstract EntityLookup<Entity> getEntityLookup();
+    @Shadow
+    protected abstract EntityLookup<Entity> getEntityLookup();
 
     @Override
     public Entity composerReloaded$getEntityByUuid(UUID uuid) {

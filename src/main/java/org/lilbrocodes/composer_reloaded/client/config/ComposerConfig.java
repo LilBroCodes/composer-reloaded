@@ -15,24 +15,35 @@ public class ComposerConfig extends Config {
     public ComposerConfig() {
         super(ComposerReloaded.identify("config"));
     }
+
     public static ComposerConfig INSTANCE;
 
-    @Override public int defaultPermLevel() {
+    @Override
+    public int defaultPermLevel() {
         return 0;
     }
-    @Override public @NotNull FileType fileType() {
+
+    @Override
+    public @NotNull FileType fileType() {
         return FileType.JSONC;
     }
-    @Override public @NotNull SaveType saveType() {
+
+    @Override
+    public @NotNull SaveType saveType() {
         return SaveType.SEPARATE;
     }
 
-    @Name("Rainbow Effect on Duplicate Keybinds") public boolean rainbowDuplicateKeybinds = false;
-    @Name("Rainbow Effect Speed") public ValidatedInt rainbowEffectSpeed = new ValidatedInt(3, 10, 1);
-    @Name("Allow Duplicate Keybinds") public BindsMode allowDuplicateKeybinds = BindsMode.MC_AND_CM;
+    @Name("Rainbow Effect on Duplicate Keybinds")
+    public boolean rainbowDuplicateKeybinds = false;
+    @Name("Rainbow Effect Speed")
+    public ValidatedInt rainbowEffectSpeed = new ValidatedInt(3, 10, 1);
+    @Name("Allow Duplicate Keybinds")
+    public BindsMode allowDuplicateKeybinds = BindsMode.MC_AND_CM;
 
+    @SuppressWarnings("StaticMethodOnlyUsedInOneClass")
     public static void initialize() {
-        if (ComposerReloaded.dupedBinds()) INSTANCE = ConfigApiJava.registerAndLoadConfig(ComposerConfig::new, RegisterType.CLIENT);
+        if (ComposerReloaded.dupedBinds())
+            INSTANCE = ConfigApiJava.registerAndLoadConfig(ComposerConfig::new, RegisterType.CLIENT);
     }
 
     public enum BindsMode implements EnumTranslatable {

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
+import java.util.random.RandomGenerator;
 
 public class BurstParticleEmitter {
     private final boolean staggered;
@@ -63,7 +64,7 @@ public class BurstParticleEmitter {
 
     private void spawnParticle(VeloraParticleManager manager, Vec2 origin) {
         Vec2 spawnPos = origin.copy();
-        Random random = new Random();
+        RandomGenerator random = new Random();
         if (spread > 0.0f) {
             double angle = random.nextDouble() * Math.PI * 2;
             double radius = Math.sqrt(random.nextDouble()) * spread;
@@ -122,5 +123,6 @@ public class BurstParticleEmitter {
         }
     }
 
-    private record StaggeredBurst(long lastSpawnTime, int remaining, Vec2 origin) {}
+    private record StaggeredBurst(long lastSpawnTime, int remaining, Vec2 origin) {
+    }
 }

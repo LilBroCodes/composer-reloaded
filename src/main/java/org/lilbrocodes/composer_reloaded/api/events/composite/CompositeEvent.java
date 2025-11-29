@@ -10,6 +10,7 @@ public interface CompositeEvent {
     String ID = "id";
 
     void handle(World world, BlockPos pos);
+
     Identifier getId();
 
     default JsonObject serialize() {

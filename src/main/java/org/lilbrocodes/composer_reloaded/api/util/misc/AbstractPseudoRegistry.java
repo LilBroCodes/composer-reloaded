@@ -56,7 +56,7 @@ public abstract class AbstractPseudoRegistry<V> {
     }
 
     public static AbstractPseudoRegistry<?> registry(Identifier id) {
-       return identified.get(id);
+        return identified.get(id);
     }
 
     public static void identify(Identifier string, AbstractPseudoRegistry<?> registry) {

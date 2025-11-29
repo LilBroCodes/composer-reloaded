@@ -23,9 +23,17 @@ public class ComposerCompositeEvents {
     private static final Identifier LIGHTNING = REGISTRY.register("lightning", Lightning::read);
     private static final Identifier SOUND = REGISTRY.register("sound", Sound::read);
 
-    public static Explosion.Builder explosion() { return new Explosion.Builder(); }
-    public static Lightning.Builder lightning() { return new Lightning.Builder(); }
-    public static Sound.Builder sound() { return new Sound.Builder(); }
+    public static Explosion.Builder explosion() {
+        return new Explosion.Builder();
+    }
+
+    public static Lightning.Builder lightning() {
+        return new Lightning.Builder();
+    }
+
+    public static Sound.Builder sound() {
+        return new Sound.Builder();
+    }
 
     public record Sound(Identifier id, String category, float volume, float pitch) implements CompositeEvent {
         public static Sound read(JsonObject json) {
@@ -61,12 +69,33 @@ public class ComposerCompositeEvents {
             private float volume;
             private float pitch;
 
-            public Builder sound(Identifier id) { this.id = id; return this; }
-            public Builder sound(SoundEvent sound) { return this.sound(sound.getId()); }
-            public Builder sound(RegistryEntry.Reference<SoundEvent> sound) { return this.sound(sound.value()); }
-            public Builder category(String category) { this.category = category; return this; }
-            public Builder volume(float volume) { this.volume = volume; return this; }
-            public Builder pitch(float pitch) { this.pitch = pitch; return this; }
+            public Builder sound(Identifier id) {
+                this.id = id;
+                return this;
+            }
+
+            public Builder sound(SoundEvent sound) {
+                return this.sound(sound.getId());
+            }
+
+            public Builder sound(RegistryEntry.Reference<SoundEvent> sound) {
+                return this.sound(sound.value());
+            }
+
+            public Builder category(String category) {
+                this.category = category;
+                return this;
+            }
+
+            public Builder volume(float volume) {
+                this.volume = volume;
+                return this;
+            }
+
+            public Builder pitch(float pitch) {
+                this.pitch = pitch;
+                return this;
+            }
 
             @Override
             public Sound build() {
@@ -116,8 +145,15 @@ public class ComposerCompositeEvents {
             private int strikes = 1;
             private double radius = 0;
 
-            public Builder strikes(int v) { this.strikes = v; return this; }
-            public Builder radius(double r) { this.radius = r; return this; }
+            public Builder strikes(int v) {
+                this.strikes = v;
+                return this;
+            }
+
+            public Builder radius(double r) {
+                this.radius = r;
+                return this;
+            }
 
             public Lightning build() {
                 BuilderFields.verify(this);
@@ -156,8 +192,15 @@ public class ComposerCompositeEvents {
             private float power = 4f;
             private boolean fire = false;
 
-            public Builder power(float p) { this.power = p; return this; }
-            public Builder fire(boolean f) { this.fire = f; return this; }
+            public Builder power(float p) {
+                this.power = p;
+                return this;
+            }
+
+            public Builder fire(boolean f) {
+                this.fire = f;
+                return this;
+            }
 
             public Explosion build() {
                 BuilderFields.verify(this);
@@ -166,6 +209,7 @@ public class ComposerCompositeEvents {
         }
     }
 
+    @SuppressWarnings("EmptyMethod")
     public static void initialize() {
 
     }

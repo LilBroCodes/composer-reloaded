@@ -56,16 +56,55 @@ public class SimpleParticle extends VeloraParticle {
         private Vec2 startVelocity = null, endVelocity = null;
         private double lifetimeSeconds = 1.0;
 
-        public Builder shape(ParticleShape shape) { this.shape = shape; return this; }
-        public Builder startSize(double startSize) { this.startSize = startSize; return this; }
-        public Builder endSize(double endSize) { this.endSize = endSize; return this; }
-        public Builder startColor(int startColor) { this.startColor = startColor; return this; }
-        public Builder endColor(int endColor) { this.endColor = endColor; return this; }
-        public Builder startRotation(double startRotation) { this.startRotation = startRotation; return this; }
-        public Builder endRotation(double endRotation) { this.endRotation = endRotation; return this; }
-        public Builder startVelocity(Vec2 startVelocity) { this.startVelocity = startVelocity; return this; }
-        public Builder endVelocity(Vec2 endVelocity) { this.endVelocity = endVelocity; return this; }
-        public Builder lifetime(double seconds) { this.lifetimeSeconds = seconds; return this; }
+        public Builder shape(ParticleShape shape) {
+            this.shape = shape;
+            return this;
+        }
+
+        public Builder startSize(double startSize) {
+            this.startSize = startSize;
+            return this;
+        }
+
+        public Builder endSize(double endSize) {
+            this.endSize = endSize;
+            return this;
+        }
+
+        public Builder startColor(int startColor) {
+            this.startColor = startColor;
+            return this;
+        }
+
+        public Builder endColor(int endColor) {
+            this.endColor = endColor;
+            return this;
+        }
+
+        public Builder startRotation(double startRotation) {
+            this.startRotation = startRotation;
+            return this;
+        }
+
+        public Builder endRotation(double endRotation) {
+            this.endRotation = endRotation;
+            return this;
+        }
+
+        public Builder startVelocity(Vec2 startVelocity) {
+            this.startVelocity = startVelocity;
+            return this;
+        }
+
+        public Builder endVelocity(Vec2 endVelocity) {
+            this.endVelocity = endVelocity;
+            return this;
+        }
+
+        public Builder lifetime(double seconds) {
+            this.lifetimeSeconds = seconds;
+            return this;
+        }
 
         public SimpleParticle build() {
             BuilderFields.verify(this);
