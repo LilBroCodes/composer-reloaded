@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractPseudoRegistry<V> {
-    private static final Map<String, AbstractPseudoRegistry<?>> identified = new HashMap<>();
+    private static final Map<Identifier, AbstractPseudoRegistry<?>> identified = new HashMap<>();
 
     protected final Map<Identifier, V> values;
     protected final Map<Identifier, V> fileValues;
@@ -55,11 +55,11 @@ public abstract class AbstractPseudoRegistry<V> {
         return null;
     }
 
-    public static AbstractPseudoRegistry<?> registry(String id) {
+    public static AbstractPseudoRegistry<?> registry(Identifier id) {
        return identified.get(id);
     }
 
-    public static void register(String string, AbstractPseudoRegistry<?> registry) {
+    public static void identify(Identifier string, AbstractPseudoRegistry<?> registry) {
         identified.put(string, registry);
     }
 }

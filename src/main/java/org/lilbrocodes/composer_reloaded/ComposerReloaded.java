@@ -8,7 +8,10 @@ import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.easytags.impl.DefaultSerializers;
+import org.lilbrocodes.composer_reloaded.api.events.composite.ComposerCompositeEvents;
+import org.lilbrocodes.composer_reloaded.api.events.composite.CompositeEventRegistry;
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
+import org.lilbrocodes.composer_reloaded.api.util.misc.AbstractPseudoRegistry;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
 import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;
 import org.lilbrocodes.composer_reloaded.common.networking.TargetBlockPayload;
@@ -41,6 +44,7 @@ public class ComposerReloaded implements ModInitializer {
             }
         }
 
+        ComposerCompositeEvents.initialize();
         ComposerBlockEntities.initialize();
         ComposerStatistics.initialize();
         ComposerItemGroups.initialize();
@@ -54,6 +58,8 @@ public class ComposerReloaded implements ModInitializer {
         TargetEntityPayload.registerHandler();
         TargetBlockPayload.registerHandler();
         ScrollActionPayload.registerHandler();
+
+        AbstractPseudoRegistry.identify(identify("composite_events"), CompositeEventRegistry.getInstance());
 
         ServerTickEvents.END_WORLD_TICK.register(AdvancementManager::tick);
     }
