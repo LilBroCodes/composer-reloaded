@@ -7,3 +7,20 @@ profile:
   name: qodana.starter
 projectJDK: "21"
 linter: jetbrains/qodana-jvm-community:2025.2
+include:
+  - name: JvmLinesOfCodeInspection
+  - name: InconsistentLineSeparators
+  - name: IncorrectFormatting
+  - name: InjectedReferences
+  - name: InjectedReferences
+  - name: QodanaJavaSanity
+  - name: ProblematicWhitespace
+  - name: TodoComment
+  - name: RedundantSuppression
+  - name: FeatureEnvy
+  - name: MagicNumber
+  - name: OverlyStrongTypeCast
+  - name: MethodOnlyUsedFromInnerClass
+  - name: StaticMethodOnlyUsedInOneClass
+  - name: TypeMayBeWeakened
+  - name: UseOfConcreteClass
