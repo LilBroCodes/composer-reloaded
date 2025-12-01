@@ -4,6 +4,7 @@ plugins {
     id 'com.modrinth.minotaur' version '2.+'
     id 'fabric-loom' version '1.10.2'
     id 'maven-publish'
+    id 'idea'
 }
 
 var build_num = providers.environmentVariable("GITHUB_RUN_NUMBER")
@@ -24,6 +25,7 @@ loom {
 }
 
 repositories {
+    mavenCentral()
     maven {
         name "Ladysnake [CCA]"
         url "https://maven.ladysnake.org/releases"
@@ -45,6 +47,11 @@ dependencies {
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:$cca_version"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:$cca_version"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:$cca_version"
+
+    testImplementation platform("org.junit:junit-bom:$junit_version")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation "org.mockito:mockito-core:$mockio_version"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
 processResources {
@@ -59,6 +66,13 @@ processResources {
                 "minecraft_version": minecraft_version,
                 "loader_version": loader_version,
                 "cca_version": cca_version
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
     }
 }
 
@@ -123,8 +137,4 @@ modrinth {
         required.project "cardinal-components-api"
         required.project "fzzy-config"
     }
-}
-
-tasks.named('generatePomFileForMavenJavaPublication') {
-    destination = file("pom.xml")
 }

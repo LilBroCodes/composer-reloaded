@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.client.render;
+package org.lilbrocodes.composer_reloaded.api.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.*;

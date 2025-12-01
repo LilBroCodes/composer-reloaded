@@ -5,13 +5,14 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "CampfireBlockEntityMixin",
+    "ItemStackMixin",
     "WorldMixin"
   ],
   "client": [
-    "PlayerInventoryMixin",
     "BlockRenderManagerAccessor",
     "GameRendererMixin",
     "MinecraftClientMixin",
+    "PlayerInventoryMixin",
     "duped_binds.GetBindsMixin",
     "duped_binds.RecolorKeybindMixin",
     "duped_binds.TriggerAllBindsMixin",

@@ -2,10 +2,10 @@ package org.lilbrocodes.composer_reloaded.api.velora.particle;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
+import org.lilbrocodes.composer_reloaded.api.render.ParticleRenderer;
 import org.lilbrocodes.composer_reloaded.api.util.Vec2;
 import org.lilbrocodes.composer_reloaded.api.util.builder.BuilderFields;
 import org.lilbrocodes.composer_reloaded.api.velora.VeloraParticleManager;
-import org.lilbrocodes.composer_reloaded.client.render.ParticleRenderer;
 
 import static org.lilbrocodes.composer_reloaded.api.util.Math.*;
 
