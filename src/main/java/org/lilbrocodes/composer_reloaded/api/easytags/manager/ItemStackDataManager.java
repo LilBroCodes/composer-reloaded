@@ -2,7 +2,6 @@ package org.lilbrocodes.composer_reloaded.api.easytags.manager;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import org.lilbrocodes.composer_reloaded.api.nbt.NbtProvider;
 import org.lilbrocodes.composer_reloaded.api.nbt.NbtSerializable;
 
 import java.util.HashMap;
@@ -36,17 +35,16 @@ public class ItemStackDataManager {
     }
 
     /**
-     * Retrieves deserialized data of the specified class from an {@link ItemStack}.
+     * Retrieves deserialized data of the specified class from an {@link NbtCompound}.
      *
-     * @param provider the item stack to read from
+     * @param tag   the tag to read from
      * @param clazz the class type of the data
      * @param <T>   the type of the data
      * @return an instance of the requested data type, or null if no data is present
      */
     @SuppressWarnings("unchecked")
-    public static <T> T get(NbtProvider provider, Class<T> clazz) {
-        NbtCompound tag = provider.composerReloaded$getOrCreateNbt().getCompound(clazz.getSimpleName());
-        return tag.isEmpty() ? null : ((Function<NbtCompound, T>) deserializers.get(clazz)).apply(tag);
+    public static <T> T get(NbtCompound tag, Class<T> clazz) {
+        return tag.isEmpty() ? null : ((Function<NbtCompound, T>) deserializers.get(clazz)).apply(tag.getCompound(clazz.getSimpleName()));
     }
 
     /**
@@ -55,12 +53,10 @@ public class ItemStackDataManager {
      * @param stack the {@link ItemStack} to read from
      * @param clazz the class type of the data
      * @param <T>   the type of the data
-     * @return an instance of the requested data type, or null if the stack does not implement {@link NbtProvider} or no data is present
+     * @return an instance of the requested data type, or null no data is present
      */
-    @SuppressWarnings("unchecked")
     public static <T> T get(ItemStack stack, Class<T> clazz) {
-        NbtCompound tag = stack.getOrCreateNbt().getCompound(clazz.getSimpleName());
-        return tag.isEmpty() ? null : ((Function<NbtCompound, T>) deserializers.get(clazz)).apply(tag);
+        return get(stack.getOrCreateNbt(), clazz);
     }
 
     /**
@@ -75,23 +71,21 @@ public class ItemStackDataManager {
      */
     public static <T extends NbtSerializable<T>> void save(ItemStack stack, T data) {
         NbtCompound root = stack.getOrCreateNbt();
-        root.put(data.getClass().getSimpleName(), data.writeNbt());
+        save(root, data);
         stack.setNbt(root);
     }
 
     /**
-     * Saves {@link NbtSerializable} data into the given {@link NbtProvider}.
+     * Saves {@link NbtSerializable} data into the given {@link NbtCompound}.
      * <p>
-     * The data is stored using the simple class name as the key in the provider's NBT compound.
+     * The data is stored using the simple class name as the key in the provided tag.
      * </p>
      *
-     * @param provider the provider to save data into
-     * @param data  the serializable data to save
-     * @param <T>   the type of the data
+     * @param tag  the nbt tag to save data into
+     * @param data the serializable data to save
+     * @param <T>  the type of the data
      */
-    public static <T extends NbtSerializable<T>> void save(NbtProvider provider, T data) {
-        NbtCompound root = provider.composerReloaded$getOrCreateNbt();
-        root.put(data.getClass().getSimpleName(), data.writeNbt());
-        provider.composerReloaded$setNbt(root);
+    public static <T extends NbtSerializable<T>> void save(NbtCompound tag, T data) {
+        tag.put(data.getClass().getSimpleName(), data.writeNbt());
     }
 }

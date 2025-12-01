@@ -4,7 +4,6 @@ import net.minecraft.nbt.NbtCompound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lilbrocodes.composer_reloaded.api.easytags.manager.ItemStackDataManager;
-import org.lilbrocodes.composer_reloaded.api.nbt.BasicNbtContainer;
 import org.lilbrocodes.composer_reloaded.api.nbt.NbtSerializable;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,16 +29,16 @@ class ItemStackDataManagerTest {
 
     @BeforeEach
     void setup() {
-        ItemStackDataManager.register(TestData.class, tag -> new TestData(tag.getInt("value")));
+        ItemStackDataManager.register(TestData.class, TestData::new);
     }
 
     @Test
     void testSaveAndGet() {
-        BasicNbtContainer provider = new BasicNbtContainer();
+        NbtCompound tag = new NbtCompound();
         TestData data = new TestData(42);
 
-        ItemStackDataManager.save(provider, data);
-        TestData retrieved = ItemStackDataManager.get(provider, TestData.class);
+        ItemStackDataManager.save(tag, data);
+        TestData retrieved = ItemStackDataManager.get(tag, TestData.class);
 
         assertNotNull(retrieved);
         assertEquals(42, retrieved.value);
@@ -47,8 +46,8 @@ class ItemStackDataManagerTest {
 
     @Test
     void testGetEmptyReturnsNull() {
-        BasicNbtContainer provider = new BasicNbtContainer();
-        TestData retrieved = ItemStackDataManager.get(provider, TestData.class);
+        NbtCompound tag = new NbtCompound();
+        TestData retrieved = ItemStackDataManager.get(tag, TestData.class);
         assertNull(retrieved);
     }
 }
