@@ -61,7 +61,7 @@ jobs:
           CLOUDSMITH_USERNAME: ${{ secrets.CLOUDSMITH_USERNAME }}
         run: |
           echo "Publishing to Cloudsmith..."
-          ./gradlew generatePomFileForMavenJavaPublication publish
+          ./gradlew publish
 
       - name: Publish to Modrinth
         if: github.event.inputs.target == 'modrinth' || github.event.inputs.target == 'both'
