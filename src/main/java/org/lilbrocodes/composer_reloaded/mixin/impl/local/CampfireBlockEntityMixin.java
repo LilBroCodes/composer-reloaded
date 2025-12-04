@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.mixin.impl;
+package org.lilbrocodes.composer_reloaded.mixin.impl.local;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.CampfireBlockEntity;

@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.mixin.impl;
+package org.lilbrocodes.composer_reloaded.mixin.impl.scroll;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.client.MinecraftClient;

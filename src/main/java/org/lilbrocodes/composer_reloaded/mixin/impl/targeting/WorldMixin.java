@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.mixin.impl;
+package org.lilbrocodes.composer_reloaded.mixin.impl.targeting;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.entity.EntityLookup;

@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.mixin.impl;
+package org.lilbrocodes.composer_reloaded.mixin.impl.render;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.DrawContext;

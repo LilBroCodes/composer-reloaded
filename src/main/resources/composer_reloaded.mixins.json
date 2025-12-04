@@ -4,17 +4,18 @@
   "package": "org.lilbrocodes.composer_reloaded.mixin.impl",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CampfireBlockEntityMixin",
-    "WorldMixin"
+    "datafix.ItemStackMixin",
+    "local.CampfireBlockEntityMixin",
+    "targeting.WorldMixin"
   ],
   "client": [
-    "BlockRenderManagerAccessor",
-    "GameRendererMixin",
-    "MinecraftClientMixin",
-    "PlayerInventoryMixin",
     "duped_binds.GetBindsMixin",
     "duped_binds.RecolorKeybindMixin",
     "duped_binds.TriggerAllBindsMixin",
+    "local.BlockRenderManagerAccessor",
+    "render.GameRendererMixin",
+    "scroll.PlayerInventoryMixin",
+    "targeting.MinecraftClientMixin",
     "velora.ParticleRenderHook"
   ],
   "injectors": {

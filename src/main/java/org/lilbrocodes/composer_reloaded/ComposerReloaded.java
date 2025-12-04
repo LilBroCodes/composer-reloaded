@@ -2,10 +2,12 @@ package org.lilbrocodes.composer_reloaded;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.easytags.impl.DefaultSerializers;
 import org.lilbrocodes.composer_reloaded.api.events.composite.ComposerCompositeEvents;
@@ -13,6 +15,7 @@ import org.lilbrocodes.composer_reloaded.api.events.composite.CompositeEventRegi
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.api.util.misc.AbstractPseudoRegistry;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
+import org.lilbrocodes.composer_reloaded.common.data.SimpleItemFixerLoader;
 import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;
 import org.lilbrocodes.composer_reloaded.common.networking.TargetBlockPayload;
 import org.lilbrocodes.composer_reloaded.common.networking.TargetEntityPayload;
@@ -59,6 +62,8 @@ public class ComposerReloaded implements ModInitializer {
         AbstractPseudoRegistry.identify(identify("composite_events"), CompositeEventRegistry.getInstance());
 
         ServerTickEvents.END_WORLD_TICK.register(AdvancementManager::tick);
+
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleItemFixerLoader());
     }
 
     public static boolean dupedBinds() {

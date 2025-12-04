@@ -62,4 +62,8 @@ public abstract class AbstractPseudoRegistry<V> {
     public static void identify(Identifier string, AbstractPseudoRegistry<?> registry) {
         identified.put(string, registry);
     }
+
+    public static class Impl<V> extends AbstractPseudoRegistry<V> {
+
+    }
 }
