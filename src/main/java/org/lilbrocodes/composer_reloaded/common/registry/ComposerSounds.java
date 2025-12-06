@@ -9,6 +9,6 @@ public class ComposerSounds {
     public static final SoundEvent LILBRO_SQUISH = REGISTRY.register("lilbro_squish");
 
     public static void initialize() {
-        REGISTRY.finalizeSounds();
+
     }
 }

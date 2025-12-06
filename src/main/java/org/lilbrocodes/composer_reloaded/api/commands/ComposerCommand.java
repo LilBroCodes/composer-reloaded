@@ -5,8 +5,10 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import org.lilbrocodes.composer_reloaded.api.util.Math;
 
 /**
  * Base class for implementing Minecraft commands with convenient utilities.
@@ -54,6 +56,7 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
     }
 
     /** Sends an error message to a command source. */
+    @SuppressWarnings("UnusedReturnValue")
     public int error(CommandContext<ServerCommandSource> src, Text message) {
         return feedback(src, message.copy().styled(style -> style.withColor(errorColor())), false);
     }
@@ -61,6 +64,16 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
     /** Sends an error message to a player. */
     public int error(PlayerEntity player, Text message) {
         return feedback(player, message.copy().styled(style -> style.withColor(errorColor())), false);
+    }
+
+    /** Sends a success message to a command source. */
+    public int success(CommandContext<ServerCommandSource> src, Text message) {
+        return feedback(src, message.copy().styled(style -> style.withColor(successColor())), true);
+    }
+
+    /** Sends a success message to a player. */
+    public int success(PlayerEntity player, Text message) {
+        return feedback(player, message.copy().styled(style -> style.withColor(successColor())), true);
     }
 
     /** Sends an informational message to a command source. */
@@ -126,6 +139,35 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
     /** Returns "true" or "false" styled appropriately for success/error. */
     public Text boolText(boolean value) {
         return value ? colored("true", successColor()) : colored("false", errorColor());
+    }
+
+    /**
+     * Generates a {@link Text} with the text value of the passed string, formatted with a gradient
+     * from and to the passed colors.
+     * @param text The text content
+     * @param startColor Start color for the gradient
+     * @param endColor End color for the gradient
+     * @return Formatted {@link Text}
+     */
+    public static Text createGradient(String text, int startColor, int endColor) {
+        MutableText out = Text.literal("");
+        int len = text.length();
+
+        if (len == 0) return out;
+
+        for (int i = 0; i < len; i++) {
+            double t = len == 1 ? 0.0 : (double) i / (len - 1);
+
+            int color = Math.lerpColor(startColor, endColor, t);
+            char c = text.charAt(i);
+
+            out.append(
+                    Text.literal(String.valueOf(c))
+                            .setStyle(Style.EMPTY.withColor(color))
+            );
+        }
+
+        return out;
     }
 
     /** Default error color. */

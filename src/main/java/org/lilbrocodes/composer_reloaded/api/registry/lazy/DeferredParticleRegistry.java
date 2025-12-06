@@ -8,12 +8,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-@SuppressWarnings("ClassCanBeRecord")
-public class DeferredParticleRegistry {
-    private final String modId;
-
+public class DeferredParticleRegistry extends EmptyDeferredRegistry {
     public DeferredParticleRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public <T extends ParticleEffect> ParticleType<T> register(

@@ -5,12 +5,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-@SuppressWarnings("ClassCanBeRecord")
-public class DeferredBlockRegistry {
-    private final String modId;
-
+public class DeferredBlockRegistry extends EmptyDeferredRegistry {
     public DeferredBlockRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public <T extends Block> T register(String name, T block) {

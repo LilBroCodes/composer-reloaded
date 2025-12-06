@@ -8,12 +8,9 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
-@SuppressWarnings("ClassCanBeRecord")
-public class DeferredScreenRegistry {
-    private final String modId;
-
+public class DeferredScreenRegistry extends EmptyDeferredRegistry {
     public DeferredScreenRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public <T extends ScreenHandler> ScreenHandlerType<T> register(String name, ScreenHandlerType.Factory<T> factory) {

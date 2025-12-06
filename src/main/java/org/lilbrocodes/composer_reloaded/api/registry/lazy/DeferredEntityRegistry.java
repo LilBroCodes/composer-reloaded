@@ -7,12 +7,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-@SuppressWarnings("ClassCanBeRecord")
-public class DeferredEntityRegistry {
-    private final String modId;
-
+public class DeferredEntityRegistry extends EmptyDeferredRegistry {
     public DeferredEntityRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public <T extends Entity> EntityType<T> register(String name, EntityType<T> type) {

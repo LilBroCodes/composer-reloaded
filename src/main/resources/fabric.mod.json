@@ -34,6 +34,9 @@
     "cardinal-components": [
       "composer_reloaded:targeted_block",
       "composer_reloaded:targeted_entity"
+    ],
+    "composer-features": [
+      []
     ]
   }
 }

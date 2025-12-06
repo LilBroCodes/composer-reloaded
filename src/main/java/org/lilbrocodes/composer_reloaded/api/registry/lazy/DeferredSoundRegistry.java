@@ -8,21 +8,20 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeferredSoundRegistry {
-    private final String modId;
+public class DeferredSoundRegistry extends EmptyDeferredRegistry {
     private final List<SoundEvent> sounds = new ArrayList<>();
 
     public DeferredSoundRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public SoundEvent register(String name) {
         SoundEvent soundEvent = SoundEvent.of(Identifier.of(modId, name));
-        sounds.add(soundEvent);
-        return soundEvent;
+        return Registry.register(Registries.SOUND_EVENT, soundEvent.getId(), soundEvent);
     }
 
+    @Deprecated(since = "1.7", forRemoval = true)
     public void finalizeSounds() {
-        sounds.forEach(soundEvent -> Registry.register(Registries.SOUND_EVENT, soundEvent.getId(), soundEvent));
+
     }
 }

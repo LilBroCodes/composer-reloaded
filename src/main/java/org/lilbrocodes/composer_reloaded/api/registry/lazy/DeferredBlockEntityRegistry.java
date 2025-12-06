@@ -9,12 +9,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 
-@SuppressWarnings("ClassCanBeRecord")
-public class DeferredBlockEntityRegistry {
-    private final String modId;
-
+public class DeferredBlockEntityRegistry extends EmptyDeferredRegistry {
     public DeferredBlockEntityRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public final <T extends BlockEntity> BlockEntityType<T> register(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {

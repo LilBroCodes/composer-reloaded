@@ -14,13 +14,12 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeferredItemRegistry {
-    private final String modId;
+public class DeferredItemRegistry extends EmptyDeferredRegistry {
     private final RegistryKey<ItemGroup> itemGroupKey;
     private final List<Item> registeredItems = new ArrayList<>();
 
     public DeferredItemRegistry(String modId, RegistryKey<ItemGroup> itemGroupKey) {
-        this.modId = modId;
+        super(modId);
         this.itemGroupKey = itemGroupKey;
     }
 

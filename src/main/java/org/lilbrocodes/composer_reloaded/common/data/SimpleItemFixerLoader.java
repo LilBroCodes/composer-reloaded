@@ -6,8 +6,6 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.api.datafix.DataFixerRegistry;
 import org.lilbrocodes.composer_reloaded.api.datafix.impl.SimpleItemFixer;
@@ -15,8 +13,9 @@ import org.lilbrocodes.composer_reloaded.api.datafix.impl.SimpleItemFixer;
 import java.io.InputStreamReader;
 import java.util.Map;
 
+import static com.mojang.text2speech.Narrator.LOGGER;
+
 public class SimpleItemFixerLoader implements SimpleSynchronousResourceReloadListener {
-    public static final Logger LOGGER = LogManager.getLogger(ComposerReloaded.class);
     private static final Identifier ID = ComposerReloaded.identify("simple_item_fixer");
 
     @Override

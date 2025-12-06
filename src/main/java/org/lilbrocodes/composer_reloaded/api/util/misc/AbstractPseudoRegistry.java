@@ -1,6 +1,7 @@
 package org.lilbrocodes.composer_reloaded.api.util.misc;
 
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
@@ -16,11 +17,13 @@ public abstract class AbstractPseudoRegistry<V> {
     protected AbstractPseudoRegistry() {
         this.values = new HashMap<>();
         this.fileValues = new HashMap<>();
+        registerDefaults();
     }
 
-    public void register(Identifier id, V value) {
+    public V register(Identifier id, V value) {
         values.put(id, value);
         if (loadingFiles) fileValues.put(id, value);
+        return value;
     }
 
     public void setLoadingFiles() {
@@ -41,6 +44,18 @@ public abstract class AbstractPseudoRegistry<V> {
 
     public Map<Identifier, V> getAllFileLoadedValues() {
         return fileValues;
+    }
+
+    protected void registerDefaults() {
+
+    }
+
+    protected void afterInitialization(MinecraftServer server) {
+
+    }
+
+    public static void runAfterInit(MinecraftServer server) {
+        identified.values().forEach(reg -> reg.afterInitialization(server));
     }
 
     public void clear() {

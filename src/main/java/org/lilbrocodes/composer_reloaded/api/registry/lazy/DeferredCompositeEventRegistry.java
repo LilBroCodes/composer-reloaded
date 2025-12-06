@@ -7,12 +7,9 @@ import org.lilbrocodes.composer_reloaded.api.events.composite.CompositeEventRegi
 
 import java.util.function.Function;
 
-@SuppressWarnings("ClassCanBeRecord")
-public class DeferredCompositeEventRegistry {
-    private final String modId;
-
+public class DeferredCompositeEventRegistry extends EmptyDeferredRegistry {
     public DeferredCompositeEventRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public Identifier register(String path, Function<JsonObject, CompositeEvent> reader) {

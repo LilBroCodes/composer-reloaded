@@ -9,12 +9,9 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
-@SuppressWarnings("ClassCanBeRecord")
-public class DeferredPotionRegistry {
-    private final String modId;
-
+public class DeferredPotionRegistry extends EmptyDeferredRegistry {
     public DeferredPotionRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public <T extends Potion> T register(String name, T potion) {

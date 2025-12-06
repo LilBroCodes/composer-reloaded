@@ -11,12 +11,9 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("ClassCanBeRecord")
-public class DeferredItemGroupRegistry {
-    private final String modId;
-
+public class DeferredItemGroupRegistry extends EmptyDeferredRegistry {
     public DeferredItemGroupRegistry(String modId) {
-        this.modId = modId;
+        super(modId);
     }
 
     public RegistryKey<ItemGroup> registerItemGroup(String name, Supplier<ItemStack> iconSupplier) {
