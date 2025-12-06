@@ -13,6 +13,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.stat.StatType;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.feature.FeatureHandle;
+import org.lilbrocodes.composer_reloaded.api.registry.lazy.feature.Feature;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -20,7 +21,7 @@ import java.nio.file.Path;
 public abstract class ComposerLanguageProvider extends FabricLanguageProvider {
     protected TranslationBuilder builder;
 
-    protected ComposerLanguageProvider(FabricDataOutput dataOutput) {
+    public ComposerLanguageProvider(FabricDataOutput dataOutput) {
         super(dataOutput);
     }
 
@@ -36,6 +37,10 @@ public abstract class ComposerLanguageProvider extends FabricLanguageProvider {
 
     public void add(FeatureHandle feature, String translation) {
         if (feature.id() != null) add(feature.id().toTranslationKey("composer_reloaded.feature.description"), translation);
+    }
+
+    public void add(Feature feature, String translation) {
+        add(feature.getHandle(), translation);
     }
 
     // Vanilla redirect

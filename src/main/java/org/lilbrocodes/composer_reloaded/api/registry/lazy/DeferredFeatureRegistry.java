@@ -23,6 +23,10 @@ public class DeferredFeatureRegistry extends EmptyDeferredRegistry {
         return hang(name, b -> b.defaultEnabled(def));
     }
 
+    public Feature hang(String name) {
+        return hang(name, true);
+    }
+
     public FeatureGroup hangGroup(Hanging... groups) {
         FeatureGroup group = new FeatureGroup();
         for (Hanging g : groups) group.addAll(g);
@@ -47,13 +51,25 @@ public class DeferredFeatureRegistry extends EmptyDeferredRegistry {
         return newGroup;
     }
 
-    public FeatureHandle bunch(FinalizedFeatureGroup group) {
+    public FeatureHandle bunch(FinalizedFeatureGroup group, Consumer<FeatureBuilder> builder) {
         String rootPath = group.getRootPath();
-        FeatureHandle groupHandle = ComposerFeatures.register(modId, rootPath, b -> {
-            // Optionally you could propagate child configs here if needed
-        });
+        FeatureHandle groupHandle = ComposerFeatures.register(modId, rootPath, builder);
         group.setGroupHandle(groupHandle);
         return groupHandle;
+    }
+
+    public FeatureHandle registerGroup(String groupPath, Hanging... groups) {
+        return registerGroup(groupPath, b -> {}, groups); // Use default builder
+    }
+
+    public FeatureHandle registerGroup(String groupPath, Consumer<FeatureBuilder> groupBuilder, Hanging... groups) {
+        FeatureGroup tempGroup = hangGroup(groups);
+        FinalizedFeatureGroup finalizedGroup = grab(tempGroup, groupPath);
+        return bunch(finalizedGroup, groupBuilder);
+    }
+
+    public FeatureHandle registerGroup(String groupPath, boolean defaultEnabled, Hanging... groups) {
+        return registerGroup(groupPath, b -> b.defaultEnabled(defaultEnabled), groups);
     }
 
     public FeatureHandle register(String path, Consumer<FeatureBuilder> builder) {
