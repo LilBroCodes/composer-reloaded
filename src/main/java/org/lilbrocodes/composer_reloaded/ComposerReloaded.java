@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import org.lilbrocodes.composer_reloaded.api.easytags.impl.DefaultSerializers;
 import org.lilbrocodes.composer_reloaded.api.events.composite.ComposerCompositeEvents;
 import org.lilbrocodes.composer_reloaded.api.events.composite.CompositeEventRegistry;
-import org.lilbrocodes.composer_reloaded.api.feature.Features;
+import org.lilbrocodes.composer_reloaded.api.feature.ComposerFeatures;
 import org.lilbrocodes.composer_reloaded.api.runtime.ServerHolder;
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.api.util.misc.AbstractPseudoRegistry;
@@ -58,38 +58,8 @@ public class ComposerReloaded implements ModInitializer {
             String modId = meta.getId();
             CustomValue section = meta.getCustomValue("composer-features");
 
-            if (section == null) continue;
-            if (section.getType() != CustomValue.CvType.ARRAY) {
-                throw new InvalidMetadataException("Feature array in mod %s is not an array".formatted(modId));
-            }
-
-            CustomValue.CvArray features = section.getAsArray();
-
-            for (CustomValue entry : features) {
-                if (entry.getType() != CustomValue.CvType.OBJECT) {
-                    throw new InvalidMetadataException("Feature entry in mod %s is not an object".formatted(modId));
-                }
-
-                CustomValue.CvObject obj = entry.getAsObject();
-
-                CustomValue id = obj.get("id");
-                if (id == null || id.getType() != CustomValue.CvType.STRING) {
-                    throw new InvalidMetadataException("Feature entry in mod %s is missing a string 'id' field".formatted(modId));
-                }
-
-                boolean defaultEnabled = true;
-                CustomValue def = obj.get("default");
-                if (def != null) {
-                    if (def.getType() != CustomValue.CvType.BOOLEAN) {
-                        throw new InvalidMetadataException("Feature '%s' in mod %s has a non-boolean 'default'".formatted(id.getAsString(), modId));
-                    }
-                    defaultEnabled = def.getAsBoolean();
-                }
-
-                Identifier ident = new Identifier(modId, id.getAsString());
-                Features.register(ident, defaultEnabled);
-                LOGGER.info("Registered feature '{}' for mod '{}'.", ident.getPath(), modId);
-            }
+            if (section != null && section.getType() == CustomValue.CvType.ARRAY)
+                throw new InvalidMetadataException("Mod " + modId + " is using the deprecated feature registration system. Update the mod, contact the developer or downgrade composer if possible.");
         }
 
         ComposerCompositeEvents.initialize();
@@ -99,6 +69,7 @@ public class ComposerReloaded implements ModInitializer {
         ComposerItems.initialize();
         ComposerBlocks.initialize();
         ComposerSounds.initialize();
+        org.lilbrocodes.composer_reloaded.common.registry.ComposerFeatures.initialize();
 
         ComposerConfig.initialize();
         ComposerRegistries.initialize();
@@ -110,11 +81,11 @@ public class ComposerReloaded implements ModInitializer {
         CommandRegistrationCallback.EVENT.register(new FeatureCommand());
 
         AbstractPseudoRegistry.identify(identify("composite_events"), CompositeEventRegistry.getInstance());
-        AbstractPseudoRegistry.identify(identify("features"), Features.getInstance());
 
         ServerTickEvents.END_WORLD_TICK.register(AdvancementManager::tick);
         ServerLifecycleEvents.SERVER_STARTED.register(ServerHolder::accept);
         ServerLifecycleEvents.SERVER_STARTED.register(AbstractPseudoRegistry::runAfterInit);
+        ServerLifecycleEvents.SERVER_STARTED.register(ComposerFeatures.getInstance()::afterInitialization);
 
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleItemFixerLoader());
     }

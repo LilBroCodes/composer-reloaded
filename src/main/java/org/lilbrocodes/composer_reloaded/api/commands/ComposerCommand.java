@@ -58,22 +58,42 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
     /** Sends an error message to a command source. */
     @SuppressWarnings("UnusedReturnValue")
     public int error(CommandContext<ServerCommandSource> src, Text message) {
-        return feedback(src, message.copy().styled(style -> style.withColor(errorColor())), false);
+        return feedback(src, styled(message.copy(), style -> style.withColor(errorColor())), false);
     }
 
     /** Sends an error message to a player. */
     public int error(PlayerEntity player, Text message) {
-        return feedback(player, message.copy().styled(style -> style.withColor(errorColor())), false);
+        return feedback(player, styled(message.copy(), style -> style.withColor(errorColor())), false);
     }
 
     /** Sends a success message to a command source. */
     public int success(CommandContext<ServerCommandSource> src, Text message) {
-        return feedback(src, message.copy().styled(style -> style.withColor(successColor())), true);
+        return feedback(src, styled(message.copy(), style -> style.withColor(successColor())), true);
     }
 
     /** Sends a success message to a player. */
     public int success(PlayerEntity player, Text message) {
-        return feedback(player, message.copy().styled(style -> style.withColor(successColor())), true);
+        return feedback(player, styled(message.copy(), style -> style.withColor(successColor())), true);
+    }
+
+    /** Sends a warning message to a command source. */
+    public int warn(CommandContext<ServerCommandSource> src, Text message) {
+        return feedback(src, styled(message.copy(), style -> style.withColor(warnColor())), true);
+    }
+
+    /** Sends a warning message to a player. */
+    public int warn(PlayerEntity player, Text message) {
+        return feedback(player, styled(message.copy(), style -> style.withColor(warnColor())), true);
+    }
+
+    /** Sends a highlighted message to a command source. */
+    public int highlight(CommandContext<ServerCommandSource> src, Text message) {
+        return feedback(src, styled(message.copy(), style -> style.withColor(highlightColor())), true);
+    }
+
+    /** Sends a highlighted message to a player. */
+    public int highlight(PlayerEntity player, Text message) {
+        return feedback(player, styled(message.copy(), style -> style.withColor(highlightColor())), true);
     }
 
     /** Sends an informational message to a command source. */
@@ -103,19 +123,24 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
         return Text.literal(msg).styled(s -> s.withColor(color));
     }
 
-    /** Convenience for success-colored text. */
+    /** Convenience for success text. */
     public Text success(String msg) {
         return colored(msg, successColor());
     }
 
-    /** Convenience for warning-colored text. */
+    /** Convenience for warning text. */
     public Text warning(String msg) {
         return colored(msg, warnColor());
     }
 
-    /** Convenience for error-colored text. */
+    /** Convenience for error text. */
     public Text error(String msg) {
         return colored(msg, errorColor());
+    }
+
+    /** Convenience for highlighted text */
+    public Text highlight(String msg) {
+        return colored(msg, highlightColor());
     }
 
     /** Appends the command prefix to a text message. */
@@ -188,6 +213,11 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
     /** Default bracket color. */
     protected int bracketsColor() {
         return 0xAAAAAA;
+    }
+
+    /** Default highlight color. */
+    protected int highlightColor() {
+        return 0xffaa00;
     }
 
     /**

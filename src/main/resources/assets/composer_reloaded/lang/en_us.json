@@ -5,5 +5,9 @@
   "composer_reloaded.binds_mode.NONE": "None",
   "composer_reloaded.binds_mode.MC_AND_CM": "Vanilla & LilBroCodes' mods",
   "composer_reloaded.binds_mode.ALL": "All",
-  "composer_reloaded.squish": "Plush Booped"
+  "composer_reloaded.squish": "Plush Booped",
+  "composer_reloaded.feature.enable": "Enabled feature %s",
+  "composer_reloaded.feature.disable": "Disabled feature %s",
+  "composer_reloaded.feature.missing": "Unknown feature %s",
+  "composer_reloaded.feature.description.missing": "No description was provided."
 }

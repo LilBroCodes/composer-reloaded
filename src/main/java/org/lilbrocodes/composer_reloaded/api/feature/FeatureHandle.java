@@ -1,0 +1,88 @@
+package org.lilbrocodes.composer_reloaded.api.feature;
+
+import com.google.gson.JsonElement;
+import net.minecraft.util.Identifier;
+import org.lilbrocodes.composer_reloaded.api.feature.config.BooleanConfigSerializer;
+import org.lilbrocodes.composer_reloaded.api.feature.config.DoubleConfigSerializer;
+import org.lilbrocodes.composer_reloaded.api.feature.config.IntConfigSerializer;
+import org.lilbrocodes.composer_reloaded.api.feature.config.StringConfigSerializer;
+import org.lilbrocodes.composer_reloaded.api.feature.state.FeatureState;
+import org.lilbrocodes.composer_reloaded.api.nbt.GsonSerializer;
+import org.lilbrocodes.composer_reloaded.api.runtime.ServerHolder;
+
+import java.util.Optional;
+
+public class FeatureHandle {
+    private final FeatureNode node;
+
+    public FeatureHandle(FeatureNode node) { this.node = node; }
+
+    public Identifier id() { return node.id(); }
+
+    public boolean enabled() {
+        for (FeatureHandle group : ComposerFeatures.getInstance().getGroupsContaining(this)) {
+            if (!group.enabled()) return false;
+        }
+
+        if (ServerHolder.has()) {
+            FeatureState state = ServerHolder.features();
+            Boolean v = state.getEnabled(id().toString());
+            if (v != null) return v;
+        }
+
+        FeatureNode cur = node;
+        while (cur != null) {
+            if (cur.defaultEnabled() != null) return cur.defaultEnabled();
+            cur = cur.parent();
+        }
+
+        return true;
+    }
+
+
+    private Optional<FeatureNode.ConfigDefault<?>> findInheritedDefault(String key) {
+        return node.findConfigDefaultInherited(key);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getConfig(String key, GsonSerializer<T> serializer, Class<T> cls) {
+        if (ServerHolder.has()) {
+            FeatureState state = ServerHolder.features();
+            JsonElement val = state.getConfigValue(id().toString(), key, null);
+            if (val != null) {
+                return serializer.read(val);
+            }
+        }
+
+        Optional<FeatureNode.ConfigDefault<?>> cd = findInheritedDefault(key);
+        return cd.map(configDefault -> (T) configDefault.defaultValue).orElse(null);
+    }
+
+    public Object getConfigAny(String key) {
+        Optional<FeatureNode.ConfigDefault<?>> cd = findInheritedDefault(key);
+        if (ServerHolder.has()) {
+            FeatureState state = FeatureState.get(ServerHolder.getServer());
+            JsonElement val = state.getConfigValue(id().toString(), key, null);
+            if (val != null && cd.isPresent()) {
+                return cd.get().serializer.read(val);
+            }
+        }
+        return cd.map(cd2 -> cd2.defaultValue).orElse(null);
+    }
+
+    public <T> void setConfig(String key, GsonSerializer<T> serializer, T value) {
+        if (ServerHolder.has()) {
+            FeatureState state = ServerHolder.features();
+            state.setConfigValue(id().toString(), key, serializer.writeToJson(value));
+        }
+    }
+
+    public FeatureNode node() { return node; }
+
+    public boolean group() { return node == null; }
+
+    public Double getDouble(String key) { return getConfig(key, DoubleConfigSerializer.INSTANCE, Double.class); }
+    public Integer getInt(String key) { return getConfig(key, IntConfigSerializer.INSTANCE, Integer.class); }
+    public Boolean getBoolean(String key) { return getConfig(key, BooleanConfigSerializer.INSTANCE, Boolean.class); }
+    public String getString(String key) { return getConfig(key, StringConfigSerializer.INSTANCE, String.class); }
+}
