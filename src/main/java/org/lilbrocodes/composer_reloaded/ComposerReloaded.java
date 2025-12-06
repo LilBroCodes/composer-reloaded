@@ -20,6 +20,7 @@ import org.lilbrocodes.composer_reloaded.api.feature.ComposerFeatures;
 import org.lilbrocodes.composer_reloaded.api.runtime.ServerHolder;
 import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.api.util.misc.AbstractPseudoRegistry;
+import org.lilbrocodes.composer_reloaded.api.util.misc.EventStacker;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
 import org.lilbrocodes.composer_reloaded.common.data.SimpleItemFixerLoader;
 import org.lilbrocodes.composer_reloaded.common.except.InvalidMetadataException;
@@ -69,7 +70,6 @@ public class ComposerReloaded implements ModInitializer {
         ComposerItems.initialize();
         ComposerBlocks.initialize();
         ComposerSounds.initialize();
-        org.lilbrocodes.composer_reloaded.common.registry.ComposerFeatures.initialize();
 
         ComposerConfig.initialize();
         ComposerRegistries.initialize();
@@ -83,9 +83,12 @@ public class ComposerReloaded implements ModInitializer {
         AbstractPseudoRegistry.identify(identify("composite_events"), CompositeEventRegistry.getInstance());
 
         ServerTickEvents.END_WORLD_TICK.register(AdvancementManager::tick);
-        ServerLifecycleEvents.SERVER_STARTED.register(ServerHolder::accept);
-        ServerLifecycleEvents.SERVER_STARTED.register(AbstractPseudoRegistry::runAfterInit);
-        ServerLifecycleEvents.SERVER_STARTED.register(ComposerFeatures.getInstance()::afterInitialization);
+        EventStacker.registerAll(
+                ServerLifecycleEvents.SERVER_STARTED,
+                ServerHolder::accept,
+                AbstractPseudoRegistry::runAfterInit,
+                ComposerFeatures.getInstance()::afterInitialization
+        );
 
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleItemFixerLoader());
     }
