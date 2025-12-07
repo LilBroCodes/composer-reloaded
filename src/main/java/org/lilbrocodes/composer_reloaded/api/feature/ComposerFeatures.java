@@ -48,10 +48,6 @@ public class ComposerFeatures {
         return getInstance().registerInternal(namespace, path, block);
     }
 
-    public static FeatureHandle group(String namespace, String path, Consumer<FeatureBuilder> block) {
-        return getInstance().registerInternal(namespace, path, block);
-    }
-
     private FeatureHandle registerInternal(String namespace, String path, Consumer<FeatureBuilder> block) {
         FeatureNode root = ensureNamespaceRoot(namespace);
 
@@ -70,13 +66,12 @@ public class ComposerFeatures {
 
             if (next == null) {
                 next = cur.child(p, nodeId);
-
-                FeatureBuilder builder = new FeatureBuilder(next);
-                if (fullPath.equals(path)) {
-                    block.accept(builder);
-                }
-
                 flatIndex.put(nodeId, next);
+            }
+
+            if (running.toString().equals(path)) {
+                FeatureBuilder builder = new FeatureBuilder(next);
+                block.accept(builder);
             }
 
             cur = next;
@@ -84,7 +79,6 @@ public class ComposerFeatures {
 
         return new FeatureHandle(cur);
     }
-
 
     public static FeatureHandle get(Identifier id) {
         FeatureNode node = getInstance().flatIndex.get(id);

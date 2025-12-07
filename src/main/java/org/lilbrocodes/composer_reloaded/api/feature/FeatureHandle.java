@@ -61,7 +61,7 @@ public class FeatureHandle {
     public Object getConfigAny(String key) {
         Optional<FeatureNode.ConfigDefault<?>> cd = findInheritedDefault(key);
         if (ServerHolder.has()) {
-            FeatureState state = FeatureState.get(ServerHolder.getServer());
+            FeatureState state = ServerHolder.features();
             JsonElement val = state.getConfigValue(id().toString(), key, null);
             if (val != null && cd.isPresent()) {
                 return cd.get().serializer.read(val);
