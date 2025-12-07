@@ -5,9 +5,11 @@ import org.lilbrocodes.composer_reloaded.api.feature.state.FeatureState;
 
 public class ServerHolder {
     private static MinecraftServer server;
+    private static FeatureState cachedFeatures;
 
     public static void accept(MinecraftServer s) {
         server = s;
+        reloadFeatures();
     }
 
     public static MinecraftServer getServer() {
@@ -19,7 +21,17 @@ public class ServerHolder {
     }
 
     public static FeatureState features() {
-        return FeatureState.get(server);
+        if (server == null) throw new IllegalStateException("Server not initialized");
+
+        if (cachedFeatures == null) {
+            cachedFeatures = FeatureState.get(server);
+        }
+        return cachedFeatures;
+    }
+
+    public static void reloadFeatures() {
+        if (server != null) {
+            cachedFeatures = FeatureState.get(server);
+        }
     }
 }
-

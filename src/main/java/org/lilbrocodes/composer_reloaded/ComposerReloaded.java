@@ -22,6 +22,7 @@ import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.api.util.misc.AbstractPseudoRegistry;
 import org.lilbrocodes.composer_reloaded.api.util.misc.EventStacker;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
+import org.lilbrocodes.composer_reloaded.common.data.FeatureStateLoader;
 import org.lilbrocodes.composer_reloaded.common.data.SimpleItemFixerLoader;
 import org.lilbrocodes.composer_reloaded.common.except.InvalidMetadataException;
 import org.lilbrocodes.composer_reloaded.common.feature.FeatureCommand;
@@ -91,6 +92,7 @@ public class ComposerReloaded implements ModInitializer {
         );
 
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleItemFixerLoader());
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new FeatureStateLoader());
     }
 
     public static boolean dupedBinds() {
