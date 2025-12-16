@@ -2,10 +2,12 @@ package org.lilbrocodes.composer_reloaded.api.toast;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.util.StringIdentifiable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class ToastManager {
     private final HashMap<Corner, List<AbstractToast>> toastMap = new HashMap<>();
@@ -84,10 +86,17 @@ public class ToastManager {
     }
 
     public void clear() {
-        toastMap.clear();
+        toastMap.values().forEach(List::clear);
     }
 
-    public enum Corner {
-        TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+    public enum Corner implements StringIdentifiable {
+        TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT;
+
+        public static final com.mojang.serialization.Codec<Corner> CODEC = StringIdentifiable.createCodec(Corner::values);
+
+        @Override
+        public String asString() {
+            return name().toLowerCase(Locale.ROOT);
+        }
     }
 }

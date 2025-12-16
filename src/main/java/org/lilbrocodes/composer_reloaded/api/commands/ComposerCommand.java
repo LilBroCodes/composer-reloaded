@@ -167,16 +167,16 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
     }
 
     /**
-     * Generates a {@link Text} with the text value of the passed string, formatted with a gradient
+     * Generates a {@link Text} with the text value of the passed Text object, formatted with a gradient
      * from and to the passed colors.
      * @param text The text content
      * @param startColor Start color for the gradient
      * @param endColor End color for the gradient
      * @return Formatted {@link Text}
      */
-    public static Text createGradient(String text, int startColor, int endColor) {
-        MutableText out = Text.literal("");
-        int len = text.length();
+    public static Text createGradient(Text text, int startColor, int endColor) {
+        MutableText out = Text.literal("").copy();
+        int len = text.getString().length();
 
         if (len == 0) return out;
 
@@ -184,7 +184,7 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
             double t = len == 1 ? 0.0 : (double) i / (len - 1);
 
             int color = Math.lerpColor(startColor, endColor, t);
-            char c = text.charAt(i);
+            char c = text.getString().charAt(i);
 
             out.append(
                     Text.literal(String.valueOf(c))
@@ -193,6 +193,18 @@ public abstract class ComposerCommand implements CommandRegistrationCallback {
         }
 
         return out;
+    }
+
+    /**
+     * Generates a {@link Text} with the text value of the passed string, formatted with a gradient
+     * from and to the passed colors.
+     * @param text The text content
+     * @param startColor Start color for the gradient
+     * @param endColor End color for the gradient
+     * @return Formatted {@link Text}
+     */
+    public static Text createGradient(String text, int startColor, int endColor) {
+        return createGradient(Text.literal(text), startColor, endColor);
     }
 
     /** Default error color. */

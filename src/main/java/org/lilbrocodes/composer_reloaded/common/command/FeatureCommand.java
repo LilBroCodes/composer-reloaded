@@ -1,4 +1,4 @@
-package org.lilbrocodes.composer_reloaded.common.feature;
+package org.lilbrocodes.composer_reloaded.common.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -45,7 +45,7 @@ public class FeatureCommand extends ComposerCommand {
 
     @Override
     protected Text buildPrefix() {
-        return wrapBrackets(createGradient("Composer", 0xffaa00, 0xffff55));
+        return wrapBrackets(createGradient(Text.translatable("composer_reloaded.feature.prefix"), 0xffaa00, 0xffff55));
     }
 
     private CompletableFuture<Suggestions> mods(CommandContext<ServerCommandSource> ctx, SuggestionsBuilder b) {

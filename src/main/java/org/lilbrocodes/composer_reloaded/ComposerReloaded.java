@@ -22,13 +22,12 @@ import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
 import org.lilbrocodes.composer_reloaded.api.util.misc.AbstractPseudoRegistry;
 import org.lilbrocodes.composer_reloaded.api.util.misc.EventStacker;
 import org.lilbrocodes.composer_reloaded.client.config.ComposerConfig;
+import org.lilbrocodes.composer_reloaded.common.command.FeatureCommand;
+import org.lilbrocodes.composer_reloaded.common.command.ToastCommand;
 import org.lilbrocodes.composer_reloaded.common.data.FeatureStateLoader;
 import org.lilbrocodes.composer_reloaded.common.data.SimpleItemFixerLoader;
 import org.lilbrocodes.composer_reloaded.common.except.InvalidMetadataException;
-import org.lilbrocodes.composer_reloaded.common.feature.FeatureCommand;
-import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;
-import org.lilbrocodes.composer_reloaded.common.networking.TargetBlockPayload;
-import org.lilbrocodes.composer_reloaded.common.networking.TargetEntityPayload;
+import org.lilbrocodes.composer_reloaded.common.networking.*;
 import org.lilbrocodes.composer_reloaded.common.registry.*;
 
 
@@ -66,6 +65,7 @@ public class ComposerReloaded implements ModInitializer {
 
         ComposerCompositeEvents.initialize();
         ComposerBlockEntities.initialize();
+        ComposerArgumentTypes.initialize();
         ComposerStatistics.initialize();
         ComposerItemGroups.initialize();
         ComposerItems.initialize();
@@ -75,11 +75,19 @@ public class ComposerReloaded implements ModInitializer {
         ComposerConfig.initialize();
         ComposerRegistries.initialize();
         DefaultSerializers.initialize();
+
         TargetEntityPayload.registerHandler();
         TargetBlockPayload.registerHandler();
         ScrollActionPayload.registerHandler();
+        ClearToastsPayload.registerHandler();
+        NotifyToastPayload.registerHandler();
+        SimpleToastPayload.registerHandler();
 
-        CommandRegistrationCallback.EVENT.register(new FeatureCommand());
+        EventStacker.registerAll(
+                CommandRegistrationCallback.EVENT,
+                new FeatureCommand(),
+                new ToastCommand()
+        );
 
         AbstractPseudoRegistry.identify(identify("composite_events"), CompositeEventRegistry.getInstance());
 

@@ -19,4 +19,12 @@ public class PredicateVoid {
     public static Object obj(Object... v) {
         return null;
     }
+
+    public static boolean always(Object obj) {
+        return true;
+    }
+
+    public static boolean never(Object obj) {
+        return false;
+    }
 }
