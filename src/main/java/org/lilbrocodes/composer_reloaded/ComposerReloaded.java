@@ -27,7 +27,9 @@ import org.lilbrocodes.composer_reloaded.common.command.ToastCommand;
 import org.lilbrocodes.composer_reloaded.common.data.FeatureStateLoader;
 import org.lilbrocodes.composer_reloaded.common.data.SimpleItemFixerLoader;
 import org.lilbrocodes.composer_reloaded.common.except.InvalidMetadataException;
-import org.lilbrocodes.composer_reloaded.common.networking.*;
+import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;
+import org.lilbrocodes.composer_reloaded.common.networking.TargetBlockPayload;
+import org.lilbrocodes.composer_reloaded.common.networking.TargetEntityPayload;
 import org.lilbrocodes.composer_reloaded.common.registry.*;
 
 
@@ -79,9 +81,6 @@ public class ComposerReloaded implements ModInitializer {
         TargetEntityPayload.registerHandler();
         TargetBlockPayload.registerHandler();
         ScrollActionPayload.registerHandler();
-        ClearToastsPayload.registerHandler();
-        NotifyToastPayload.registerHandler();
-        SimpleToastPayload.registerHandler();
 
         EventStacker.registerAll(
                 CommandRegistrationCallback.EVENT,
