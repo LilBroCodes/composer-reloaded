@@ -24,6 +24,7 @@ public class ToastDrawUtils {
     }
 
     public static void drawCenteredLines(DrawContext context, TextRenderer textRenderer, List<OrderedText> lines, int x, int y, int height, int color) {
+        if (lines.isEmpty()) return;
         int lineHeight = height / lines.size();
         int topY = y - height / 2;
         for (int i = 0; i < lines.size(); i++) {

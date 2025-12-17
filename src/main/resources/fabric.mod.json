@@ -11,14 +11,17 @@
   "environment": "*",
   "accessWidener": "composer_reloaded.accesswidener",
   "entrypoints": {
+    "fabric-datagen": [
+      "org.lilbrocodes.composer_reloaded.internal.data.ComposerReloadedDataGenerator"
+    ],
     "client": [
-      "org.lilbrocodes.composer_reloaded.client.ComposerReloadedClient"
+      "org.lilbrocodes.composer_reloaded.internal.client.ComposerReloadedClient"
     ],
     "main": [
-      "org.lilbrocodes.composer_reloaded.ComposerReloaded"
+      "org.lilbrocodes.composer_reloaded.internal.ComposerReloaded"
     ],
     "cardinal-components": [
-      "org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents"
+      "org.lilbrocodes.composer_reloaded.internal.cca.ModCardinalComponents"
     ]
   },
   "mixins": [

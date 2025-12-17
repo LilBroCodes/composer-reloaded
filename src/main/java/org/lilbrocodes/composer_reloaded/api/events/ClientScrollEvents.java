@@ -8,7 +8,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
-import org.lilbrocodes.composer_reloaded.common.networking.ScrollActionPayload;
+import org.lilbrocodes.composer_reloaded.internal.networking.ScrollActionPayload;
 
 /**
  * Provides client-side scroll events for mods.

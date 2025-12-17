@@ -10,9 +10,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredCompositeEventRegistry;
 import org.lilbrocodes.composer_reloaded.api.util.builder.BuilderFields;
+import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 import java.util.Locale;
 

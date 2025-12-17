@@ -1,7 +1,7 @@
 package org.lilbrocodes.composer_reloaded.api.toast;
 
-import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.api.render.ColorProgram;
+import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 public class NotifyToast extends SimpleToast {
     public NotifyToast(String message, int backgroundColor, int borderColor) {

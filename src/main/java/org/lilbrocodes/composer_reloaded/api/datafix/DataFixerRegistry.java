@@ -3,8 +3,8 @@ package org.lilbrocodes.composer_reloaded.api.datafix;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.ApiStatus;
-import org.lilbrocodes.composer_reloaded.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.api.util.misc.AbstractPseudoRegistry;
+import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 import java.util.Optional;
 

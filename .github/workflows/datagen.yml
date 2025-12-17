@@ -1,0 +1,52 @@
+name: Build & Qodana
+on:
+  - workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Java Setup
+        uses: actions/setup-java@v4
+        with:
+          distribution: "corretto"
+          java-version: 17
+
+      - name: Gradle Setup
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Run Datagen
+        run: ./gradlew runDatagen
+
+      - name: Check for changed data
+        id: git_diff
+        run: |
+          # Check for changes under src/main/generated, built-in datagen path
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Show changes if any
+        if: steps.git_diff.outputs.changes == 'true'
+        run: |
+          echo "Datagen produced changes"
+          echo ""
+          git --no-pager diff --stat
+          echo ""
+          echo "Full diff:"
+          git --no-pager diff
+
+      - name: Log if no changes
+        if: steps.git_diff.outputs.changes == 'false'
+        run: echo "No datagen changes."

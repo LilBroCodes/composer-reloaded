@@ -6,7 +6,7 @@ import net.minecraft.entity.Tameable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import org.lilbrocodes.composer_reloaded.cca.ModCardinalComponents;
+import org.lilbrocodes.composer_reloaded.internal.cca.ModCardinalComponents;
 import org.lilbrocodes.composer_reloaded.mixin.accessor.WorldMethodAccessor;
 
 import java.util.UUID;
