@@ -1,6 +1,6 @@
 package org.lilbrocodes.composer_reloaded.api.util.builder;
 
-import org.jetbrains.annotations.Nullable;
+import org.lilbrocodes.composer_reloaded.api.util.annotation.Optional;
 
 import java.lang.reflect.Field;
 
@@ -16,7 +16,7 @@ public class BuilderFields {
 
         while (clazz != Object.class) { // also check superclasses
             for (Field field : clazz.getDeclaredFields()) {
-                if (field.isAnnotationPresent(Nullable.class)) continue;
+                if (field.isAnnotationPresent(Optional.class)) continue;
 
                 field.setAccessible(true);
                 try {
