@@ -7,6 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 public class DeferredPotionRegistry extends EmptyDeferredRegistry {
@@ -20,14 +21,14 @@ public class DeferredPotionRegistry extends EmptyDeferredRegistry {
 
     @SuppressWarnings("UnusedReturnValue")
     public Potion register(String name, StatusEffectInstance... effects) {
-        return register(name, new Potion(effects));
+        return register(name, new Potion(/*? if minecraft: >=1.21.4 { *//*name, *//*?}*/ effects));
     }
 
-    public static StatusEffectInstance effect(StatusEffect type, int duration) {
+    public static StatusEffectInstance effect(/*? if minecraft: <=1.20.1 { */StatusEffect/*? } else {*//*RegistryEntry<StatusEffect>*//*?}*/ type, int duration) {
         return new StatusEffectInstance(type, duration);
     }
 
-    public static StatusEffectInstance effect(StatusEffect type, int duration, int amplifier) {
+    public static StatusEffectInstance effect(/*? if minecraft: <=1.20.1 { */StatusEffect/*? } else {*//*RegistryEntry<StatusEffect>*//*?}*/ type, int duration, int amplifier) {
         return new StatusEffectInstance(type, duration, amplifier);
     }
 
@@ -58,23 +59,23 @@ public class DeferredPotionRegistry extends EmptyDeferredRegistry {
     }
 
     public Potion registerEmpty(String name) {
-        return register(name, new Potion());
+        return register(name, new Potion(/*? if minecraft: >=1.21.4 { *//*name*//*?}*/));
     }
 
     public Potion registerWater(String name) {
-        return register(name, new Potion());
+        return register(name, new Potion(/*? if minecraft: >=1.21.4 { *//*name*//*?}*/));
     }
 
-    public static Potion of(StatusEffect type, int duration) {
-        return new Potion(new StatusEffectInstance(type, duration));
+    public static Potion of(/*? if minecraft: <=1.20.1 { */StatusEffect/*? } else {*//*RegistryEntry<StatusEffect>*//*?}*/ type, int duration) {
+        return new Potion(/*? if minecraft: >=1.21.4 { *//*"", *//*?}*/new StatusEffectInstance(type, duration));
     }
 
-    public static Potion of(StatusEffect type, int duration, int amplifier) {
-        return new Potion(new StatusEffectInstance(type, duration, amplifier));
+    public static Potion of(/*? if minecraft: <=1.20.1 { */StatusEffect/*? } else {*//*RegistryEntry<StatusEffect>*//*?}*/ type, int duration, int amplifier) {
+        return new Potion(/*? if minecraft: >=1.21.4 { *//*"", *//*?}*/new StatusEffectInstance(type, duration, amplifier));
     }
 
     public Potion multi(String name, StatusEffectInstance... effects) {
-        return register(name, new Potion(effects));
+        return register(name, new Potion(/*? if minecraft: >=1.21.4 { *//*name, *//*?}*/ effects));
     }
 }
 

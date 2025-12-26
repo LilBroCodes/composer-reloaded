@@ -70,9 +70,13 @@ public class ComposerReloaded implements ModInitializer {
         ModArgumentTypes.initialize();
         ModStatistics.initialize();
         ModItemGroups.initialize();
-        ModItems.initialize();
-        ModBlocks.initialize();
+        ModFeatures.initialize();
         ModSounds.initialize();
+        ModBlocks.initialize();
+        ModItems.initialize();
+
+        //? if minecraft: >=1.21.4
+        //ModDataComponentTypes.initialize();
 
         ComposerConfig.initialize();
         ModRegistries.initialize();

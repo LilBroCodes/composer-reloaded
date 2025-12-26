@@ -12,6 +12,11 @@ on:
           - modrinth
           - both
 
+      update_readme:
+        type: boolean
+        description: "Update modrinth description"
+        default: false
+
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -23,7 +28,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "corretto"
-          java-version: 17
+          java-version: 21
 
       - name: Gradle Setup
         uses: gradle/actions/setup-gradle@v4
@@ -46,7 +51,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "corretto"
-          java-version: 17
+          java-version: 21
 
       - name: Gradle Setup
         uses: gradle/actions/setup-gradle@v4
@@ -69,4 +74,12 @@ jobs:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: |
           echo "Publishing to Modrinth..."
-          ./gradlew modrinth
+          ./gradlew publishMods
+
+      - name: Update Modrinth description
+        if: github.event.inputs.update_readme
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: |
+          echo "Updating Modrinth description..."
+          ./gradlew modrinthSyncBody

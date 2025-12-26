@@ -16,6 +16,6 @@ public class ModRegistries {
         builder.addRegistry(COMPOSER_ADVANCEMENT_KEY, PredicateVoid::nil);
 
         RegistryWrapper.WrapperLookup lookup = builder.createWrapperLookup(DynamicRegistryManager.EMPTY);
-        COMPOSER_ADVANCEMENTS = lookup.getWrapperOrThrow(COMPOSER_ADVANCEMENT_KEY);
+        COMPOSER_ADVANCEMENTS = lookup./*? if minecraft: <=1.20.1 { */getWrapperOrThrow/*?} else {*//*getOrThrow*//*?}*/(COMPOSER_ADVANCEMENT_KEY);
     }
 }

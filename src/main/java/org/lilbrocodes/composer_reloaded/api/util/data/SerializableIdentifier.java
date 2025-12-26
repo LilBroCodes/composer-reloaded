@@ -6,9 +6,11 @@ import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.nbt.JsonSerializable;
 import org.lilbrocodes.composer_reloaded.api.nbt.NbtSerializable;
 
-public class SerializableIdentifier extends Identifier implements NbtSerializable<SerializableIdentifier>, JsonSerializable<SerializableIdentifier> {
+public class SerializableIdentifier implements Comparable<SerializableIdentifier>, NbtSerializable<SerializableIdentifier>, JsonSerializable<SerializableIdentifier> {
+    private final Identifier wrapped;
+
     public SerializableIdentifier(String namespace, String path) {
-        super(namespace, path);
+        this.wrapped = new Identifier(namespace, path);
     }
 
     public SerializableIdentifier(NbtCompound tag) {
@@ -29,15 +31,36 @@ public class SerializableIdentifier extends Identifier implements NbtSerializabl
 
     @Override
     public NbtCompound writeNbt(NbtCompound tag) {
-        tag.putString("namespace", getNamespace());
-        tag.putString("path", getPath());
+        tag.putString("namespace", namespace());
+        tag.putString("path", path());
         return tag;
     }
 
     @Override
     public JsonObject write(JsonObject object) {
-        object.addProperty("namespace", getNamespace());
-        object.addProperty("path", getPath());
+        object.addProperty("namespace", namespace());
+        object.addProperty("path", path());
         return object;
+    }
+
+    public Identifier ident() {
+        return wrapped;
+    }
+
+    public String path() {
+        return wrapped.getPath();
+    }
+
+    public String namespace() {
+        return wrapped.getNamespace();
+    }
+
+    public int compareTo(SerializableIdentifier identifier) {
+        int i = path().compareTo(identifier.path());
+        if (i == 0) {
+            i = namespace().compareTo(identifier.namespace());
+        }
+
+        return i;
     }
 }

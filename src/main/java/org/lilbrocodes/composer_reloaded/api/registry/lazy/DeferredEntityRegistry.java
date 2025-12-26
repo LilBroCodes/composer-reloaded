@@ -5,6 +5,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
 public class DeferredEntityRegistry extends EmptyDeferredRegistry {
@@ -18,6 +20,6 @@ public class DeferredEntityRegistry extends EmptyDeferredRegistry {
     }
 
     public <T extends Entity> EntityType<T> register(String name, FabricEntityTypeBuilder<T> builder) {
-        return register(name, builder.build());
+        return register(name, builder.build(/*? if minecraft: >=1.21.4 { *//*RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(modId, name))*//*?}*/));
     }
 }

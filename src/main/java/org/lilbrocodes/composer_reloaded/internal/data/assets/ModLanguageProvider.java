@@ -1,21 +1,34 @@
 package org.lilbrocodes.composer_reloaded.internal.data.assets;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.registry.RegistryWrapper;
 import org.lilbrocodes.composer_reloaded.api.datagen.ComposerLanguageProvider;
 import org.lilbrocodes.composer_reloaded.internal.client.config.ComposerConfig;
-import org.lilbrocodes.composer_reloaded.internal.registry.ModBlocks;
-import org.lilbrocodes.composer_reloaded.internal.registry.ModItemGroups;
-import org.lilbrocodes.composer_reloaded.internal.registry.ModSounds;
-import org.lilbrocodes.composer_reloaded.internal.registry.ModStatistics;
+import org.lilbrocodes.composer_reloaded.internal.registry.*;
+
+import java.util.concurrent.CompletableFuture;
+
+import static org.lilbrocodes.composer_reloaded.internal.registry.ModFeatures.TargetSynchronization.*;
+
+//? if minecraft: <=1.20.1
+import net.minecraft.sound.SoundEvent;
 
 public class ModLanguageProvider extends ComposerLanguageProvider {
-    public ModLanguageProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    //? if minecraft: <=1.20.1 {
+    public ModLanguageProvider(FabricDataOutput output) {
+        super(output);
     }
+    //? } else {
+    /*public ModLanguageProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(output, registryLookup);
+    }
+    *///? }
 
     @Override
     public void generate() {
         block(ModBlocks.PLUSH, "LilBro Plush");
+        //? if minecraft: >=1.21.4
+        //item(ModBlocks.PLUSH, "LilBro Plush");
         stat(ModStatistics.PLUSH_BOOP, "LilBro Plushies Booped");
         group(ModItemGroups.COMPOSER, "Composer's Silly Little Additions");
 
@@ -26,7 +39,10 @@ public class ModLanguageProvider extends ComposerLanguageProvider {
                 "All"
         );
 
-        sound(ModSounds.LILBRO_SQUISH, "Plush Booped");
+        sound(/*? if minecraft: <=1.20.1 {*/(SoundEvent)/*?}*/ ModSounds.LILBRO_SQUISH, "Plush Booped");
+
+        feature(ENTITY, "Synchronizes players' target entities to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.");
+        feature(BLOCK, "Synchronizes players' target blocks to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.");
 
         prefix("feature.enable", "Enabled feature %s");
         prefix("feature.disable", "Disabled feature %s");

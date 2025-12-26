@@ -1,13 +1,16 @@
 package org.lilbrocodes.composer_reloaded.api.render;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.*;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.util.Vec2;
 import org.lilbrocodes.composer_reloaded.api.velora.particle.VeloraParticle.ParticleShape;
 
+//? if minecraft: <=1.20.1 {
+import com.mojang.blaze3d.systems.RenderSystem;
 import java.util.List;
+//?}
 
+@SuppressWarnings("ALL")
 public class ParticleRenderer {
     public static void renderShape(ParticleShape shape, Vec2 position, double size, double rotation, int color) {
         switch (shape) {
@@ -36,6 +39,7 @@ public class ParticleRenderer {
     }
 
     private static void renderQuad(Vec2 center, double size, double rotation, int color) {
+        //? if minecraft: <=1.20.1 {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
@@ -69,6 +73,8 @@ public class ParticleRenderer {
 
         tessellator.draw();
         RenderSystem.disableBlend();
+        //? }
+        // TODO: Reimplement for 1.21.4
     }
 
     private static void renderTriangle(Vec2 center, double size, double rotation, int color) {
@@ -101,6 +107,7 @@ public class ParticleRenderer {
      *  If someone wants to fix this, please do as I have no clue how to do so.
      */
     private static void drawTriangle(Vec2 v1, Vec2 v2, Vec2 v3, int color) {
+        //? if minecraft: <=1.20.1 {
         double cross = (v2.x - v1.x) * (v3.y - v1.y) - (v2.y - v1.y) * (v3.x - v1.x);
 
         boolean ccw = cross > 0;
@@ -130,9 +137,12 @@ public class ParticleRenderer {
 
         tessellator.draw();
         RenderSystem.disableBlend();
+        //? }
+        // TODO: Reimplement for 1.21.4
     }
 
     public static void renderTexturedQuad(Identifier texture, Vec2 center, double size, double rotation, int color) {
+        //? if minecraft: <=1.20.1 {
         RenderSystem.setShaderTexture(0, texture);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -174,6 +184,8 @@ public class ParticleRenderer {
 
         tessellator.draw();
         RenderSystem.disableBlend();
+        //? }
+        // TODO: Reimplement for 1.21.4
     }
 
     public static void renderAnimatedQuad(
@@ -185,6 +197,7 @@ public class ParticleRenderer {
             int frameIndex,
             int totalFrames
     ) {
+        //? if minecraft: <=1.20.1 {
         RenderSystem.setShaderTexture(0, texture);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -231,6 +244,8 @@ public class ParticleRenderer {
 
         tessellator.draw();
         RenderSystem.disableBlend();
+        //? }
+        // TODO: Reimplement for 1.21.4
     }
 
 }

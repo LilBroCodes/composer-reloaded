@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "id": "composer_reloaded",
+  "id": "${id}",
   "version": "${version}",
-  "name": "Composer Reloaded",
-  "description": "Higher quality remake of my library mod \"Composer\"",
+  "name": "${name}",
+  "description": "Fairly light, multi-version library used by all of LilBroCodes's mods.",
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
   "icon": "assets/composer_reloaded/icon.png",
   "environment": "*",
-  "accessWidener": "composer_reloaded.accesswidener",
+  "access_widener": "composer_reloaded.accesswidener",
   "entrypoints": {
     "fabric-datagen": [
       "org.lilbrocodes.composer_reloaded.internal.data.ComposerReloadedDataGenerator"
@@ -28,15 +28,20 @@
     "composer_reloaded.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}",
-    "cardinal-components": ">=${cca_version}"
+    "fabricloader": ">=${loader}",
+    "fabric-api": ">=${fapi}",
+    "minecraft": "${minecraft}",
+    "cardinal-components": ">=${cca}"
   },
   "custom": {
     "cardinal-components": [
       "composer_reloaded:targeted_block",
       "composer_reloaded:targeted_entity"
-    ]
+    ],
+    "modmenu": {
+      "badges": [ "library" ],
+      "update_checker": false
+    }
   }
 }

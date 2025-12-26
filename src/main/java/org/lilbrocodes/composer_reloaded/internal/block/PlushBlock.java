@@ -11,12 +11,10 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -24,7 +22,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lilbrocodes.composer_reloaded.internal.block.entity.PlushBlockEntity;
@@ -32,18 +29,42 @@ import org.lilbrocodes.composer_reloaded.internal.registry.ModBlockEntities;
 import org.lilbrocodes.composer_reloaded.internal.registry.ModSounds;
 import org.lilbrocodes.composer_reloaded.internal.registry.ModStatistics;
 
+//? if minecraft: <=1.20.1 {
+import net.minecraft.world.WorldAccess;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.util.Hand;
+//? } else {
+/*import net.minecraft.state.property.EnumProperty;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.util.math.random.Random;
+import com.mojang.serialization.MapCodec;
+*///?}
+
+//? if minecraft: <=1.20.1
 @SuppressWarnings("deprecation")
 public class PlushBlock extends BlockWithEntity implements Waterloggable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final /*? if minecraft: <=1.20.1 { */DirectionProperty/*? } else {*/ /*EnumProperty<Direction> *//*?}*/ FACING = Properties.HORIZONTAL_FACING;
     private static final VoxelShape SHAPE = createCuboidShape(3.0, 0.0, 3.0, 13.0, 15.0, 13.0);
 
     public PlushBlock(Settings settings) {
         super(settings);
     }
 
+    //? if minecraft: >=1.21.4 {
+    /*@Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return BlockWithEntity.createCodec(PlushBlock::new);
+    }
+    *///?}
+
     public BlockRenderType getRenderType(BlockState state) {
+        //? if minecraft: <=1.20.1 {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
+        //? } else {
+        /*return BlockRenderType.INVISIBLE;
+        *///?}
     }
 
     @Override
@@ -59,8 +80,13 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
         super.spawnBreakParticles(world, player, pos, state);
     }
 
+
     @Override
+    //? if minecraft: <=1.20.1 {
     public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    //? } else {
+    /*protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    *///?}
         if (!world.isClient) {
             var mid = Vec3d.ofCenter(pos);
             world.playSound(null, mid.getX(), mid.getY(), mid.getZ(), ModSounds.LILBRO_SQUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
@@ -85,7 +111,7 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.PLUSH, PlushBlockEntity::tick);
+        return /*? if minecraft: <=1.20.1 { */checkType/*? } else {*//*validateTicker*//*?}*/(type, ModBlockEntities.PLUSH, PlushBlockEntity::tick);
     }
 
     @Nullable
@@ -118,11 +144,18 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
     }
 
     @Override
+    //? if minecraft: <=1.20.1 {
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
-
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
+    //? } else {
+    /*protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        if (state.get(WATERLOGGED)) tickView.scheduleBlockTick(pos, Blocks.WATER, Fluids.WATER.getTickRate(world));
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    }
+    *///?}
+
 
     @Override
     public FluidState getFluidState(BlockState state) {

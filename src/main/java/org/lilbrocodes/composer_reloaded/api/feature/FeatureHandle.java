@@ -9,15 +9,25 @@ import org.lilbrocodes.composer_reloaded.api.feature.config.StringConfigSerializ
 import org.lilbrocodes.composer_reloaded.api.feature.state.FeatureState;
 import org.lilbrocodes.composer_reloaded.api.nbt.GsonSerializer;
 import org.lilbrocodes.composer_reloaded.api.runtime.ServerHolder;
+import org.lilbrocodes.composer_reloaded.api.util.misc.Translatable;
 
 import java.util.Optional;
 
-public class FeatureHandle {
+public class FeatureHandle implements Translatable {
     private final FeatureNode node;
 
     public FeatureHandle(FeatureNode node) { this.node = node; }
 
     public Identifier id() { return node.id(); }
+
+    @Override
+    public String getTranslationKey() {
+        return "feature.description." + id().toTranslationKey().replace('/', '.');
+    }
+
+    public Translatable getTranslatable() {
+        return this;
+    }
 
     public boolean enabled() {
         for (FeatureHandle group : ComposerFeatures.getInstance().getGroupsContaining(this)) {
@@ -38,7 +48,6 @@ public class FeatureHandle {
 
         return true;
     }
-
 
     private Optional<FeatureNode.ConfigDefault<?>> findInheritedDefault(String key) {
         return node.findConfigDefaultInherited(key);

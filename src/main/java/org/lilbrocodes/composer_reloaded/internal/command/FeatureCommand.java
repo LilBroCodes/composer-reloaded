@@ -76,11 +76,12 @@ public class FeatureCommand extends ComposerCommand {
         FeatureState state = ServerHolder.features();
 
         if (ComposerFeatures.getInstance().featureMissing(id)) {
-            return error(ctx, Text.translatable("composer_reloaded.feature.missing", id));
+            return error(ctx, Text.translatable("composer_reloaded.feature.missing", id/*? if minecraft: >=1.21.4 {*//*.toString()*//*?}*/));
         }
 
         state.setEnabled(id.toString(), true);
-        return success(ctx, Text.translatable("composer_reloaded.feature.enable", id));
+        return success(ctx, Text.translatable("composer_reloaded.feature.enable", id/*? if minecraft: >=1.21.4 {*//*.toString()*//*?}*/)
+);
     }
 
     private int disable(CommandContext<ServerCommandSource> ctx) {
@@ -88,22 +89,25 @@ public class FeatureCommand extends ComposerCommand {
         FeatureState state = ServerHolder.features();
 
         if (ComposerFeatures.getInstance().featureMissing(id)) {
-            return error(ctx, Text.translatable("composer_reloaded.feature.missing", id));
+            return error(ctx, Text.translatable("composer_reloaded.feature.missing", id/*? if minecraft: >=1.21.4 {*//*.toString()*//*?}*/)
+);
         }
 
         state.setEnabled(id.toString(), false);
-        return highlight(ctx, Text.translatable("composer_reloaded.feature.disable", id));
+        return highlight(ctx, Text.translatable("composer_reloaded.feature.disable", id/*? if minecraft: >=1.21.4 {*//*.toString()*//*?}*/)
+);
     }
 
     private int describe(CommandContext<ServerCommandSource> ctx) {
         Identifier id = resolveId(ctx);
-        FeatureState state = ServerHolder.features();
+        ComposerFeatures f = ComposerFeatures.getInstance();
+        FeatureHandle handle = ComposerFeatures.get(id);
 
-        if (ComposerFeatures.getInstance().featureMissing(id)) {
-            return error(ctx, Text.translatable("composer_reloaded.feature.missing", id));
+        if (f.featureMissing(id) || handle == null) {
+            return error(ctx, Text.translatable("composer_reloaded.feature.missing", id/*? if minecraft: >=1.21.4 {*//*.toString()*//*?}*/));
         }
 
-        String key = id.toTranslationKey("composer_reloaded.feature.description");
+        String key = handle.getTranslationKey();
         return feedback(ctx, Text.translatableWithFallback(key, Text.translatable("composer_reloaded.feature.description.missing").getString()));
     }
 
@@ -112,7 +116,8 @@ public class FeatureCommand extends ComposerCommand {
 
         FeatureHandle handle = ComposerFeatures.get(id);
         if (handle == null) {
-            return error(ctx, Text.translatable("composer_reloaded.feature.missing", id));
+            return error(ctx, Text.translatable("composer_reloaded.feature.missing", id/*? if minecraft: >=1.21.4 {*//*.toString()*//*?}*/)
+);
         }
 
         return feedback(ctx, ScreenTexts.LINE_BREAK.copy().append("  ").append(buildStatus(handle, 0)));

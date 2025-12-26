@@ -11,7 +11,8 @@ public class ModBlocks {
 
     public static final PlushBlock PLUSH = BLOCKS.register(
             "plush",
-            new PlushBlock(AbstractBlock.Settings.copy(Blocks.BLACK_WOOL).nonOpaque())
+            PlushBlock::new,
+            AbstractBlock.Settings.copy(Blocks.BLACK_WOOL).nonOpaque()
     );
 
     @SuppressWarnings("EmptyMethod")

@@ -1,6 +1,5 @@
 package org.lilbrocodes.composer_reloaded.api.registry.lazy;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -13,6 +12,10 @@ import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
+
+//? if minecraft: >=1.21.4
+//import net.minecraft.registry.RegistryKeys;
 
 public class DeferredItemRegistry extends EmptyDeferredRegistry {
     private final RegistryKey<ItemGroup> itemGroupKey;
@@ -23,55 +26,71 @@ public class DeferredItemRegistry extends EmptyDeferredRegistry {
         this.itemGroupKey = itemGroupKey;
     }
 
-    public <T extends Item> T register(String name, T item, boolean addToGroup) {
-        Identifier id = new Identifier(modId, name);
+    public <T extends Item> T register(String name, ItemProvider<T> provider, Item.Settings settings, boolean addToGroup) {
+        Identifier id = Identifier.of(modId, name);
+
+        //? if minecraft: >=1.21.4 {
+        /*T item = provider.provide(settings.registryKey(RegistryKey.of(RegistryKeys.ITEM, id)));
+        *///? } else {
+        T item = provider.provide(settings);
+        //? }
+
         T registered = Registry.register(Registries.ITEM, id, item);
         if (addToGroup) registeredItems.add(registered);
         return registered;
     }
 
-    public <T extends Item> T register(String name, T item) {
-        return register(name, item, true);
+    public <T extends Item> T register(String name, ItemProvider<T> provider, Item.Settings settings) {
+        return register(name, provider, settings, true);
     }
 
     public Item register(String name) {
-        return register(name, new Item(new FabricItemSettings()), true);
+        return register(name, Item::new, new Item.Settings(), true);
     }
 
     public Item register(String name, boolean addToGroup) {
-        return register(name, new Item(new FabricItemSettings()), addToGroup);
+        return register(name, Item::new, new Item.Settings(), addToGroup);
     }
 
-    public <T extends Block> BlockItem register(T block, String path, Item.Settings settings) {
-        return register(path, new BlockItem(block, settings), true);
-    }
-
-    public <T extends Block> BlockItem register(T block, String path, Item.Settings settings, boolean addToGroup) {
-        return register(path, new BlockItem(block, settings), addToGroup);
+    public Item register(String name, UnaryOperator<Item.Settings> settings) {
+        return register(name, Item::new, settings.apply(new Item.Settings()), true);
     }
 
     public <T extends Block> BlockItem register(T block, String path) {
-        return register(block, path, new FabricItemSettings(), true);
+        return register(block, path, new Item.Settings(), true);
     }
 
     public <T extends Block> BlockItem register(T block, String path, boolean addToGroup) {
-        return register(block, path, new FabricItemSettings(), addToGroup);
+        return register(block, path, new Item.Settings(), addToGroup);
     }
 
-    @Deprecated
-    public Item registerSimple(String name) {
-        return register(name, new Item(new FabricItemSettings()), true);
-    }
-
-    @Deprecated
-    public Item registerSimple(String name, boolean addToGroup) {
-        return register(name, new Item(new FabricItemSettings()), addToGroup);
+    public <T extends Block> BlockItem register(
+            T block,
+            String path,
+            Item.Settings settings,
+            boolean addToGroup
+    ) {
+        return register(
+                path,
+                s -> new BlockItem(block, s),
+                settings,
+                addToGroup
+        );
     }
 
     public void finalizeRegistration() {
         if (itemGroupKey != null) {
             ItemGroupEvents.modifyEntriesEvent(itemGroupKey)
-                    .register(entries -> registeredItems.forEach(item -> entries.add(item.getDefaultStack())));
+                    .register(entries ->
+                            registeredItems.forEach(item ->
+                                    entries.add(item.getDefaultStack())
+                            )
+                    );
         }
+    }
+
+    @FunctionalInterface
+    public interface ItemProvider<T extends Item> {
+        T provide(Item.Settings settings);
     }
 }

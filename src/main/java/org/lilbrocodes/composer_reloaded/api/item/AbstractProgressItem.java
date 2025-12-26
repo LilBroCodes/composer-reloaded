@@ -1,9 +1,13 @@
 package org.lilbrocodes.composer_reloaded.api.item;
 
+import com.mojang.serialization.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+//? if minecraft: >=1.21.4
+//import static org.lilbrocodes.composer_reloaded.internal.registry.ModDataComponentTypes.STEPS;
 
 /**
  * Base class for items that have a multistep progress mechanic.
@@ -15,6 +19,7 @@ import net.minecraft.world.World;
  */
 @SuppressWarnings("EmptyMethod")
 public abstract class AbstractProgressItem extends Item {
+    //? if minecraft: <=1.20.1
     private static final String STEP_KEY = "Step";
     private final int maxSteps;
 
@@ -51,13 +56,23 @@ public abstract class AbstractProgressItem extends Item {
     }
 
     /** Returns the current step stored in the item's NBT. */
+    //? if minecraft: >=1.21.4
+    //@SuppressWarnings("DataFlowIssue")
     public static int getStep(ItemStack stack) {
+        //? if minecraft: <=1.20.1 {
         return stack.getOrCreateNbt().getInt(STEP_KEY);
+        //? } else {
+        /*return stack.contains(STEPS) ? stack.get(STEPS) : 0;
+        *///? }
     }
 
     /** Sets the current step in the item's NBT. */
     public static void setStep(ItemStack stack, int value) {
+        //? if minecraft: <=1.20.1 {
         stack.getOrCreateNbt().putInt(STEP_KEY, value);
+        //? } else {
+        /*stack.set(STEPS, value);
+        *///? }
     }
 
     /** Returns the maximum number of steps this item can reach. */

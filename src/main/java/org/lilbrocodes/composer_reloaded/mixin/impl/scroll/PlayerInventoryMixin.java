@@ -29,6 +29,7 @@ public class PlayerInventoryMixin {
             ClientScrollEvents.LOW_PRIORITY
     );
 
+    //? if minecraft: <=1.20.1
     @Inject(method = "scrollInHotbar", at = @At("HEAD"), cancellable = true)
     public void composer_reloaded$triggerActions(double scrollAmount, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();

@@ -1,13 +1,23 @@
 package org.lilbrocodes.composer_reloaded.internal.cca;
 
+
+import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
+import org.lilbrocodes.composer_reloaded.internal.cca.entity.TargetedBlockComponent;
+import org.lilbrocodes.composer_reloaded.internal.cca.entity.TargetedEntityComponent;
+
+//? if minecraft: <=1.20.1 {
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
-import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
-import org.lilbrocodes.composer_reloaded.internal.cca.entity.TargetedBlockComponent;
-import org.lilbrocodes.composer_reloaded.internal.cca.entity.TargetedEntityComponent;
+ //? } else {
+/*import org.ladysnake.cca.api.v3.component.ComponentKey;
+import org.ladysnake.cca.api.v3.component.ComponentRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
+import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
+*///?}
 
 public class ModCardinalComponents implements EntityComponentInitializer {
     public static final ComponentKey<TargetedBlockComponent> TARGETED_BLOCK = ComponentRegistry

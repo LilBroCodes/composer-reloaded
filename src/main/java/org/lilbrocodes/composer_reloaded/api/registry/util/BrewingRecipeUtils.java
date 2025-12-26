@@ -6,9 +6,15 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
 import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.Ingredient;
+
+//? if minecraft: <=1.20.1 {
 import net.minecraft.registry.tag.TagKey;
+//? } else {
+/*import net.minecraft.registry.entry.RegistryEntry;
+*///?}
 
 public class BrewingRecipeUtils {
+    //? if minecraft: <=1.20.1 {
     public static void register(Potion input, Item item, Potion output) {
         BrewingRecipeRegistry.registerPotionRecipe(input, item, output);
     }
@@ -28,6 +34,43 @@ public class BrewingRecipeUtils {
     public static void awkward(Ingredient ingredient, Potion output) {
         register(Potions.AWKWARD, ingredient, output);
     }
+    //?} else {
+    /*public static void register(RegistryEntry<Potion> input, Item item, RegistryEntry<Potion> output) {
+        BrewingRecipeRegistry.Builder builder = new BrewingRecipeRegistry.Builder(null);
+        builder.registerPotionRecipe(input, item, output);
+    }
+
+    public static void register(Potion input, Item item, Potion output) {
+        register(RegistryEntry.of(input), item, RegistryEntry.of(output));
+    }
+
+    public static void register(Potion input, Ingredient ingredient, Potion output) {
+        register(RegistryEntry.of(input), ingredient, RegistryEntry.of(output));
+    }
+
+    public static void register(Potion input, Item item, RegistryEntry<Potion> output) {
+        register(RegistryEntry.of(input), item, output);
+    }
+
+    public static void register(Potion input, Ingredient ingredient, RegistryEntry<Potion> output) {
+        register(RegistryEntry.of(input), ingredient, output);
+    }
+
+
+
+    public static void register(RegistryEntry<Potion> input, Ingredient ingredient, RegistryEntry<Potion> output) {
+        BrewingRecipeRegistry.Builder builder = new BrewingRecipeRegistry.Builder(null);
+        builder.registerPotionRecipe(input, ingredient, output);
+    }
+
+    public static void awkward(Item item, Potion output) {
+        register(Potions.AWKWARD, item, RegistryEntry.of(output));
+    }
+
+    public static void awkward(Ingredient ingredient, Potion output) {
+        register(Potions.AWKWARD, ingredient, RegistryEntry.of(output));
+    }
+    *///?}
 
     public static void redstone(Potion base, Potion extended) {
         register(base, Items.REDSTONE, extended);

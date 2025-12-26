@@ -60,7 +60,11 @@ repositories {
 }
 
 dependencies {
-    modImplementation "org.lilbrocodes:composer-reloaded:${composer_version}"
+    // Before 2.0
+    modImplementation "org.lilbrocodes:composer-reloaded:$composer_version"
+
+    // After 2.0
+    modImplementation "org.lilbrocodes:composer-reloaded:$composer_version+$minecraft_version"
 }
 ```
 
@@ -90,7 +94,11 @@ repositories {
 }
 
 dependencies {
+    // Before 2.0
     modImplementation("org.lilbrocodes:composer-reloaded:$composer_version")
+    
+    // After 2.0
+    modImplementation("org.lilbrocodes:composer-reloaded:$composer_version+$minecraft_version")
 }
 ```
 
@@ -116,13 +124,23 @@ dependencies {
 </repositories>
 
 <dependencies>
-<dependency>
-    <groupId>org.lilbrocodes</groupId>
-    <artifactId>composer-reloaded</artifactId>
-    <version>${composer.version}</version>
-    <scope>compile</scope>
-</dependency>
+    <!-- Before 2.0 -->
+    <dependency>
+        <groupId>org.lilbrocodes</groupId>
+        <artifactId>composer-reloaded</artifactId>
+        <version>${composer.version}</version>
+        <scope>compile</scope>
+    </dependency>
+    
+    <!-- After 2.0 -->
+    <dependency>
+        <groupId>org.lilbrocodes</groupId>
+        <artifactId>composer-reloaded</artifactId>
+        <version>${composer.version}+${minecraft.version}</version>
+        <scope>compile</scope>
+    </dependency>
 </dependencies>
+
 ```
 
 Add the following property to your `<properties>` section:

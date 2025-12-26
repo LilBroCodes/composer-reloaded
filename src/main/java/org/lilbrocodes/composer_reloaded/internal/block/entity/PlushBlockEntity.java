@@ -7,6 +7,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -40,12 +41,12 @@ public class PlushBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt) {
+    protected void writeNbt(@NotNull NbtCompound nbt /*? if minecraft: >= 1.21.4 { *//*, RegistryWrapper.WrapperLookup registries *//*?}*/) {
         nbt.putDouble("squash", this.squash);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
+    public void readNbt(@NotNull NbtCompound nbt /*? if minecraft: >= 1.21.4 { *//*, RegistryWrapper.WrapperLookup registries *//*?}*/) {
         this.squash = nbt.getDouble("squash");
     }
 
@@ -55,7 +56,7 @@ public class PlushBlockEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return this.createNbt();
+    public NbtCompound toInitialChunkDataNbt( /*? if minecraft: >= 1.21.4 { *//*RegistryWrapper.WrapperLookup registries *//*?}*/) {
+        return this.createNbt( /*? if minecraft: >= 1.21.4 { *//*registries *//*?}*/);
     }
 }

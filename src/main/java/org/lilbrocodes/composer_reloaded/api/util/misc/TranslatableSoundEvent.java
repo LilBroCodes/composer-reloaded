@@ -1,5 +1,6 @@
 package org.lilbrocodes.composer_reloaded.api.util.misc;
 
+//? if minecraft: <=1.20.1 {
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
@@ -36,3 +37,4 @@ public class TranslatableSoundEvent extends SoundEvent implements Translatable {
         return translationKey;
     }
 }
+//?}

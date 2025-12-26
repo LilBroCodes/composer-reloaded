@@ -10,6 +10,9 @@ import org.lilbrocodes.composer_reloaded.api.render.ToastDrawUtils;
 
 import java.util.List;
 
+//? if minecraft: >= 1.21.4
+//import net.minecraft.client.render.RenderLayer;
+
 public class SimpleToast extends AbstractToast {
     private final Identifier iconTexture;
     private final String message;
@@ -78,7 +81,7 @@ public class SimpleToast extends AbstractToast {
         int x = -MAX_WIDTH / 2 - 5;
         int y = -ICON_SIZE / 2;
 
-        ctx.drawTexture(iconTexture, x, y, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
+        ctx.drawTexture(/*? minecraft: >=1.21.4 { *//*RenderLayer::getGuiTextured, *//*?}*/ iconTexture, x, y, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
     }
 
     private void drawBox(DrawContext ctx) {

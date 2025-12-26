@@ -19,6 +19,7 @@ public record SimpleItemFixer(String idPattern, Identifier replacement,
         if (IdentifierWildcards.matches(id, parts[0], parts[1])) {
             ItemStack stack = new ItemStack(Registries.ITEM.get(replacement), tag.contains("Count", NbtElement.INT_TYPE) ? tag.getInt("Count") : 1);
             tag.remove("id");
+            //? if minecraft: <=1.20.1
             if (copyNbt) stack.setNbt(tag);
             return Optional.of(stack);
         }

@@ -1,6 +1,5 @@
 package org.lilbrocodes.composer_reloaded.api.util;
 
-import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -8,6 +7,12 @@ import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.internal.registry.ModRegistries;
 
 import java.util.Objects;
+
+//? if minecraft: >=1.21.4 {
+/*import net.minecraft.advancement.AdvancementEntry;
+*///? } else {
+import net.minecraft.advancement.Advancement;
+//? }
 
 public class AdvancementManager {
     /**
@@ -18,7 +23,7 @@ public class AdvancementManager {
      * @throws NullPointerException if the player’s server or advancement loader is unavailable.
      */
     public static <T extends ServerPlayerEntity> void grantAdvancement(T player, Identifier identifier) {
-        Advancement advancement = Objects.requireNonNull(player.getServer()).getAdvancementLoader().get(identifier);
+        /*? if minecraft: <=1.20.1 { */Advancement/*? } else {*//*AdvancementEntry*//*?}*/ advancement = Objects.requireNonNull(player.getServer()).getAdvancementLoader().get(identifier);
         if (advancement != null) {
             AdvancementProgress progress = player.getAdvancementTracker().getProgress(advancement);
             if (!progress.isDone()) {

@@ -1,7 +1,5 @@
 package org.lilbrocodes.composer_reloaded.internal.cca.entity;
 
-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
@@ -10,6 +8,17 @@ import org.lilbrocodes.composer_reloaded.internal.cca.ModCardinalComponents;
 
 import java.util.Objects;
 import java.util.UUID;
+
+import static org.lilbrocodes.composer_reloaded.internal.registry.ModFeatures.TargetSynchronization.*;
+
+//? if minecraft: <=1.20.1 {
+import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
+//? } else {
+/*import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
+import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
+import net.minecraft.registry.RegistryWrapper;
+*///?}
 
 public class TargetedEntityComponent implements AutoSyncedComponent, ServerTickingComponent {
     private static final String UUID_KEY = "uuid";
@@ -43,11 +52,11 @@ public class TargetedEntityComponent implements AutoSyncedComponent, ServerTicki
 
     public void serverTick() {
         ticks++;
-        sync();
+        if (entity() && player.age % eFreq() == 0) sync();
     }
 
     @Override
-    public void writeToNbt(NbtCompound nbtCompound) {
+    public void writeToNbt(NbtCompound nbtCompound /*? if minecraft: >= 1.21.4 { *//*, RegistryWrapper.WrapperLookup registries *//*?}*/) {
         if (this.uuid != null) {
             nbtCompound.put(UUID_KEY, NbtHelper.fromUuid(uuid));
         }
@@ -55,7 +64,7 @@ public class TargetedEntityComponent implements AutoSyncedComponent, ServerTicki
     }
 
     @Override
-    public void readFromNbt(NbtCompound tag) {
+    public void readFromNbt(NbtCompound tag /*? if minecraft: >= 1.21.4 { *//*, RegistryWrapper.WrapperLookup registries *//*?}*/) {
         if (tag.contains(UUID_KEY)) {
             this.uuid = tag.contains(UUID_KEY) ? NbtHelper.toUuid(Objects.requireNonNull(tag.get(UUID_KEY))) : null;
         } else {

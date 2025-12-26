@@ -8,7 +8,7 @@
   "composer_reloaded.feature.enable": "Enabled feature %s",
   "composer_reloaded.feature.missing": "Unknown feature %s",
   "composer_reloaded.feature.prefix": "Composer Features",
-  "composer_reloaded.squish": "Plush Booped",
+  "composer_reloaded.lilbro_squish": "Plush Booped",
   "composer_reloaded.toast.cleared_all": "Successfully cleared all toasts.",
   "composer_reloaded.toast.cleared_for_player": "Cleared toasts for %s.",
   "composer_reloaded.toast.invalid_icon_texture": "Invalid identifier for icon texture.",
@@ -17,6 +17,9 @@
   "composer_reloaded.toast.prefix": "Composer Toasts",
   "composer_reloaded.toast.sent_notify": "Sent notify toast: %s\n | Background color: %s\n | Border color: %s",
   "composer_reloaded.toast.sent_simple": "Sent toast: %s\n | Icon texture: %s\n | Background color: %s\n | Border color: %s",
+  "feature.description.composer_reloaded.target_synchronization.block": "Synchronizes players' target blocks to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.",
+  "feature.description.composer_reloaded.target_synchronization.entity": "Synchronizes players' target entities to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.",
+  "item.composer_reloaded.plush": "LilBro Plush",
   "itemGroup.composer": "Composer's Silly Little Additions",
   "stat.composer_reloaded.boop_plush": "LilBro Plushies Booped"
 }

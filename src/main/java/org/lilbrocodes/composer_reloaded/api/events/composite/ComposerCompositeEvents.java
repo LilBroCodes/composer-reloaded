@@ -8,6 +8,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredCompositeEventRegistry;
@@ -75,7 +76,7 @@ public class ComposerCompositeEvents {
             }
 
             public Builder sound(SoundEvent sound) {
-                return this.sound(sound.getId());
+                return this.sound(sound./*? if minecraft: <=1.20.1 { */getId/*? } else {*//*id*//*?}*/());
             }
 
             public Builder sound(RegistryEntry.Reference<SoundEvent> sound) {
