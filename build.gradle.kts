@@ -64,7 +64,7 @@ dependencies {
     include("${cca()}.cardinal-components-api:cardinal-components-base:${property("deps.cca")}")
     include("${cca()}.cardinal-components-api:cardinal-components-entity:${property("deps.cca")}")
     modRuntimeOnly("${cca()}.cardinal-components-api:cardinal-components-api:${property("deps.cca")}")
-    modRuntimeOnly("com.terraformersmc:modmenu:${property("r.deps.mod_menu")}")
+    modLocalRuntime("com.terraformersmc:modmenu:${property("r.deps.mod_menu")}")
 
     testImplementation(platform("org.junit:junit-bom:${property("junit_version")}"))
     testImplementation("org.junit.jupiter:junit-jupiter")
