@@ -15,8 +15,8 @@ val buildNum: String =
         .orElse("local")
         .get()
 
-version = "${property("mod.version")}+${sc.current.version}"
-base.archivesName = "${property("mod.archives_base_name")}-$buildNum"
+version = "${property("mod.version")}+mc${sc.current.version}"
+base.archivesName = property("mod.archives_base_name").toString()
 
 val requiredJava = when {
     sc.current.parsed >= "1.20.6" -> JavaVersion.VERSION_21
@@ -132,9 +132,13 @@ tasks {
         dependsOn("build")
     }
 
+    register<Delete>("cleanArtifacts") {
+        delete(rootProject.file("artifacts"))
+    }
+
     register<Copy>("collectArtifacts") {
         group = "build"
-        dependsOn("buildAndCollect")
+        dependsOn("cleanArtifacts", "buildAndCollect")
 
         from(remapJar.map { it.archiveFile })
         into(rootProject.file("artifacts"))
@@ -174,11 +178,21 @@ tasks {
             canPublish
         }
     }
+
+    withType<AbstractArchiveTask>().configureEach {
+        if (name == "remapJar" || name == "sourcesJar") {
+            archiveFileName.set(
+                "${base.archivesName.get()}-" +
+                "${project.property("mod.version")}+" +
+                "$buildNum-mc${sc.current.version}" +
+                if (name == "remapSourcesJar") "-sources.jar" else ".jar"
+            )
+        }
+    }
 }
 
 publishMods {
     file = tasks.remapJar.map { it.archiveFile.get() }
-    additionalFiles.from(tasks.remapSourcesJar.map { it.archiveFile.get() })
     displayName = "${property("mod.name")} ${property("mod.version")} for ${property("mod.mc_title")}"
     version = property("mod.version") as String
     changelog = rootProject.file("CHANGELOG.md").readText()
