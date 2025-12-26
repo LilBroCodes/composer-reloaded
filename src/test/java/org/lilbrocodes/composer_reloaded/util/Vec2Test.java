@@ -6,8 +6,8 @@ import org.lilbrocodes.composer_reloaded.api.util.Vec2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Vec2Test {
-    Vec2 a = new Vec2(-132, 210);
-    Vec2 b = new Vec2(2125, -123);
+    final Vec2 a = new Vec2(-132, 210);
+    final Vec2 b = new Vec2(2125, -123);
 
     @Test
     void distance() {

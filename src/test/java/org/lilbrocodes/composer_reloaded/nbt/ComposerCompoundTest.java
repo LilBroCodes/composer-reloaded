@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ComposerCompoundTest {
 
     static class TestSerializable implements NbtSerializable<TestSerializable> {
-        String value;
+        final String value;
 
         TestSerializable(String value) {
             this.value = value;

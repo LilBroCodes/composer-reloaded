@@ -116,6 +116,14 @@ tasks {
         dependsOn("build")
     }
 
+    register<Copy>("collectArtifacts") {
+        group = "build"
+        dependsOn("buildAndCollect")
+
+        from(remapJar.map { it.archiveFile })
+        into(rootProject.file("artifacts"))
+    }
+
     test {
         useJUnitPlatform()
         testLogging {

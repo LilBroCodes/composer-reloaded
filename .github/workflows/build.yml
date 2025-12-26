@@ -24,13 +24,13 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew buildAndCollect collectArtifacts
 
       - name: Get Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts
-          path: build/libs
+          path: artifacts/
 
   qodana:
     runs-on: ubuntu-latest

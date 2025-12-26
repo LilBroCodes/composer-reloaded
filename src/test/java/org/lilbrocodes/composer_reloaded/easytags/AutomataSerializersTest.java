@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class AutomataSerializersTest {
 
     static class TestClass {
-        String value;
+        final String value;
 
         TestClass(String value) {
             this.value = value;

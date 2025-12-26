@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ItemStackDataManagerTest {
     static class TestData implements NbtSerializable<TestData> {
-        int value;
+        final int value;
 
         TestData(int value) {
             this.value = value;
