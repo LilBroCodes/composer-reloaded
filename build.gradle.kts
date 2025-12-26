@@ -7,14 +7,30 @@ plugins {
     id("java")
 }
 
+@Suppress("UnstableApiUsage")
+val buildNum: String =
+    providers.environmentVariable("GITHUB_RUN_NUMBER")
+        .filter { it.isNotBlank() }
+        .map { "build.$it" }
+        .orElse("local")
+        .get()
+
 version = "${property("mod.version")}+${sc.current.version}"
-base.archivesName = property("mod.id") as String
+base.archivesName = "${property("mod.archives_base_name")}-$buildNum"
 
 val requiredJava = when {
     sc.current.parsed >= "1.20.6" -> JavaVersion.VERSION_21
     sc.current.parsed >= "1.18" -> JavaVersion.VERSION_17
     sc.current.parsed >= "1.17" -> JavaVersion.VERSION_16
     else -> JavaVersion.VERSION_1_8
+}
+
+fun env(key: String): String {
+    return providers.environmentVariable(key).orElse("").get()
+}
+
+fun present(key: String): Boolean {
+    return providers.environmentVariable(key).isPresent
 }
 
 repositories {
@@ -82,7 +98,7 @@ java {
     sourceCompatibility = requiredJava
 }
 
-val canPublish = providers.environmentVariable("CLOUDSMITH_USERNAME").isPresent && providers.environmentVariable("CLOUDSMITH_API_KEY").isPresent
+val canPublish = present("CLOUDSMITH_USERNAME") && present("CLOUDSMITH_API_KEY")
 tasks {
     processResources {
         inputs.property("id", project.property("mod.id"))
@@ -169,11 +185,11 @@ publishMods {
     type = STABLE
     modLoaders.add("fabric")
 
-    dryRun = providers.environmentVariable("MODRINTH_TOKEN").getOrNull() == null
+    dryRun = !present("MODRINTH_TOKEN")
 
     modrinth {
         projectId = property("publish.modrinth") as String
-        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        accessToken = env("MODRINTH_TOKEN")
         minecraftVersions.addAll(property("mod.mc_targets").toString().split(' '))
         requires {
             slug = "fabric-api"
@@ -199,7 +215,7 @@ publishMods {
 
 modrinth {
     syncBodyFrom = rootProject.file("README.md").readText()
-    token = providers.environmentVariable("MODRINTH_TOKEN")
+    token = env("MODRINTH_TOKEN")
     projectId = project.property("publish.modrinth").toString()
 }
 
@@ -208,20 +224,19 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
 
-            groupId = "${property("mod.group")}.${property("mod.id")}"
-            artifactId = property("mod.id") as String
+            groupId = property("mod.group") as String
+            artifactId = property("mod.archives_base_name").toString()
             version = project.version.toString()
         }
     }
 
     repositories {
-        maven {
+        maven("https://maven.cloudsmith.io/lilbrocodes/composer-reloaded/") {
             name = "cloudsmith"
-            url = uri("https://maven.cloudsmith.io/lilbrocodes/composer-reloaded/")
 
             credentials {
-                username = providers.environmentVariable("CLOUDSMITH_USERNAME").toString()
-                password = providers.environmentVariable("CLOUDSMITH_API_KEY").toString()
+                username = env("CLOUDSMITH_USERNAME")
+                password = env("CLOUDSMITH_API_KEY")
             }
         }
     }
