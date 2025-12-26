@@ -64,7 +64,7 @@ dependencies {
     modImplementation "org.lilbrocodes:composer-reloaded:$composer_version"
 
     // After 2.0
-    modImplementation "org.lilbrocodes:composer-reloaded:$composer_version+$minecraft_version"
+    modImplementation "org.lilbrocodes:composer-reloaded:$composer_version+mc$minecraft_version"
 }
 ```
 
@@ -98,7 +98,7 @@ dependencies {
     modImplementation("org.lilbrocodes:composer-reloaded:$composer_version")
     
     // After 2.0
-    modImplementation("org.lilbrocodes:composer-reloaded:$composer_version+$minecraft_version")
+    modImplementation("org.lilbrocodes:composer-reloaded:$composer_version+mc$minecraft_version")
 }
 ```
 
@@ -136,7 +136,7 @@ dependencies {
     <dependency>
         <groupId>org.lilbrocodes</groupId>
         <artifactId>composer-reloaded</artifactId>
-        <version>${composer.version}+${minecraft.version}</version>
+        <version>${composer.version}+mc${minecraft.version}</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
