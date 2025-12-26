@@ -3,8 +3,8 @@ package org.lilbrocodes.composer_reloaded.internal.registry;
 import net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry;
 import net.minecraft.command.argument.serialize.ConstantArgumentSerializer;
 import net.minecraft.util.Identifier;
-import org.lilbrocodes.composer_reloaded.api.util.command.ColorArgumentType;
-import org.lilbrocodes.composer_reloaded.api.util.command.ToastCornerArgumentType;
+import org.lilbrocodes.composer_reloaded.api.v1.util.command.ColorArgumentType;
+import org.lilbrocodes.composer_reloaded.api.v1.util.command.ToastCornerArgumentType;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 public class ModArgumentTypes {

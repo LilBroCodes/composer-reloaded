@@ -12,13 +12,13 @@ import java.util.UUID;
 import static org.lilbrocodes.composer_reloaded.internal.registry.ModFeatures.TargetSynchronization.*;
 
 //? if minecraft: <=1.20.1 {
-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+/*import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
-//? } else {
-/*import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
+*///? } else {
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.registry.RegistryWrapper;
-*///?}
+//?}
 
 public class TargetedEntityComponent implements AutoSyncedComponent, ServerTickingComponent {
     private static final String UUID_KEY = "uuid";
@@ -56,7 +56,7 @@ public class TargetedEntityComponent implements AutoSyncedComponent, ServerTicki
     }
 
     @Override
-    public void writeToNbt(NbtCompound nbtCompound /*? if minecraft: >= 1.21.4 { *//*, RegistryWrapper.WrapperLookup registries *//*?}*/) {
+    public void writeToNbt(NbtCompound nbtCompound /*? if minecraft: >= 1.21.4 { */, RegistryWrapper.WrapperLookup registries /*?}*/) {
         if (this.uuid != null) {
             nbtCompound.put(UUID_KEY, NbtHelper.fromUuid(uuid));
         }
@@ -64,7 +64,7 @@ public class TargetedEntityComponent implements AutoSyncedComponent, ServerTicki
     }
 
     @Override
-    public void readFromNbt(NbtCompound tag /*? if minecraft: >= 1.21.4 { *//*, RegistryWrapper.WrapperLookup registries *//*?}*/) {
+    public void readFromNbt(NbtCompound tag /*? if minecraft: >= 1.21.4 { */, RegistryWrapper.WrapperLookup registries /*?}*/) {
         if (tag.contains(UUID_KEY)) {
             this.uuid = tag.contains(UUID_KEY) ? NbtHelper.toUuid(Objects.requireNonNull(tag.get(UUID_KEY))) : null;
         } else {

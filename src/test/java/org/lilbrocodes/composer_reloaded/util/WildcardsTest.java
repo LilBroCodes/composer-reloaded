@@ -1,7 +1,7 @@
 package org.lilbrocodes.composer_reloaded.util;
 
 import org.junit.jupiter.api.Test;
-import org.lilbrocodes.composer_reloaded.api.util.wild.Wildcards;
+import org.lilbrocodes.composer_reloaded.api.v1.util.wild.Wildcards;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

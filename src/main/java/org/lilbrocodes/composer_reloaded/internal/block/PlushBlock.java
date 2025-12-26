@@ -30,22 +30,22 @@ import org.lilbrocodes.composer_reloaded.internal.registry.ModSounds;
 import org.lilbrocodes.composer_reloaded.internal.registry.ModStatistics;
 
 //? if minecraft: <=1.20.1 {
-import net.minecraft.world.WorldAccess;
+/*import net.minecraft.world.WorldAccess;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.Hand;
-//? } else {
-/*import net.minecraft.state.property.EnumProperty;
+*///? } else {
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.minecraft.util.math.random.Random;
 import com.mojang.serialization.MapCodec;
-*///?}
+//?}
 
 //? if minecraft: <=1.20.1
-@SuppressWarnings("deprecation")
+//@SuppressWarnings("deprecation")
 public class PlushBlock extends BlockWithEntity implements Waterloggable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    public static final /*? if minecraft: <=1.20.1 { */DirectionProperty/*? } else {*/ /*EnumProperty<Direction> *//*?}*/ FACING = Properties.HORIZONTAL_FACING;
+    public static final /*? if minecraft: <=1.20.1 { *//*DirectionProperty*//*? } else {*/ EnumProperty<Direction> /*?}*/ FACING = Properties.HORIZONTAL_FACING;
     private static final VoxelShape SHAPE = createCuboidShape(3.0, 0.0, 3.0, 13.0, 15.0, 13.0);
 
     public PlushBlock(Settings settings) {
@@ -53,18 +53,18 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
     }
 
     //? if minecraft: >=1.21.4 {
-    /*@Override
+    @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return BlockWithEntity.createCodec(PlushBlock::new);
     }
-    *///?}
+    //?}
 
     public BlockRenderType getRenderType(BlockState state) {
         //? if minecraft: <=1.20.1 {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
-        //? } else {
-        /*return BlockRenderType.INVISIBLE;
-        *///?}
+        /*return BlockRenderType.ENTITYBLOCK_ANIMATED;
+        *///? } else {
+        return BlockRenderType.INVISIBLE;
+        //?}
     }
 
     @Override
@@ -83,10 +83,10 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
 
     @Override
     //? if minecraft: <=1.20.1 {
-    public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-    //? } else {
-    /*protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-    *///?}
+    /*public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    *///? } else {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    //?}
         if (!world.isClient) {
             var mid = Vec3d.ofCenter(pos);
             world.playSound(null, mid.getX(), mid.getY(), mid.getZ(), ModSounds.LILBRO_SQUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
@@ -111,7 +111,7 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return /*? if minecraft: <=1.20.1 { */checkType/*? } else {*//*validateTicker*//*?}*/(type, ModBlockEntities.PLUSH, PlushBlockEntity::tick);
+        return /*? if minecraft: <=1.20.1 { *//*checkType*//*? } else {*/validateTicker/*?}*/(type, ModBlockEntities.PLUSH, PlushBlockEntity::tick);
     }
 
     @Nullable
@@ -145,16 +145,16 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
 
     @Override
     //? if minecraft: <=1.20.1 {
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+    /*public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
-    //? } else {
-    /*protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+    *///? } else {
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if (state.get(WATERLOGGED)) tickView.scheduleBlockTick(pos, Blocks.WATER, Fluids.WATER.getTickRate(world));
         return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
-    *///?}
+    //?}
 
 
     @Override

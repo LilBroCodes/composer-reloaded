@@ -13,14 +13,14 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lilbrocodes.composer_reloaded.api.easytags.impl.DefaultSerializers;
-import org.lilbrocodes.composer_reloaded.api.events.composite.ComposerCompositeEvents;
-import org.lilbrocodes.composer_reloaded.api.events.composite.CompositeEventRegistry;
-import org.lilbrocodes.composer_reloaded.api.feature.ComposerFeatures;
-import org.lilbrocodes.composer_reloaded.api.runtime.ServerHolder;
-import org.lilbrocodes.composer_reloaded.api.util.AdvancementManager;
-import org.lilbrocodes.composer_reloaded.api.util.misc.AbstractPseudoRegistry;
-import org.lilbrocodes.composer_reloaded.api.util.misc.EventStacker;
+import org.lilbrocodes.composer_reloaded.api.v1.easytags.impl.DefaultSerializers;
+import org.lilbrocodes.composer_reloaded.api.v1.events.composite.ComposerCompositeEvents;
+import org.lilbrocodes.composer_reloaded.api.v1.events.composite.CompositeEventRegistry;
+import org.lilbrocodes.composer_reloaded.api.v1.feature.ComposerFeatures;
+import org.lilbrocodes.composer_reloaded.api.v1.runtime.ServerHolder;
+import org.lilbrocodes.composer_reloaded.api.v1.util.AdvancementManager;
+import org.lilbrocodes.composer_reloaded.api.v1.util.misc.AbstractPseudoRegistry;
+import org.lilbrocodes.composer_reloaded.api.v1.util.misc.EventStacker;
 import org.lilbrocodes.composer_reloaded.internal.client.config.ComposerConfig;
 import org.lilbrocodes.composer_reloaded.internal.command.FeatureCommand;
 import org.lilbrocodes.composer_reloaded.internal.command.ToastCommand;
@@ -76,7 +76,7 @@ public class ComposerReloaded implements ModInitializer {
         ModItems.initialize();
 
         //? if minecraft: >=1.21.4
-        //ModDataComponentTypes.initialize();
+        ModDataComponentTypes.initialize();
 
         ComposerConfig.initialize();
         ModRegistries.initialize();

@@ -3,7 +3,7 @@ package org.lilbrocodes.composer_reloaded.internal.data.loader;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import org.lilbrocodes.composer_reloaded.api.runtime.ServerHolder;
+import org.lilbrocodes.composer_reloaded.api.v1.runtime.ServerHolder;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 public class FeatureStateLoader implements SimpleSynchronousResourceReloadListener {

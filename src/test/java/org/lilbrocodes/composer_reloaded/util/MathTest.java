@@ -1,8 +1,8 @@
 package org.lilbrocodes.composer_reloaded.util;
 
 import org.junit.jupiter.api.Test;
-import org.lilbrocodes.composer_reloaded.api.util.Math;
-import org.lilbrocodes.composer_reloaded.api.util.Vec2;
+import org.lilbrocodes.composer_reloaded.api.v1.util.Math;
+import org.lilbrocodes.composer_reloaded.api.v1.util.Vec2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

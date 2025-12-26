@@ -1,0 +1,67 @@
+package org.lilbrocodes.composer_reloaded.api.v1.registry.lazy;
+
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+
+//? if minecraft: >=1.21.4 {
+ import net.minecraft.network.RegistryByteBuf;
+ import net.minecraft.network.codec.PacketCodec;
+ import com.mojang.serialization.MapCodec;
+//?} else {
+/*import com.mojang.serialization.Codec;
+*///?}
+
+public class DeferredParticleRegistry extends EmptyDeferredRegistry {
+    public DeferredParticleRegistry(String modId) {
+        super(modId);
+    }
+
+    //? if minecraft: >=1.21.4 {
+    public <T extends ParticleEffect> ParticleType<T> register(
+            String name, MapCodec<T> codec, PacketCodec<? super RegistryByteBuf, T> packetCodec) {
+
+        Identifier id = Identifier.of(modId, name);
+        return Registry.register(Registries.PARTICLE_TYPE, id,
+                new ParticleType<T>(true) {
+                    @Override
+                    public MapCodec<T> getCodec() {
+                        return codec;
+                    }
+
+                    @Override
+                    public PacketCodec<? super RegistryByteBuf, T> getPacketCodec() {
+                        return packetCodec;
+                    }
+                });
+    }
+    //?}
+
+    //? if minecraft: <=1.20.1{
+    /*public <T extends ParticleEffect> ParticleType<T> register(
+            String name,
+            Codec<T> codec,
+            @SuppressWarnings("deprecation") ParticleEffect.Factory<T> deserializer
+    ) {
+        Identifier id = new Identifier(modId, name);
+        return Registry.register(
+                Registries.PARTICLE_TYPE,
+                id,
+                new ParticleType<T>(true, deserializer) {
+                    @Override
+                    public Codec<T> getCodec() {
+                        return codec;
+                    }
+                }
+        );
+    }
+    *///?}
+
+    public <T extends ParticleEffect> void registerClient(
+            ParticleType<T> type, ParticleFactoryRegistry.PendingParticleFactory<T> factory) {
+        ParticleFactoryRegistry.getInstance().register(type, factory);
+    }
+}

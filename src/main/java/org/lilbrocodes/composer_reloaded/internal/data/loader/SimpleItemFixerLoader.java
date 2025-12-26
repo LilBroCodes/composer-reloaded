@@ -6,8 +6,8 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import org.lilbrocodes.composer_reloaded.api.datafix.DataFixerRegistry;
-import org.lilbrocodes.composer_reloaded.api.datafix.impl.SimpleItemFixer;
+import org.lilbrocodes.composer_reloaded.api.v1.datafix.DataFixerRegistry;
+import org.lilbrocodes.composer_reloaded.api.v1.datafix.impl.SimpleItemFixer;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 import java.io.InputStreamReader;

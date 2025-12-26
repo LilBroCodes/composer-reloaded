@@ -8,16 +8,16 @@ import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.internal.networking.handler.TargetBlockHandler;
 
 //? if minecraft: <=1.20.1 {
-import net.fabricmc.fabric.api.networking.v1.FabricPacket;
+/*import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
-//? } else {
-/*import net.minecraft.network.packet.CustomPayload;
+*///? } else {
+import net.minecraft.network.packet.CustomPayload;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.network.codec.PacketCodec;
-*///? }
+//? }
 
 public record TargetBlockPayload(BlockPos pos)
-        implements /*? if minecraft: <=1.20.1 { */FabricPacket/*? } else {*//*CustomPayload*//*?}*/ {
+        implements /*? if minecraft: <=1.20.1 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
     public static final Identifier oID = ComposerReloaded.identify("target_block_c2s");
 
     private TargetBlockPayload(PacketByteBuf buf) {
@@ -25,35 +25,35 @@ public record TargetBlockPayload(BlockPos pos)
     }
 
     //? if minecraft: <= 1.20.1 {
-    public static final Identifier ID = oID;
+    /*public static final Identifier ID = oID;
 
     @Override
-    //?}
+    *///?}
     public void write(PacketByteBuf buf) {
         buf.writeBlockPos(pos);
     }
 
     //? if minecraft: <=1.20.1 {
-    private static final PacketType<TargetBlockPayload> TYPE = PacketType.create(ID, TargetBlockPayload::new);
+    /*private static final PacketType<TargetBlockPayload> TYPE = PacketType.create(ID, TargetBlockPayload::new);
     @Override
     public PacketType<?> getType() {
         return TYPE;
     }
-    //? } else {
-    /*public static final PacketCodec<PacketByteBuf, TargetBlockPayload> CODEC = PacketCodec.of(TargetBlockPayload::write, TargetBlockPayload::new);
+    *///? } else {
+    public static final PacketCodec<PacketByteBuf, TargetBlockPayload> CODEC = PacketCodec.of(TargetBlockPayload::write, TargetBlockPayload::new);
     public static final CustomPayload.Id<TargetBlockPayload> ID = new Id<>(oID);
 
     public CustomPayload.Id<TargetBlockPayload> getId() {
         return ID;
     }
-    *///? }
+    //? }
 
     public static void registerHandler() {
         //? if minecraft: >=1.21.4 {
-        /*PayloadTypeRegistry.playC2S().register(ID, CODEC);
+        PayloadTypeRegistry.playC2S().register(ID, CODEC);
         ServerPlayNetworking.registerGlobalReceiver(ID, new TargetBlockHandler());
-        *///?} else {
-        ServerPlayNetworking.registerGlobalReceiver(TYPE, new TargetBlockHandler());
-        //?}
+        //?} else {
+        /*ServerPlayNetworking.registerGlobalReceiver(TYPE, new TargetBlockHandler());
+        *///?}
     }
 }

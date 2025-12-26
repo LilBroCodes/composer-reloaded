@@ -1,7 +1,7 @@
 package org.lilbrocodes.composer_reloaded.internal.registry;
 
 import net.minecraft.item.BlockItem;
-import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredItemRegistry;
+import org.lilbrocodes.composer_reloaded.api.v1.registry.lazy.DeferredItemRegistry;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 public class ModItems {

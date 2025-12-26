@@ -1,1 +1,1 @@
-Remove mod menu as a gradle dependency, fix modrinth versioning.
+Breaking changes! No, really - the entire api package was moved to api.v1 for later convenience.

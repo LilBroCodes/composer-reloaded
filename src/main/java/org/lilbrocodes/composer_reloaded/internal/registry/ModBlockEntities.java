@@ -1,7 +1,7 @@
 package org.lilbrocodes.composer_reloaded.internal.registry;
 
 import net.minecraft.block.entity.BlockEntityType;
-import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredBlockEntityRegistry;
+import org.lilbrocodes.composer_reloaded.api.v1.registry.lazy.DeferredBlockEntityRegistry;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.internal.block.entity.PlushBlockEntity;
 

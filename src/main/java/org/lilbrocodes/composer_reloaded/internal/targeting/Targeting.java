@@ -9,7 +9,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.lilbrocodes.composer_reloaded.api.targeting.TargetingContext;
+import org.lilbrocodes.composer_reloaded.api.v1.targeting.TargetingContext;
 
 import java.util.function.Predicate;
 
@@ -35,7 +35,7 @@ public class Targeting {
         World world = player.getWorld();
         Vec3d start = player.getEyePos();
         Vec3d direction = player.getRotationVec(1.0F);
-        Vec3d end = start.add(direction.multiply(box./*? if minecraft: <=1.20.1 { */getXLength/*?} else {*//*getLengthX*//*?}*/()));
+        Vec3d end = start.add(direction.multiply(box./*? if minecraft: <=1.20.1 { *//*getXLength*//*?} else {*/getLengthX/*?}*/()));
 
         Entity closestEntity = null;
         double closestDistance = Double.MAX_VALUE;

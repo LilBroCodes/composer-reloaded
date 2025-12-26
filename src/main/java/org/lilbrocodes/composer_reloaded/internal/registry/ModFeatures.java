@@ -1,8 +1,8 @@
 package org.lilbrocodes.composer_reloaded.internal.registry;
 
-import org.lilbrocodes.composer_reloaded.api.feature.FeatureBuilder;
-import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredFeatureRegistry;
-import org.lilbrocodes.composer_reloaded.api.registry.lazy.feature.Feature;
+import org.lilbrocodes.composer_reloaded.api.v1.feature.FeatureBuilder;
+import org.lilbrocodes.composer_reloaded.api.v1.registry.lazy.DeferredFeatureRegistry;
+import org.lilbrocodes.composer_reloaded.api.v1.registry.lazy.feature.Feature;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 public class ModFeatures {

@@ -9,14 +9,14 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
     //? if minecraft: <=1.20.1 {
-    public ModBlockLootTableProvider(FabricDataOutput dataOutput) {
+    /*public ModBlockLootTableProvider(FabricDataOutput dataOutput) {
         super(dataOutput);
     }
-    //? } else {
-    /*public ModBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    *///? } else {
+    public ModBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
     }
-    *///? }
+    //? }
 
     @Override
     public void generate() {

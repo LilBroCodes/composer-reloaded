@@ -3,8 +3,8 @@ package org.lilbrocodes.composer_reloaded.easytags;
 import net.minecraft.nbt.NbtCompound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lilbrocodes.composer_reloaded.api.easytags.manager.ItemStackDataManager;
-import org.lilbrocodes.composer_reloaded.api.nbt.NbtSerializable;
+import org.lilbrocodes.composer_reloaded.api.v1.easytags.manager.ItemStackDataManager;
+import org.lilbrocodes.composer_reloaded.api.v1.nbt.NbtSerializable;
 
 import static org.junit.jupiter.api.Assertions.*;
 

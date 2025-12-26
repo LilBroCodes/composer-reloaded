@@ -2,12 +2,12 @@ package org.lilbrocodes.composer_reloaded.easytags;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.lilbrocodes.composer_reloaded.api.easytags.annotation.Serialize;
-import org.lilbrocodes.composer_reloaded.api.easytags.automata.AutomataStackData;
-import org.lilbrocodes.composer_reloaded.api.easytags.impl.DefaultSerializers;
-import org.lilbrocodes.composer_reloaded.api.easytags.registry.AutomataSerializable;
-import org.lilbrocodes.composer_reloaded.api.easytags.registry.AutomataSerializers;
-import org.lilbrocodes.composer_reloaded.api.nbt.ComposerCompound;
+import org.lilbrocodes.composer_reloaded.api.v1.easytags.annotation.Serialize;
+import org.lilbrocodes.composer_reloaded.api.v1.easytags.automata.AutomataStackData;
+import org.lilbrocodes.composer_reloaded.api.v1.easytags.impl.DefaultSerializers;
+import org.lilbrocodes.composer_reloaded.api.v1.easytags.registry.AutomataSerializable;
+import org.lilbrocodes.composer_reloaded.api.v1.easytags.registry.AutomataSerializers;
+import org.lilbrocodes.composer_reloaded.api.v1.nbt.ComposerCompound;
 
 import static org.junit.jupiter.api.Assertions.*;
 

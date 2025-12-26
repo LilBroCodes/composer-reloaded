@@ -4,16 +4,19 @@ import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.world.ClientWorld;
-import org.lilbrocodes.composer_reloaded.api.events.ClientScrollEvents;
+import org.lilbrocodes.composer_reloaded.api.v1.events.ClientScrollEvents;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+
+//? minecraft: >=1.21.4 {
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.At;
+//? }
 
 @Mixin(Mouse.class)
 public class MouseMixin {
@@ -28,7 +31,7 @@ public class MouseMixin {
     );
 
     //? if minecraft: >=1.21.4
-    //@Inject(method = "onMouseScroll", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getInventory()Lnet/minecraft/entity/player/PlayerInventory;"), cancellable = true)
+    @Inject(method = "onMouseScroll", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getInventory()Lnet/minecraft/entity/player/PlayerInventory;"), cancellable = true)
     public void composer_reloaded$triggerActions(long window, double horizontal, double vertical, CallbackInfo ci) {
         ClientWorld world = client.world;
 

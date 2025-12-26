@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
-import org.lilbrocodes.composer_reloaded.api.targeting.TargetingContext;
+import org.lilbrocodes.composer_reloaded.api.v1.targeting.TargetingContext;
 import org.lilbrocodes.composer_reloaded.internal.networking.TargetBlockPayload;
 import org.lilbrocodes.composer_reloaded.internal.networking.TargetEntityPayload;
 import org.lilbrocodes.composer_reloaded.internal.targeting.BlockTargeting;

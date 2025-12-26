@@ -2,8 +2,8 @@ package org.lilbrocodes.composer_reloaded.nbt;
 
 import net.minecraft.nbt.NbtCompound;
 import org.junit.jupiter.api.Test;
-import org.lilbrocodes.composer_reloaded.api.nbt.ComposerCompound;
-import org.lilbrocodes.composer_reloaded.api.nbt.NbtSerializable;
+import org.lilbrocodes.composer_reloaded.api.v1.nbt.ComposerCompound;
+import org.lilbrocodes.composer_reloaded.api.v1.nbt.NbtSerializable;
 
 import java.util.HashMap;
 import java.util.List;

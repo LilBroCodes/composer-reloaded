@@ -1,0 +1,28 @@
+package org.lilbrocodes.composer_reloaded.api.v1.particle;
+
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+
+public class ParticleManager {
+
+    /**
+     * Spawns a particle at the specified position with the given velocity and particle type.
+     *
+     * @param world        The world in which to spawn the particle.
+     * @param position     The position to spawn the particle at.
+     * @param velocity     The velocity of the particle.
+     * @param particleType The type of the particle to spawn.
+     */
+    public static void spawnParticle(World world, Vec3d position, Vec3d velocity, ParticleEffect particleType) {
+        world.addParticle(
+                particleType,
+                position.x,
+                position.y,
+                position.z,
+                velocity.x,
+                velocity.y,
+                velocity.z
+        );
+    }
+}

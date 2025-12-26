@@ -4,8 +4,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.Window;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lilbrocodes.composer_reloaded.api.util.Scaling;
-import org.lilbrocodes.composer_reloaded.api.util.Vec2;
+import org.lilbrocodes.composer_reloaded.api.v1.util.Scaling;
+import org.lilbrocodes.composer_reloaded.api.v1.util.Vec2;
 import org.mockito.MockedStatic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -2,7 +2,7 @@ package org.lilbrocodes.composer_reloaded.internal.registry;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
-import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredBlockRegistry;
+import org.lilbrocodes.composer_reloaded.api.v1.registry.lazy.DeferredBlockRegistry;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.internal.block.PlushBlock;
 
