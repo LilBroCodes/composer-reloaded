@@ -194,7 +194,7 @@ tasks {
 publishMods {
     file = tasks.remapJar.map { it.archiveFile.get() }
     displayName = "${property("mod.version")} for ${property("mod.mc_title")}"
-    version = "${property("mod.version")} $buildNum+mc${sc.current.version}"
+    version = "${property("mod.version")}-$buildNum+mc${sc.current.version}"
     changelog = rootProject.file("CHANGELOG.md").readText()
     type = STABLE
     modLoaders.add("fabric")
