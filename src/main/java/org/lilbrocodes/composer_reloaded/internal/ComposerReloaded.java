@@ -66,6 +66,7 @@ public class ComposerReloaded implements ModInitializer {
         }
 
         ComposerCompositeEvents.initialize();
+        ModDynamicTooltips.initialize();
         ModBlockEntities.initialize();
         ModArgumentTypes.initialize();
         ModStatistics.initialize();

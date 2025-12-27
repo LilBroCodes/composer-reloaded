@@ -20,7 +20,7 @@ public abstract class AbstractPseudoRegistry<V> {
         registerDefaults();
     }
 
-    public V register(Identifier id, V value) {
+    public <T extends V> T register(Identifier id, T value) {
         values.put(id, value);
         if (loadingFiles) fileValues.put(id, value);
         return value;

@@ -1,1 +1,1 @@
-Breaking changes! No, really - the entire api package was moved to api.v1 for later convenience.
+Added various utilities and a dynamic tooltip system.

@@ -6,17 +6,23 @@
   "mixins": [
     "access.MinecraftServerMixin",
     "datafix.ItemStackMixin",
+    "dynamic_tooltips.ItemStackMixin",
     "local.CampfireBlockEntityMixin",
+    "soul_binding.ItemMixin",
+    "soul_binding.PlayerEntityMixin",
+    "soul_binding.ServerPlayerEntityMixin",
     "targeting.WorldMixin"
   ],
   "client": [
     "duped_binds.GetBindsMixin",
     "duped_binds.RecolorKeybindMixin",
     "duped_binds.TriggerAllBindsMixin",
+    "dynamic_tooltips.CreativeInventoryScreenMixin",
     "local.BlockRenderManagerAccessor",
     "render.GameRendererMixin",
     "scroll.MouseMixin",
     "scroll.PlayerInventoryMixin",
+    "soul_binding.ClientPlayerEntityMixin",
     "targeting.MinecraftClientMixin",
     "velora.ParticleRenderHook"
   ],

@@ -12,10 +12,12 @@ import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.UnaryOperator;
+import java.util.function.Function;
 
 //? if minecraft: >=1.21.4
 import net.minecraft.registry.RegistryKeys;
+
+import org.lilbrocodes.composer_reloaded.api.v1.util.misc.Provider;
 
 public class DeferredItemRegistry extends EmptyDeferredRegistry {
     private final RegistryKey<ItemGroup> itemGroupKey;
@@ -26,57 +28,100 @@ public class DeferredItemRegistry extends EmptyDeferredRegistry {
         this.itemGroupKey = itemGroupKey;
     }
 
-    public <T extends Item> T register(String name, ItemProvider<T> provider, Item.Settings settings, boolean addToGroup) {
+    //? if minecraft: >=1.21.4 {
+    @SuppressWarnings("unchecked")
+    public <I extends Item, S extends Item.Settings> I register(String name, Function<S, I> provider, Provider<S> settingsSupplier, boolean addToGroup) {
         Identifier id = Identifier.of(modId, name);
+        S settings = settingsSupplier.provide();
 
         //? if minecraft: >=1.21.4 {
-        T item = provider.provide(settings.registryKey(RegistryKey.of(RegistryKeys.ITEM, id)));
-        //? } else {
-        /*T item = provider.provide(settings);
-        *///? }
+        settings = (S) settings.registryKey(RegistryKey.of(RegistryKeys.ITEM, id));
+        //? }
 
-        T registered = Registry.register(Registries.ITEM, id, item);
+        I item = provider.apply(settings);
+        I registered = Registry.register(Registries.ITEM, id, item);
+
         if (addToGroup) registeredItems.add(registered);
         return registered;
     }
 
-    public <T extends Item> T register(String name, ItemProvider<T> provider, Item.Settings settings) {
+    public <I extends Item, S extends Item.Settings> I register(String name, Function<S, I> provider, S settings, boolean addToGroup) {
+        return register(name, provider, (Provider<S>) () -> settings, addToGroup);
+    }
+
+    public <I extends Item, S extends Item.Settings> I register(String name, Function<S, I> provider, S settings) {
+        return register(name, provider, settings, true);
+    }
+
+    public <I extends Item, S extends Item.Settings> I register(String name, Function<S, I> provider, Provider<S> settings) {
         return register(name, provider, settings, true);
     }
 
     public Item register(String name) {
-        return register(name, Item::new, new Item.Settings(), true);
+        return register(name, true);
     }
 
     public Item register(String name, boolean addToGroup) {
-        return register(name, Item::new, new Item.Settings(), addToGroup);
+        return register(name, Item::new, (Provider<Item.Settings>) Item.Settings::new, addToGroup);
     }
 
-    public Item register(String name, UnaryOperator<Item.Settings> settings) {
-        return register(name, Item::new, settings.apply(new Item.Settings()), true);
+    public <S extends Item.Settings> Item register(String name, Provider<S> settings) {
+        return register(name, Item::new, settings, true);
     }
 
-    public <T extends Block> BlockItem register(T block, String path) {
-        return register(block, path, new Item.Settings(), true);
-    }
-
-    public <T extends Block> BlockItem register(T block, String path, boolean addToGroup) {
-        return register(block, path, new Item.Settings(), addToGroup);
-    }
-
-    public <T extends Block> BlockItem register(
-            T block,
-            String path,
-            Item.Settings settings,
+    public <S extends Item.Settings> Item register(
+            String name,
+            Provider<S> settings,
             boolean addToGroup
     ) {
+        return register(name, Item::new, settings, addToGroup);
+    }
+
+    public <B extends Block, I extends BlockItem, S extends Item.Settings> I register(B block, String name, Function<S, I> provider, Provider<S> settings, boolean addToGroup) {
+        return register(name, provider, settings, addToGroup);
+    }
+
+    public <B extends Block, I extends BlockItem, S extends Item.Settings> I register(B block, String name, Function<S, I> provider, S settings, boolean addToGroup) {
+        return register(block, name, provider, (Provider<S>) () -> settings, addToGroup);
+    }
+
+    public <B extends Block, I extends BlockItem, S extends Item.Settings> I register(B block, String name, Function<S, I> provider, S settings) {
+        return register(block, name, provider, settings, true);
+    }
+
+    public <B extends Block, I extends BlockItem, S extends Item.Settings> I register(B block, String name, Function<S, I> provider, Provider<S> settings) {
+        return register(block, name, provider, settings, true);
+    }
+
+    public <B extends Block> BlockItem register(B block, String name) {
+        return register(block, name, true);
+    }
+
+    public <B extends Block> BlockItem register(B block, String name, boolean addToGroup) {
         return register(
-                path,
+                block,
+                name,
+                s -> new BlockItem(block, s),
+                (Provider<Item.Settings>) Item.Settings::new,
+                addToGroup
+        );
+    }
+
+    public <B extends Block, S extends Item.Settings> BlockItem register(B block, String name, Provider<S> settings) {
+        return register(block, name, settings, true);
+    }
+
+    public <B extends Block, S extends Item.Settings> BlockItem register(B block, String name, Provider<S> settings, boolean addToGroup) {
+        return register(
+                block,
+                name,
                 s -> new BlockItem(block, s),
                 settings,
                 addToGroup
         );
     }
+
+    /* =========================== */
 
     public void finalizeRegistration() {
         if (itemGroupKey != null) {
@@ -87,10 +132,5 @@ public class DeferredItemRegistry extends EmptyDeferredRegistry {
                             )
                     );
         }
-    }
-
-    @FunctionalInterface
-    public interface ItemProvider<T extends Item> {
-        T provide(Item.Settings settings);
     }
 }

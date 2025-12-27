@@ -59,6 +59,13 @@ public class ModLanguageProvider extends ComposerLanguageProvider {
         prefix("toast.sent_simple", "Sent toast: %s\n | Icon texture: %s\n | Background color: %s\n | Border color: %s");
         prefix("toast.sent_notify", "Sent notify toast: %s\n | Background color: %s\n | Border color: %s");
         prefix("toast.prefix", "Composer Toasts");
+
+        prefix("dynamic_tooltips.hidden", "Press %s to show %s");
+        prefix("tooltips.soulbound", "This item is soulbound");
+        prefix("tooltips.soulbound.not", "This item is not soulbound");
+        prefix("tooltips.soulbound.details", "binding details");
+        prefix("tooltips.soulbound.droppable", "This item is droppable when soulbound");
+        prefix("tooltips.soulbound.droppable.not", "This item is not droppable when soulbound");
     }
 
     @Override

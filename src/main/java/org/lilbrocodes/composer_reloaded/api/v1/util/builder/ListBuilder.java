@@ -1,14 +1,21 @@
 package org.lilbrocodes.composer_reloaded.api.v1.util.builder;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ListBuilder<B, V> {
+    private final List<V> emptyDefaults;
     private List<V> list = new ArrayList<>();
     private final B parent;
 
     public ListBuilder(B parent) {
+        this(parent, new ArrayList<>());
+    }
+
+    public ListBuilder(B parent, List<V> emptyDefaults) {
+        this.emptyDefaults = emptyDefaults;
         this.parent = parent;
     }
 
@@ -38,7 +45,14 @@ public class ListBuilder<B, V> {
     }
 
     public List<V> build() {
-        return new ArrayList<>(list);
+        return new ArrayList<>(list.isEmpty() ? emptyDefaults : list);
+    }
+
+    public V[] toArray(Class<V> clazz) {
+        List<V> built = build();
+        @SuppressWarnings("unchecked")
+        V[] arr = (V[]) Array.newInstance(clazz, built.size());
+        return built.toArray(arr);
     }
 
     public ListBuilder<B, V> set(List<V> list) {
