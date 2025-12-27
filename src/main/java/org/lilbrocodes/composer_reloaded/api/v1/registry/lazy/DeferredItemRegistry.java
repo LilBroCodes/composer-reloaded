@@ -13,10 +13,12 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 //? if minecraft: >=1.21.4
 import net.minecraft.registry.RegistryKeys;
 
+import org.lilbrocodes.composer_reloaded.api.v1.item.settings.ComposerItemSettings;
 import org.lilbrocodes.composer_reloaded.api.v1.util.misc.Provider;
 
 public class DeferredItemRegistry extends EmptyDeferredRegistry {
@@ -57,6 +59,14 @@ public class DeferredItemRegistry extends EmptyDeferredRegistry {
         return register(name, provider, settings, true);
     }
 
+    public <I extends Item, S extends Item.Settings> I register(String name, Function<S, I> provider, Provider<S> settings, UnaryOperator<S> sBuilder) {
+        return register(name, provider, sBuilder.apply(settings.provide()), true);
+    }
+
+    public <I extends Item> I register(String name, Function<ComposerItemSettings, I> provider, UnaryOperator<ComposerItemSettings> sBuilder) {
+        return register(name, provider, sBuilder.apply(new ComposerItemSettings()), true);
+    }
+
     public Item register(String name) {
         return register(name, true);
     }
@@ -91,6 +101,14 @@ public class DeferredItemRegistry extends EmptyDeferredRegistry {
 
     public <B extends Block, I extends BlockItem, S extends Item.Settings> I register(B block, String name, Function<S, I> provider, Provider<S> settings) {
         return register(block, name, provider, settings, true);
+    }
+
+    public <B extends Block, I extends BlockItem, S extends Item.Settings> I register(B block, String name, Function<S, I> provider, Provider<S> settings, UnaryOperator<S> sBuilder) {
+        return register(block, name, provider, sBuilder.apply(settings.provide()), true);
+    }
+
+    public <B extends Block, I extends BlockItem> I register(B block, String name, Function<ComposerItemSettings, I> provider, UnaryOperator<ComposerItemSettings> sBuilder) {
+        return register(block, name, provider, sBuilder.apply(new ComposerItemSettings()), true);
     }
 
     public <B extends Block> BlockItem register(B block, String name) {
