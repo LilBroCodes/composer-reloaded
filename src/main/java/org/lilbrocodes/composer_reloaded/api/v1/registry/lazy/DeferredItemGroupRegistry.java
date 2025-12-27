@@ -17,7 +17,7 @@ public class DeferredItemGroupRegistry extends EmptyDeferredRegistry {
     }
 
     public RegistryKey<ItemGroup> registerItemGroup(String name, Supplier<ItemStack> iconSupplier) {
-        Identifier id = new Identifier(modId, name);
+        Identifier id = Identifier.of(modId, name);
         RegistryKey<ItemGroup> key = RegistryKey.of(Registries.ITEM_GROUP.getKey(), id);
 
         ItemGroup group = FabricItemGroup.builder()

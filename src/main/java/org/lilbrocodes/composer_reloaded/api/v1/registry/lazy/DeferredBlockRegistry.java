@@ -19,7 +19,7 @@ public class DeferredBlockRegistry extends EmptyDeferredRegistry {
     }
 
     public <T extends Block> T register(String name, T block) {
-        return Registry.register(Registries.BLOCK, new Identifier(modId, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(modId, name), block);
     }
 
     public <T extends Block> T register(String name, BlockProvider<T> newBlock, AbstractBlock.Settings settings) {

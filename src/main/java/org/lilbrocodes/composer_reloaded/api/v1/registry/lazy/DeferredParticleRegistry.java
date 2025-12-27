@@ -46,7 +46,7 @@ public class DeferredParticleRegistry extends EmptyDeferredRegistry {
             Codec<T> codec,
             @SuppressWarnings("deprecation") ParticleEffect.Factory<T> deserializer
     ) {
-        Identifier id = new Identifier(modId, name);
+        Identifier id = Identifier.of(modId, name);
         return Registry.register(
                 Registries.PARTICLE_TYPE,
                 id,

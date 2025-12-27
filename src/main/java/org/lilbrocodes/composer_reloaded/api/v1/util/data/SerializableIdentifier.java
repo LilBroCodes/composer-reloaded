@@ -10,7 +10,7 @@ public class SerializableIdentifier implements Comparable<SerializableIdentifier
     private final Identifier wrapped;
 
     public SerializableIdentifier(String namespace, String path) {
-        this.wrapped = new Identifier(namespace, path);
+        this.wrapped = Identifier.of(namespace, path);
     }
 
     public SerializableIdentifier(NbtCompound tag) {

@@ -22,7 +22,7 @@ public class ComposerFeatures {
 
     private FeatureNode ensureNamespaceRoot(String namespace) {
         return namespaceRoots.computeIfAbsent(namespace, ns -> {
-            Identifier rootId = new Identifier(namespace, "__features_root");
+            Identifier rootId = Identifier.of(namespace, "__features_root");
             FeatureNode root = new FeatureNode(rootId, null);
             flatIndex.put(rootId, root);
             return root;
@@ -61,7 +61,7 @@ public class ComposerFeatures {
             if (!running.isEmpty()) running.append('/');
             running.append(p);
             String fullPath = running.toString();
-            Identifier nodeId = new Identifier(namespace, fullPath);
+            Identifier nodeId = Identifier.of(namespace, fullPath);
             FeatureNode next = cur.getChild(p).orElse(null);
 
             if (next == null) {
@@ -86,7 +86,7 @@ public class ComposerFeatures {
     }
 
     public static FeatureHandle get(String namespace, String path) {
-        return get(new Identifier(namespace, path));
+        return get(Identifier.of(namespace, path));
     }
 
     public Map<Identifier, FeatureNode> getAll() {
@@ -115,7 +115,7 @@ public class ComposerFeatures {
 
     public List<String> getFeaturePathsForNamespace(String namespace) {
         List<String> out = new ArrayList<>();
-        Identifier prefix = new Identifier(namespace, "");
+        Identifier prefix = Identifier.of(namespace, "");
         flatIndex.forEach((id, node) -> {
             if (id.getNamespace().equals(namespace) && !Objects.equals(id.getPath(), "__features_root")) out.add(id.getPath());
         });

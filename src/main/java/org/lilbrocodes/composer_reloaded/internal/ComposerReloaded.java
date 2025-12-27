@@ -112,6 +112,6 @@ public class ComposerReloaded implements ModInitializer {
     }
 
     public static Identifier identify(String name) {
-        return new Identifier(MOD_ID, name);
+        return Identifier.of(MOD_ID, name);
     }
 }

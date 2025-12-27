@@ -68,7 +68,7 @@ public class FeatureCommand extends ComposerCommand {
     private Identifier resolveId(CommandContext<ServerCommandSource> ctx) {
         String modId = ctx.getArgument("mod", String.class);
         String path = ctx.getArgument("feature", String.class);
-        return new Identifier(modId, path);
+        return Identifier.of(modId, path);
     }
 
     private int enable(CommandContext<ServerCommandSource> ctx) {

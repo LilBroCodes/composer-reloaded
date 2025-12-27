@@ -18,7 +18,7 @@ public class DeferredPotionRegistry extends EmptyDeferredRegistry {
     }
 
     public <T extends Potion> T register(String name, T potion) {
-        return Registry.register(Registries.POTION, new Identifier(modId, name), potion);
+        return Registry.register(Registries.POTION, Identifier.of(modId, name), potion);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -53,7 +53,7 @@ public class DeferredPotionRegistry extends EmptyDeferredRegistry {
     }
 
     public RegistryKey<Potion> registerKey(String name) {
-        return RegistryKey.of(RegistryKeys.POTION, new Identifier(modId, name));
+        return RegistryKey.of(RegistryKeys.POTION, Identifier.of(modId, name));
     }
 
     public Potion register(String name, RegistryKey<Potion> key, Potion potion) {

@@ -13,7 +13,7 @@ public class DeferredCompositeEventRegistry extends EmptyDeferredRegistry {
     }
 
     public Identifier register(String path, Function<JsonObject, CompositeEvent> reader) {
-        Identifier identifier = new Identifier(modId, path);
+        Identifier identifier = Identifier.of(modId, path);
         CompositeEventRegistry.getInstance().register(identifier, reader);
         return identifier;
     }

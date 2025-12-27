@@ -18,7 +18,7 @@ public class Feature implements Hanging {
         this.name = name;
         this.builder = builder;
         this.handle = new FeatureHandle(new FeatureNode(
-                new Identifier(modId, name), null));
+                Identifier.of(modId, name), null));
     }
 
     public void setHandle(FeatureHandle registeredHandle) {

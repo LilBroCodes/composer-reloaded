@@ -18,7 +18,7 @@ public class DeferredEntityRegistry extends EmptyDeferredRegistry {
     }
 
     public <T extends Entity> EntityType<T> register(String name, EntityType<T> type) {
-        Identifier id = new Identifier(modId, name);
+        Identifier id = Identifier.of(modId, name);
         return Registry.register(Registries.ENTITY_TYPE, id, type);
     }
 

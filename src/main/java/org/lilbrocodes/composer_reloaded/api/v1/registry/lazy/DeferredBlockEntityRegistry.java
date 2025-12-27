@@ -15,7 +15,7 @@ public class DeferredBlockEntityRegistry extends EmptyDeferredRegistry {
     }
 
     public final <T extends BlockEntity> BlockEntityType<T> register(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
-        Identifier id = new Identifier(modId, name);
+        Identifier id = Identifier.of(modId, name);
         return Registry.register(
                 Registries.BLOCK_ENTITY_TYPE,
                 id,
