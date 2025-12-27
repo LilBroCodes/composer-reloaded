@@ -28,7 +28,7 @@ public class DeferredItemRegistry extends EmptyDeferredRegistry {
         this.itemGroupKey = itemGroupKey;
     }
 
-    //? if minecraft: >=1.21.4 {
+    //? if minecraft: >=1.21.4
     @SuppressWarnings("unchecked")
     public <I extends Item, S extends Item.Settings> I register(String name, Function<S, I> provider, Provider<S> settingsSupplier, boolean addToGroup) {
         Identifier id = Identifier.of(modId, name);
