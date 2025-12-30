@@ -3,7 +3,7 @@ package org.lilbrocodes.composer_reloaded.api.v1.item.settings.component;
 import net.minecraft.item.ItemStack;
 import java.util.Objects;
 
-//? if minecraft: >=1.21.4 {
+//? if minecraft: >=1.20.6 {
 import org.lilbrocodes.composer_reloaded.internal.registry.ModDataComponentTypes;
 //? } else {
 /*import org.lilbrocodes.composer_reloaded.mixin.accessor.ItemMethodAccessor;
@@ -13,7 +13,7 @@ public class SoulboundComponent {
     public static boolean isSoulbound(ItemStack stack) {
         if (stack == null || stack.isEmpty()) return false;
 
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.20.6 {
         return stack.contains(ModDataComponentTypes.SOULBOUND) && Objects.requireNonNull(stack.get(ModDataComponentTypes.SOULBOUND));
         //?} else {
         /*ItemMethodAccessor settings = ItemMethodAccessor.get(stack);
@@ -24,7 +24,7 @@ public class SoulboundComponent {
     public static boolean canDropSoulbound(ItemStack stack) {
         if (stack == null || stack.isEmpty()) return false;
 
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.20.6 {
         return stack.contains(ModDataComponentTypes.SOULBOUND_CAN_DROP) ? Objects.requireNonNull(stack.get(ModDataComponentTypes.SOULBOUND_CAN_DROP)) : true;
         //?} else {
         /*ItemMethodAccessor settings = ItemMethodAccessor.get(stack);

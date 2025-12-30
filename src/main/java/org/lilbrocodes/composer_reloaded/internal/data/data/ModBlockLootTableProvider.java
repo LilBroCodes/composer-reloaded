@@ -8,7 +8,7 @@ import org.lilbrocodes.composer_reloaded.internal.registry.ModBlocks;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*public ModBlockLootTableProvider(FabricDataOutput dataOutput) {
         super(dataOutput);
     }

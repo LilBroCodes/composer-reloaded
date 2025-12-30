@@ -9,7 +9,7 @@ import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 import java.util.Optional;
 
-//? minecraft: >=1.21.4 {
+//? minecraft: >=1.20.6 {
 import org.lilbrocodes.composer_reloaded.api.v1.datafix.impl.SimpleItemFixer;
 import static org.lilbrocodes.composer_reloaded.internal.ComposerReloaded.LOGGER;
 //? }
@@ -17,8 +17,9 @@ import static org.lilbrocodes.composer_reloaded.internal.ComposerReloaded.LOGGER
 public class DataFixerRegistry {
     public static final AbstractPseudoRegistry<Item> ITEM = new AbstractPseudoRegistry.Impl<>() {
         @Override
+        @SuppressWarnings("unchecked")
         public Item register(Identifier id, Item value) {
-            //? if minecraft: >=1.21.4
+            //? if minecraft: >=1.20.6
             if (value instanceof SimpleItemFixer simple && simple.copyNbt()) LOGGER.warn("Copying raw NBT in a simple data fixer does not work on 1.21.4. Consider using a custom data fixer to copy components manually, or disable copyNbt!");
             return super.register(id, value);
         }

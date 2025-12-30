@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
-//? if minecraft: >=1.21.4
+//? if minecraft: >=1.20.6
 import net.minecraft.registry.RegistryKeys;
 
 import org.lilbrocodes.composer_reloaded.api.v1.item.settings.ComposerItemSettings;
@@ -30,13 +30,13 @@ public class DeferredItemRegistry extends EmptyDeferredRegistry {
         this.itemGroupKey = itemGroupKey;
     }
 
-    //? if minecraft: >=1.21.4
+    //? if minecraft: >=1.21.3
     @SuppressWarnings("unchecked")
     public <I extends Item, S extends Item.Settings> I register(String name, Function<S, I> provider, Provider<S> settingsSupplier, boolean addToGroup) {
         Identifier id = Identifier.of(modId, name);
         S settings = settingsSupplier.provide();
 
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.21.3 {
         settings = (S) settings.registryKey(RegistryKey.of(RegistryKeys.ITEM, id));
         //? }
 

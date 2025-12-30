@@ -23,7 +23,7 @@ import net.minecraft.server.world.ServerWorld;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
-    @Shadow @Final /*? if minecraft: <=1.20.1 {*//*private *//*?}*/PlayerInventory inventory;
+    @Shadow @Final /*? if minecraft: <=1.20.4 {*//*private *//*?}*/PlayerInventory inventory;
 
     @Inject(method = "dropInventory", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;vanishCursedItems()V"), cancellable = true)
     public void composerReloaded$keepSoulboundItems(/*? if minecraft: >=1.21.4 {*/ServerWorld world, /*?}*/CallbackInfo ci) {

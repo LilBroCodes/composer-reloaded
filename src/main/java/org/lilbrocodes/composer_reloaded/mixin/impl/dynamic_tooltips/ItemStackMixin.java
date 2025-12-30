@@ -15,18 +15,25 @@ import static org.lilbrocodes.composer_reloaded.api.v1.tooltips.DynamicTooltip.a
 
 import java.util.List;
 
-//? minecraft: >=1.21.4
-import net.minecraft.item.tooltip.TooltipType;
-import org.jetbrains.annotations.Nullable;
-import net.minecraft.item.Item;
 
+//? minecraft: >=1.20.6 <1.21 {
+/*import net.minecraft.client.item.TooltipType;
+*///? } else if minecraft: >=1.21 {
+import net.minecraft.item.tooltip.TooltipType;
+//? }
+
+//? minecraft: >=1.20.6
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.item.Item;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
     @Shadow
     public abstract ItemStack copy();
 
-    //? if minecraft: >=1.21.4 {
+    //? if minecraft: >=1.20.6 {
+    @SuppressWarnings("DiscouragedShift")
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", shift = At.Shift.BEFORE, ordinal = 0))
     private void composer$append$0(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, HEAD);
@@ -42,37 +49,63 @@ public abstract class ItemStackMixin {
         appendRegistered(copy(), list, AFTER_MAP_ID);
     }
 
+    //? if minecraft: >=1.21 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;appendTooltip(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/List;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER))
+    //? } else {
+    /*@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;appendTooltip(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/List;Lnet/minecraft/client/item/TooltipType;)V", shift = At.Shift.AFTER))
+    *///? }
     private void composer$append$3(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_ITEM_TOOLTIP);
     }
 
+    //? if minecraft: >=1.21 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 0))
     private void composer$append$4(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_JUKEBOX_PLAYABLE);
     }
+    //? }
 
+    //? if minecraft: >=1.21 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 1))
+    //? } else {
+    /*@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/DataComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/client/item/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 0))
+    *///? }
     private void composer$append$5(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_TRIM);
     }
 
+    //? if minecraft: >=1.21 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 2))
+    //? } else {
+    /*@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/DataComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/client/item/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 1))
+    *///? }
     private void composer$append$6(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_STORED_ENCHANTMENTS);
     }
 
+    //? if minecraft: >=1.21 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 3))
+    //? } else {
+    /*@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/DataComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/client/item/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 2))
+    *///? }
     private void composer$append$7(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_ENCHANTMENTS);
     }
 
+    //? if minecraft: >=1.21 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 4))
+    //? } else {
+    /*@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/DataComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/client/item/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 3))
+    *///? }
     private void composer$append$8(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_DYED_COLOR);
     }
 
+    //? if minecraft: >=1.21 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 5))
+    //? } else {
+    /*@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/DataComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/client/item/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 4))
+    *///? }
     private void composer$append$9(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_LORE);
     }
@@ -82,20 +115,28 @@ public abstract class ItemStackMixin {
         appendRegistered(copy(), list, AFTER_ATTRIBUTE_MODIFIERS);
     }
 
+    //? if minecraft: >=1.21 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 6))
+    //? } else {
+    /*@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/DataComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/client/item/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 5))
+    *///? }
     private void composer$append$11(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_UNBREAKABLE);
     }
 
+    //? if minecraft: >=1.21.3 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 7))
     private void composer$append$12(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_OMINOUS_BOTTLE_AMPLIFIER);
     }
+    //? }
 
+    //? if minecraft: >=1.21.3 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", shift = At.Shift.AFTER, ordinal = 8))
     private void composer$append$13(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_SUSPICIOUS_STEW_EFFECTS);
     }
+    //? }
 
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BlockPredicatesChecker;addTooltips(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER, ordinal = 0))
     private void composer$append$14(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
@@ -127,15 +168,17 @@ public abstract class ItemStackMixin {
         appendRegistered(copy(), list, AFTER_DISABLED_TEXT);
     }
 
+    //? if minecraft: >=1.21.4 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Ljava/util/List;addAll(Ljava/util/Collection;)Z", shift = At.Shift.AFTER))
     private void composer$append$20(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_OPERATOR_WARNINGS);
     }
+    //? }
 
     @Inject(method = "getTooltip", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
     private void composer$append$21(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir) {
         List<Text> r = cir.getReturnValue();
-        appendRegistered(copy(), r, AFTER_OPERATOR_WARNINGS);
+        appendRegistered(copy(), r, TAIL);
         cir.setReturnValue(r);
     }
     //? } else {

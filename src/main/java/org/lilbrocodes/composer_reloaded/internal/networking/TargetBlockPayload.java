@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.internal.networking.handler.TargetBlockHandler;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 *///? } else {
@@ -17,14 +17,14 @@ import net.minecraft.network.codec.PacketCodec;
 //? }
 
 public record TargetBlockPayload(BlockPos pos)
-        implements /*? if minecraft: <=1.20.1 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
+        implements /*? if minecraft: <=1.20.4 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
     public static final Identifier oID = ComposerReloaded.identify("target_block_c2s");
 
     private TargetBlockPayload(PacketByteBuf buf) {
         this(buf.readBlockPos());
     }
 
-    //? if minecraft: <= 1.20.1 {
+    //? if minecraft: <= 1.20.4 {
     /*public static final Identifier ID = oID;
 
     @Override
@@ -33,7 +33,7 @@ public record TargetBlockPayload(BlockPos pos)
         buf.writeBlockPos(pos);
     }
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*private static final PacketType<TargetBlockPayload> TYPE = PacketType.create(ID, TargetBlockPayload::new);
     @Override
     public PacketType<?> getType() {
@@ -49,7 +49,7 @@ public record TargetBlockPayload(BlockPos pos)
     //? }
 
     public static void registerHandler() {
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.20.6 {
         PayloadTypeRegistry.playC2S().register(ID, CODEC);
         ServerPlayNetworking.registerGlobalReceiver(ID, new TargetBlockHandler());
         //?} else {

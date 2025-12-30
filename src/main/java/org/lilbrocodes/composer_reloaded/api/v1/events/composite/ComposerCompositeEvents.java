@@ -75,7 +75,7 @@ public class ComposerCompositeEvents {
             }
 
             public Builder sound(SoundEvent sound) {
-                return this.sound(sound./*? if minecraft: <=1.20.1 { *//*getId*//*? } else {*/id/*?}*/());
+                return this.sound(sound./*? if minecraft: <=1.21 { *//*getId*//*? } else {*/id/*?}*/());
             }
 
             public Builder sound(RegistryEntry.Reference<SoundEvent> sound) {

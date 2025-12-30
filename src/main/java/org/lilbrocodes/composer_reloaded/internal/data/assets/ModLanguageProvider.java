@@ -5,18 +5,15 @@ import org.lilbrocodes.composer_reloaded.api.v1.datagen.ComposerLanguageProvider
 import org.lilbrocodes.composer_reloaded.internal.client.config.ComposerConfig;
 import org.lilbrocodes.composer_reloaded.internal.registry.*;
 
-//? minecraft: >=1.21.4 {
+//? minecraft: >=1.20.6 {
 import net.minecraft.registry.RegistryWrapper;
 import java.util.concurrent.CompletableFuture;
 //? }
 
 import static org.lilbrocodes.composer_reloaded.internal.registry.ModFeatures.TargetSynchronization.*;
 
-//? if minecraft: <=1.20.1
-//import net.minecraft.sound.SoundEvent;
-
 public class ModLanguageProvider extends ComposerLanguageProvider {
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*public ModLanguageProvider(FabricDataOutput output) {
         super(output);
     }
@@ -29,7 +26,7 @@ public class ModLanguageProvider extends ComposerLanguageProvider {
     @Override
     public void generate() {
         block(ModBlocks.PLUSH, "LilBro Plush");
-        //? if minecraft: >=1.21.4
+        //? if minecraft: >=1.21.3
         item(ModBlocks.PLUSH, "LilBro Plush");
         stat(ModStatistics.PLUSH_BOOP, "LilBro Plushies Booped");
         group(ModItemGroups.COMPOSER, "Composer's Silly Little Additions");
@@ -41,7 +38,7 @@ public class ModLanguageProvider extends ComposerLanguageProvider {
                 "All"
         );
 
-        sound(/*? if minecraft: <=1.20.1 {*//*(SoundEvent)*//*?}*/ ModSounds.LILBRO_SQUISH, "Plush Booped");
+        sound(ModSounds.LILBRO_SQUISH, "Plush Booped");
 
         feature(ENTITY, "Synchronizes players' target entities to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.");
         feature(BLOCK, "Synchronizes players' target blocks to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.");

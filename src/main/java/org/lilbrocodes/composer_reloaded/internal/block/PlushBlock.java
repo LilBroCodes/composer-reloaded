@@ -29,30 +29,35 @@ import org.lilbrocodes.composer_reloaded.internal.registry.ModBlockEntities;
 import org.lilbrocodes.composer_reloaded.internal.registry.ModSounds;
 import org.lilbrocodes.composer_reloaded.internal.registry.ModStatistics;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: >=1.21
+import net.minecraft.state.property.EnumProperty;
+
+//? if minecraft: <=1.21 {
 /*import net.minecraft.world.WorldAccess;
 import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.Hand;
 *///? } else {
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.minecraft.util.math.random.Random;
-import com.mojang.serialization.MapCodec;
-//?}
+//? }
 
-//? if minecraft: <=1.20.1
-//@SuppressWarnings("deprecation")
+//? if minecraft: >=1.20.4
+import com.mojang.serialization.MapCodec;
+
+//? if minecraft: <=1.20.4 {
+/*import net.minecraft.util.Hand;
+@SuppressWarnings("deprecation")
+*///? }
 public class PlushBlock extends BlockWithEntity implements Waterloggable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    public static final /*? if minecraft: <=1.20.1 { *//*DirectionProperty*//*? } else {*/ EnumProperty<Direction> /*?}*/ FACING = Properties.HORIZONTAL_FACING;
+    public static final /*? if minecraft: <=1.20.6 { *//*DirectionProperty*//*? } else {*/ EnumProperty<Direction> /*?}*/ FACING = Properties.HORIZONTAL_FACING;
     private static final VoxelShape SHAPE = createCuboidShape(3.0, 0.0, 3.0, 13.0, 15.0, 13.0);
 
     public PlushBlock(Settings settings) {
         super(settings);
     }
 
-    //? if minecraft: >=1.21.4 {
+    //? if minecraft: >=1.20.4 {
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return BlockWithEntity.createCodec(PlushBlock::new);
@@ -60,7 +65,7 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
     //?}
 
     public BlockRenderType getRenderType(BlockState state) {
-        //? if minecraft: <=1.20.1 {
+        //? if minecraft: <=1.20.6 {
         /*return BlockRenderType.ENTITYBLOCK_ANIMATED;
         *///? } else {
         return BlockRenderType.INVISIBLE;
@@ -82,7 +87,7 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
 
 
     @Override
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
     *///? } else {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
@@ -144,7 +149,7 @@ public class PlushBlock extends BlockWithEntity implements Waterloggable {
     }
 
     @Override
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.21 {
     /*public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);

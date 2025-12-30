@@ -9,7 +9,7 @@
   "composer_reloaded.feature.enable": "Enabled feature %s",
   "composer_reloaded.feature.missing": "Unknown feature %s",
   "composer_reloaded.feature.prefix": "Composer Features",
-  "composer_reloaded.lilbro_squish": "Plush Booped",
+  "composer_reloaded.squish": "Plush Booped",
   "composer_reloaded.toast.cleared_all": "Successfully cleared all toasts.",
   "composer_reloaded.toast.cleared_for_player": "Cleared toasts for %s.",
   "composer_reloaded.toast.invalid_icon_texture": "Invalid identifier for icon texture.",
@@ -23,8 +23,8 @@
   "composer_reloaded.tooltips.soulbound.droppable": "This item is droppable when soulbound",
   "composer_reloaded.tooltips.soulbound.droppable.not": "This item is not droppable when soulbound",
   "composer_reloaded.tooltips.soulbound.not": "This item is not soulbound",
-  "feature.description.feature.description.composer_reloaded.target_synchronization.block": "Synchronizes players' target blocks to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.",
-  "feature.description.feature.description.composer_reloaded.target_synchronization.entity": "Synchronizes players' target entities to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.",
+  "feature.description.composer_reloaded.target_synchronization.block": "Synchronizes players' target blocks to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.",
+  "feature.description.composer_reloaded.target_synchronization.entity": "Synchronizes players' target entities to the client. Frequency controls how often (in ticks) updates are sent. Changing this or disabling it may break other mods.",
   "itemGroup.composer": "Composer's Silly Little Additions",
   "stat.composer_reloaded.boop_plush": "LilBro Plushies Booped"
 }

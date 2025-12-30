@@ -56,7 +56,7 @@ public class ItemStackDataManager {
      * @return an instance of the requested data type, or null no data is present
      */
     public static <T> T get(ItemStack stack, Class<T> clazz) {
-        //? if minecraft: <=1.20.1 {
+        //? if minecraft: <=1.20.4 {
         /*return get(stack.getOrCreateNbt(), clazz);
         *///? } else {
         return null; // TODO: Implement this to work with the new system
@@ -74,7 +74,7 @@ public class ItemStackDataManager {
      * @param <T>   the type of the data
      */
     public static <T extends NbtSerializable<T>> void save(ItemStack stack, T data) {
-        //? if minecraft: <=1.20.1 {
+        //? if minecraft: <=1.20.4 {
         /*NbtCompound root = stack.getOrCreateNbt();
         save(root, data);
         stack.setNbt(root);

@@ -30,7 +30,7 @@ public abstract class RecolorKeybindMixin {
         if (BindTracker.bindAllowed(binding)) {
             RainbowColor.stepColor();
             this.update();
-            return ComposerConfig.INSTANCE.rainbowDuplicateKeybinds ?
+            return ComposerConfig.INSTANCE.rainbowEffectOnDuplicateKeybinds ?
                     RainbowColor.currentColor :
                     Formatting.AQUA.getColorValue() == null ? 0xFF000000 : Formatting.AQUA.getColorValue();
         } else {
@@ -42,7 +42,7 @@ public abstract class RecolorKeybindMixin {
     private Text flowed_combat$updateBindingColor(Text value) {
         if (!ComposerReloaded.dupedBinds()) return value;
         if (BindTracker.bindAllowed(binding)) {
-            return ComposerConfig.INSTANCE.rainbowDuplicateKeybinds ?
+            return ComposerConfig.INSTANCE.rainbowEffectOnDuplicateKeybinds ?
                     binding.getBoundKeyLocalizedText().copy().setStyle(Style.EMPTY.withColor(RainbowColor.currentColor)) :
                     binding.getBoundKeyLocalizedText().copy().formatted(Formatting.AQUA);
         } else {

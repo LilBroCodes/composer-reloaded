@@ -5,7 +5,7 @@ import org.lilbrocodes.composer_reloaded.mixin.accessor.ItemMethodAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import org.lilbrocodes.composer_reloaded.api.v1.item.settings.ComposerItemSettings;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,7 +18,7 @@ public class ItemMixin implements ItemMethodAccessor {
     @Unique private boolean soulbound = false;
     @Unique private boolean soulboundCanDrop = false;
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*@Inject(method = "<init>", at = @At("TAIL"))
     private void composerReloaded$settingsImpl(Item.Settings settings, CallbackInfo ci) {
         if (settings instanceof ComposerItemSettings c) {

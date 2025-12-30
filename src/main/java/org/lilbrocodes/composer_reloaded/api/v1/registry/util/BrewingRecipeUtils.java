@@ -7,14 +7,14 @@ import net.minecraft.potion.Potions;
 import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.Ingredient;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import net.minecraft.registry.tag.TagKey;
 *///? } else {
 import net.minecraft.registry.entry.RegistryEntry;
 //?}
 
 public class BrewingRecipeUtils {
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*public static void register(Potion input, Item item, Potion output) {
         BrewingRecipeRegistry.registerPotionRecipe(input, item, output);
     }

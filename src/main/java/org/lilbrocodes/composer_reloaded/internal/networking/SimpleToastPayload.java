@@ -9,7 +9,7 @@ import org.lilbrocodes.composer_reloaded.api.v1.toast.ToastManager;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.internal.networking.handler.SimpleToastHandler;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 *///? } else {
@@ -19,14 +19,14 @@ import net.minecraft.network.codec.PacketCodec;
         //? }
 
 public record SimpleToastPayload(Identifier iconTexture, String message, ToastManager.Corner corner, int backgroundColor, int borderColor)
-        implements /*? if minecraft: <=1.20.1 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
+        implements /*? if minecraft: <=1.20.4 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
     public static final Identifier oID = ComposerReloaded.identify("basic_toast_s2c");
 
     private SimpleToastPayload(PacketByteBuf buf) {
         this(buf.readIdentifier(), buf.readString(), buf.readEnumConstant(ToastManager.Corner.class), buf.readInt(), buf.readInt());
     }
 
-    //? if minecraft: <= 1.20.1 {
+    //? if minecraft: <= 1.20.4 {
     /*public static final Identifier ID = oID;
 
     @Override
@@ -39,7 +39,7 @@ public record SimpleToastPayload(Identifier iconTexture, String message, ToastMa
         buf.writeInt(borderColor);
     }
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*private static final PacketType<SimpleToastPayload> TYPE = PacketType.create(ID, SimpleToastPayload::new);
     @Override
     public PacketType<?> getType() {
@@ -56,7 +56,7 @@ public record SimpleToastPayload(Identifier iconTexture, String message, ToastMa
 
     @Environment(EnvType.CLIENT)
     public static void registerHandler() {
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.20.6 {
         PayloadTypeRegistry.playS2C().register(ID, CODEC);
         ClientPlayNetworking.registerGlobalReceiver(ID, new SimpleToastHandler());
         //?} else {

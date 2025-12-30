@@ -9,7 +9,7 @@ import org.lilbrocodes.composer_reloaded.api.v1.toast.ToastManager;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.internal.networking.handler.NotifyToastHandler;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 *///? } else {
@@ -19,7 +19,7 @@ import net.minecraft.network.codec.PacketCodec;
  //? }
 
 public record NotifyToastPayload(String message, ToastManager.Corner corner, int backgroundColor, int borderColor)
-        implements /*? if minecraft: <=1.20.1 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
+        implements /*? if minecraft: <=1.20.4 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
     public static final Identifier oID = ComposerReloaded.identify("notify_toast_s2c");
 
     private NotifyToastPayload(PacketByteBuf buf) {
@@ -31,7 +31,7 @@ public record NotifyToastPayload(String message, ToastManager.Corner corner, int
         );
     }
 
-    //? if minecraft: <= 1.20.1 {
+    //? if minecraft: <= 1.20.4 {
     /*public static final Identifier ID = oID;
 
     @Override
@@ -43,7 +43,7 @@ public record NotifyToastPayload(String message, ToastManager.Corner corner, int
         buf.writeInt(borderColor);
     }
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*private static final PacketType<NotifyToastPayload> TYPE = PacketType.create(oID, NotifyToastPayload::new);
     @Override
     public PacketType<?> getType() {
@@ -60,7 +60,7 @@ public record NotifyToastPayload(String message, ToastManager.Corner corner, int
 
     @Environment(EnvType.CLIENT)
     public static void registerHandler() {
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.20.6 {
         PayloadTypeRegistry.playS2C().register(ID, CODEC);
         ClientPlayNetworking.registerGlobalReceiver(ID, new NotifyToastHandler());
         //?} else {

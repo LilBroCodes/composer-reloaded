@@ -1,7 +1,12 @@
 package org.lilbrocodes.composer_reloaded.api.v1.registry.lazy;
 
-//? if minecraft: >=1.21.4 {
+//? if minecraft: >= 1.21 {
 import net.minecraft.component.ComponentType;
+//? } else if minecraft: >=1.20.6 {
+/*import net.minecraft.component.DataComponentType;
+ *///? }
+
+//? if minecraft: >=1.20.6 {
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -13,11 +18,11 @@ public class DeferredDataComponentTypeRegistry extends EmptyDeferredRegistry {
         super(modId);
     }
 
-    public <T> ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> handler) {
+    public <T> /*? minecraft: >=1.21 {*/ComponentType/*? } else {*//*DataComponentType*//*? }*/<T> register(String name, UnaryOperator</*? minecraft: >=1.21 {*/ComponentType/*? } else {*//*DataComponentType*//*? }*/.Builder<T>> handler) {
         return Registry.register(
                 Registries.DATA_COMPONENT_TYPE,
                 Identifier.of(modId, name),
-                handler.apply(ComponentType.builder()).build()
+                handler.apply(/*? minecraft: >=1.21 {*/ComponentType/*? } else {*//*DataComponentType*//*? }*/.builder()).build()
         );
     }
 }

@@ -44,31 +44,33 @@ public interface DynamicTooltip {
         AFTER_NAME,
         AFTER_MAP_ID,
         AFTER_ITEM_TOOLTIP,
-        //? if minecraft: >=1.21.4
+        //? if minecraft: >=1.21
         AFTER_JUKEBOX_PLAYABLE,
         AFTER_TRIM,
-        //? if minecraft: >=1.21.4
+        //? if minecraft: >=1.20.6
         AFTER_STORED_ENCHANTMENTS,
         AFTER_ENCHANTMENTS,
         AFTER_DYED_COLOR,
         AFTER_LORE,
         AFTER_ATTRIBUTE_MODIFIERS,
         AFTER_UNBREAKABLE,
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.21 {
         AFTER_OMINOUS_BOTTLE_AMPLIFIER,
         AFTER_SUSPICIOUS_STEW_EFFECTS,
+        //? }
+        //? if minecraft: >=1.20.6 {
         AFTER_CAN_BREAK,
         AFTER_CAN_PLACE_ON,
         //? }
         AFTER_DURABILITY,
         AFTER_ITEM_ID,
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.20.6 {
         AFTER_COMPONENTS,
         //? } else {
         /*AFTER_TAGS,
         *///? }
         AFTER_DISABLED_TEXT,
-        //? if minecraft: >=1.21.4
+        //? if minecraft: >=1.21
         AFTER_OPERATOR_WARNINGS,
         TAIL,
 

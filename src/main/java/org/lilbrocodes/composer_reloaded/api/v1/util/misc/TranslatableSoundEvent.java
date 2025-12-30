@@ -1,6 +1,6 @@
 package org.lilbrocodes.composer_reloaded.api.v1.util.misc;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.21 {
 /*import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 

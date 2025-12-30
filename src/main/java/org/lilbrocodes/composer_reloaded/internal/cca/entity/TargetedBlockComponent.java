@@ -9,7 +9,7 @@ import org.lilbrocodes.composer_reloaded.internal.cca.ModCardinalComponents;
 
 import static org.lilbrocodes.composer_reloaded.internal.registry.ModFeatures.TargetSynchronization.*;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
  *///? } else {
@@ -48,12 +48,12 @@ public class TargetedBlockComponent implements AutoSyncedComponent, ServerTickin
         return ticks;
     }
 
-    public void readFromNbt(NbtCompound tag /*? if minecraft: >= 1.21.4 { */, RegistryWrapper.WrapperLookup registries /*?}*/) {
-        this.pos = /*? if minecraft: >= 1.21.4 { */NbtHelper.toBlockPos(tag, POS_KEY).orElse(null)/*? } else {*//*tag.contains(POS_KEY) ? NbtHelper.toBlockPos(tag.getCompound(POS_KEY)) : null*//*?}*/;
+    public void readFromNbt(NbtCompound tag /*? if minecraft: >= 1.20.6 { */, RegistryWrapper.WrapperLookup registries /*?}*/) {
+        this.pos = /*? if minecraft: >= 1.20.6 { */NbtHelper.toBlockPos(tag, POS_KEY).orElse(null)/*? } else {*//*tag.contains(POS_KEY) ? NbtHelper.toBlockPos(tag.getCompound(POS_KEY)) : null*//*?}*/;
         ticks = tag.getInt(TICKS_KEY);
     }
 
-    public void writeToNbt(NbtCompound tag /*? if minecraft: >= 1.21.4 { */, RegistryWrapper.WrapperLookup registries /*?}*/) {
+    public void writeToNbt(NbtCompound tag /*? if minecraft: >= 1.20.6 { */, RegistryWrapper.WrapperLookup registries /*?}*/) {
         if (this.pos != null) {
             tag.put(POS_KEY, NbtHelper.fromBlockPos(pos));
         }

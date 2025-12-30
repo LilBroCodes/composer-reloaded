@@ -18,7 +18,7 @@ import org.lilbrocodes.composer_reloaded.api.v1.feature.FeatureHandle;
 import org.lilbrocodes.composer_reloaded.api.v1.registry.lazy.feature.Feature;
 import org.lilbrocodes.composer_reloaded.api.v1.util.misc.Translatable;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import org.lilbrocodes.composer_reloaded.api.v1.util.misc.TranslatableSoundEvent;
 *///? } else {
 import net.minecraft.registry.RegistryWrapper;
@@ -32,7 +32,7 @@ import java.nio.file.Path;
 public abstract class ComposerLanguageProvider extends FabricLanguageProvider {
     protected TranslationBuilder builder;
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*protected ComposerLanguageProvider(FabricDataOutput dataOutput) {
         super(dataOutput);
     }
@@ -42,14 +42,14 @@ public abstract class ComposerLanguageProvider extends FabricLanguageProvider {
     }
     //?}
 
-    //? if minecraft: <=1.20.1
+    //? if minecraft: <=1.20.4
     //@Override
     public void generateTranslations(TranslationBuilder translationBuilder) {
         this.builder = translationBuilder;
         generate();
     }
 
-    //? if minecraft: >=1.21.4 {
+    //? if minecraft: >=1.20.6 {
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         generateTranslations(translationBuilder);
@@ -67,7 +67,7 @@ public abstract class ComposerLanguageProvider extends FabricLanguageProvider {
     // Custom
 
     public void feature(FeatureHandle feature, String translation) {
-        if (feature.id() != null) add(feature.getTranslationKey("feature.description"), translation);
+        if (feature.id() != null) add(feature.getTranslationKey(), translation);
     }
 
     public void feature(Feature feature, String translation) {
@@ -94,14 +94,14 @@ public abstract class ComposerLanguageProvider extends FabricLanguageProvider {
         for (int i = 0; i < constants.length; i++) add("%s.%s".formatted(prefix, constants[i].name()), values[i]);
     }
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*public void sound(TranslatableSoundEvent sound, String value) {
         add(sound, value);
     }
     *///?}
 
     public void sound(SoundEvent sound, String value) {
-        add(sound./*? if minecraft: >=1.21.4 { */id/*?} else {*//*getId*//*? }*/(), value);
+        add(sound./*? if minecraft: >=1.21.3 { */id/*?} else {*//*getId*//*? }*/(), value);
     }
 
     public void add(Translatable translatable, String value) {
@@ -150,12 +150,20 @@ public abstract class ComposerLanguageProvider extends FabricLanguageProvider {
         builder.add(entityType, value);
     }
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*public void enchantment(Enchantment enchantment, String value) {
         builder.add(enchantment, value);
     }
 
     public void attribute(EntityAttribute entityAttribute, String value) {
+        builder.add(entityAttribute, value);
+    }
+    *///?} else if minecraft: <=1.20.6 {
+    /*public void enchantment(Enchantment enchantment, String value) {
+        builder.add(enchantment, value);
+    }
+
+    public void attribute(RegistryEntry<EntityAttribute> entityAttribute, String value) {
         builder.add(entityAttribute, value);
     }
     *///?} else {

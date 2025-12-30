@@ -8,7 +8,7 @@ import org.lilbrocodes.composer_reloaded.internal.networking.handler.TargetEntit
 
 import java.util.UUID;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 *///? } else {
@@ -18,14 +18,14 @@ import net.minecraft.network.codec.PacketCodec;
 //? }
 
 public record TargetEntityPayload(UUID uuid)
-        implements /*? if minecraft: <=1.20.1 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
+        implements /*? if minecraft: <=1.20.4 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
     public static final Identifier oID = ComposerReloaded.identify("target_entity_c2s");
 
     private TargetEntityPayload(PacketByteBuf buf) {
         this(buf.readUuid());
     }
 
-    //? if minecraft: <= 1.20.1 {
+    //? if minecraft: <= 1.20.4 {
     /*public static final Identifier ID = oID;
 
     @Override
@@ -34,7 +34,7 @@ public record TargetEntityPayload(UUID uuid)
         buf.writeUuid(uuid);
     }
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*private static final PacketType<TargetEntityPayload> TYPE = PacketType.create(ID, TargetEntityPayload::new);
     @Override
     public PacketType<?> getType() {
@@ -50,7 +50,7 @@ public record TargetEntityPayload(UUID uuid)
     //? }
 
     public static void registerHandler() {
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.20.6 {
         PayloadTypeRegistry.playC2S().register(ID, CODEC);
         ServerPlayNetworking.registerGlobalReceiver(ID, new TargetEntityHandler());
         //?} else {
