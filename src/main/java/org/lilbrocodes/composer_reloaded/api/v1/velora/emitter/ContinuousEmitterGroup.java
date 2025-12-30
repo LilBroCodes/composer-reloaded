@@ -9,13 +9,21 @@ import java.util.UUID;
 public class ContinuousEmitterGroup {
     private final Map<UUID, EmitterEntry<?>> emitters = new HashMap<>();
 
-    public <T extends ContinuousParticleEmitter> UUID addEmitter(UUID uuid, Vec2 position, T emitter) {
+    private ContinuousEmitterGroup() {
+
+    }
+
+    public static ContinuousEmitterGroup create() {
+        return new ContinuousEmitterGroup();
+    }
+
+    public <T extends ContinuousParticleEmitter> UUID add(UUID uuid, Vec2 position, T emitter) {
         emitters.put(uuid, new EmitterEntry<>(position, emitter));
         return uuid;
     }
 
-    public <T extends ContinuousParticleEmitter> UUID addEmitter(Vec2 position, T emitter) {
-        return addEmitter(UUID.randomUUID(), position, emitter);
+    public <T extends ContinuousParticleEmitter> UUID add(Vec2 position, T emitter) {
+        return add(UUID.randomUUID(), position, emitter);
     }
 
     public void tick() {

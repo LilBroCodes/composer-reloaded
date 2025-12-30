@@ -7,13 +7,11 @@ import org.lilbrocodes.composer_reloaded.api.v1.tooltips.TooltipContext;
 
 import java.util.List;
 
-public class SimpleDynamicTooltip implements DynamicTooltip {
-    private final Section tooltip;
-    private final Location where;
+public abstract class SimpleDynamicTooltip implements DynamicTooltip {
+    private final Section tooltip = root();
 
-    public SimpleDynamicTooltip(Section tooltip, Location where) {
-        this.tooltip = tooltip;
-        this.where = where;
+    public SimpleDynamicTooltip() {
+
     }
 
     @Override
@@ -21,8 +19,5 @@ public class SimpleDynamicTooltip implements DynamicTooltip {
         tooltip.append(context, out);
     }
 
-    @Override
-    public Location where() {
-        return where;
-    }
+    public abstract Section root();
 }

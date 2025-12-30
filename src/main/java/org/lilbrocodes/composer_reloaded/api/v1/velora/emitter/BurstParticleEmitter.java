@@ -1,9 +1,12 @@
 package org.lilbrocodes.composer_reloaded.api.v1.velora.emitter;
 
 import org.lilbrocodes.composer_reloaded.api.v1.util.Vec2;
-import org.lilbrocodes.composer_reloaded.api.v1.util.builder.BuilderFields;
 import org.lilbrocodes.composer_reloaded.api.v1.velora.VeloraParticleManager;
 import org.lilbrocodes.composer_reloaded.api.v1.velora.particle.VeloraParticle;
+import org.lilbrocodes.constructive.api.v1.anno.Constructive;
+import org.lilbrocodes.constructive.api.v1.anno.builder.Default;
+import org.lilbrocodes.constructive.api.v1.anno.builder.HardRequire;
+import org.lilbrocodes.constructive.api.v1.anno.builder.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +14,25 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.random.RandomGenerator;
 
+@Constructive(builder = true)
 public class BurstParticleEmitter {
-    private final boolean staggered;
+    @Default
+    private boolean staggered = false;
     private final int staggerDelay;
-    private final double spread;
+    @Default
+    private double spread = 100d;
     private final int burstAmount;
+    @HardRequire
     private final Function<Vec2, VeloraParticle> particleSupplier;
+    @Transient
     private final List<StaggeredBurst> spawnCounters = new ArrayList<>();
 
-
-    private BurstParticleEmitter(Builder builder) {
-        this.burstAmount = builder.burstAmount;
-        this.particleSupplier = builder.particleSupplier;
-        this.staggered = builder.staggered;
-        this.staggerDelay = builder.staggerDelay;
-        this.spread = builder.spread;
+    public BurstParticleEmitter(boolean staggered, int staggerDelay, double spread, int burstAmount, Function<Vec2, VeloraParticle> particleSupplier) {
+        this.staggered = staggered;
+        this.staggerDelay = staggerDelay;
+        this.spread = spread;
+        this.burstAmount = burstAmount;
+        this.particleSupplier = particleSupplier;
     }
 
     public void trigger(Vec2 origin) {
@@ -76,53 +83,6 @@ public class BurstParticleEmitter {
         manager.spawnParticle(spawnPos, particleSupplier.apply(spawnPos));
     }
 
-    public static Builder builder(Function<Vec2, VeloraParticle> supplier) {
-        return new Builder(supplier);
-    }
-
-    public static class Builder {
-        private final Function<Vec2, VeloraParticle> particleSupplier;
-
-        private int burstAmount = 0;
-        private boolean staggered = false;
-        private int staggerDelay = 100;
-        private double spread = 0d;
-
-        private Builder(Function<Vec2, VeloraParticle> supplier) {
-            this.particleSupplier = supplier;
-        }
-
-        public Builder burstAmount(int amount) {
-            this.burstAmount = amount;
-            return this;
-        }
-
-        public BurstParticleEmitter build() {
-            BuilderFields.verify(this);
-            return new BurstParticleEmitter(this);
-        }
-
-        public Builder staggered() {
-            staggered = true;
-            return this;
-        }
-
-        public Builder staggerTicks(int ticks) {
-            staggerDelay = 50 * ticks;
-            return this;
-        }
-
-        public Builder staggerMs(int ms) {
-            staggerDelay = ms;
-            return this;
-        }
-
-        public Builder spread(double n) {
-            spread = n;
-            return this;
-        }
-    }
-
-    private record StaggeredBurst(long lastSpawnTime, int remaining, Vec2 origin) {
+    record StaggeredBurst(long lastSpawnTime, int remaining, Vec2 origin) {
     }
 }

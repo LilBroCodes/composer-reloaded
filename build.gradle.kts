@@ -35,10 +35,12 @@ fun present(key: String): Boolean {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     fun strictMaven(url: String, alias: String, vararg groups: String) = exclusiveContent {
         forRepository { maven(url) { name = alias } }
         filter { groups.forEach(::includeGroup) }
     }
+    strictMaven("https://dl.cloudsmith.io/public/lilbrocodes/constructive/maven/", "Constructive Maven")
     strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
     strictMaven("https://api.modrinth.com/maven", "Modrinth", "maven.modrinth")
     strictMaven("https://maven.ladysnake.org/releases", "Ladysnake")
@@ -65,6 +67,9 @@ dependencies {
     include("${cca()}.cardinal-components-api:cardinal-components-entity:${property("deps.cca")}")
     modRuntimeOnly("${cca()}.cardinal-components-api:cardinal-components-api:${property("deps.cca")}")
     modLocalRuntime("com.terraformersmc:modmenu:${property("r.deps.mod_menu")}")
+
+    implementation("org.lilbrocodes:constructive-core:${property("constructive_version")}")
+    annotationProcessor("org.lilbrocodes:constructive-processor:${property("constructive_version")}")
 
     testImplementation(platform("org.junit:junit-bom:${property("junit_version")}"))
     testImplementation("org.junit.jupiter:junit-jupiter")

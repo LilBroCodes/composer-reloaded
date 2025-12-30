@@ -12,7 +12,4 @@ public abstract class VeloraParticle {
 
     public abstract void render(DrawContext ctx, Vec2 origin);
 
-    public enum ParticleShape {
-        QUAD, TRIANGLE, CIRCLE
-    }
 }

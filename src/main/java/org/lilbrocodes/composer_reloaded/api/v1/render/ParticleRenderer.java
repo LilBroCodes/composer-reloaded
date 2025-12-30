@@ -3,7 +3,7 @@ package org.lilbrocodes.composer_reloaded.api.v1.render;
 import net.minecraft.client.render.*;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.v1.util.Vec2;
-import org.lilbrocodes.composer_reloaded.api.v1.velora.particle.VeloraParticle.ParticleShape;
+import org.lilbrocodes.composer_reloaded.api.v1.velora.particle.SimpleParticle;
 
 //? if minecraft: <=1.20.1 {
 /*import com.mojang.blaze3d.systems.RenderSystem;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @SuppressWarnings("ALL")
 public class ParticleRenderer {
-    public static void renderShape(ParticleShape shape, Vec2 position, double size, double rotation, int color) {
+    public static void renderShape(SimpleParticle.ParticleShape shape, Vec2 position, double size, double rotation, int color) {
         switch (shape) {
             case CIRCLE -> renderCircle(position, size, color);
             case QUAD -> renderQuad(position, size, rotation, color);

@@ -111,4 +111,8 @@ public class SimpleParticle extends VeloraParticle {
             return new SimpleParticle(this);
         }
     }
+
+    public enum ParticleShape {
+        QUAD, TRIANGLE, CIRCLE
+    }
 }

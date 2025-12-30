@@ -2,8 +2,8 @@ package org.lilbrocodes.composer_reloaded.api.v1.tooltips;
 
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.lilbrocodes.composer_reloaded.api.v1.util.builder.BuilderFields;
-import org.lilbrocodes.composer_reloaded.api.v1.util.builder.ListBuilder;
+import org.lilbrocodes.constructive.api.v1.anno.Constructive;
+import org.lilbrocodes.constructive.api.v1.anno.builder.*;
 
 import java.util.List;
 import java.util.function.Function;
@@ -11,17 +11,28 @@ import java.util.function.Function;
 /**
  * Represents a single tooltip section with optional nested sections.
  */
+@Constructive(builder = true)
 public class Section {
     private final String title;
-    private final String details;
+    @Default
+    @NullCheck(check = "%f.isBlank()")
+    private String details = "details";
+    @Name(name = "keyCombo")
     private final Function<TooltipContext, Modifier> requiredButtonProvider;
     private final ContentProvider content;
+    @Builder
+    @Name(name = "children")
     private final List<Section> nestedSections;
-    private final Formatting[] titleFormat;
-    private final Formatting[] contentFormat;
-    private final Formatting[] hiddenFormat;
+    @Builder
+    private final List<Formatting> titleFormat;
+    @Builder
+    @Default
+    private List<Formatting> contentFormat = List.of(Formatting.GRAY);
+    @Builder
+    @Default
+    private List<Formatting> hiddenFormat = List.of(Formatting.GRAY);
 
-    private Section(String title, String details, Function<TooltipContext, Modifier> requiredButtonProvider, ContentProvider content, List<Section> nestedSections, Formatting[] titleFormat, Formatting[] contentFormat, Formatting[] hiddenFormat) {
+    Section(String title, String details, Function<TooltipContext, Modifier> requiredButtonProvider, ContentProvider content, List<Section> nestedSections, List<Formatting> titleFormat, List<Formatting> contentFormat, List<Formatting> hiddenFormat) {
         this.title = title;
         this.details = details;
         this.requiredButtonProvider = requiredButtonProvider;
@@ -30,10 +41,6 @@ public class Section {
         this.titleFormat = titleFormat;
         this.contentFormat = contentFormat;
         this.hiddenFormat = hiddenFormat;
-    }
-
-    public static Builder create() {
-        return new Builder();
     }
 
     /**
@@ -45,16 +52,16 @@ public class Section {
         boolean buttonsPressed = requiredButtons == null || requiredButtons.matches(context);
 
         if (!buttonsPressed) {
-            out.add(Text.translatable("composer_reloaded.dynamic_tooltips.hidden", requiredButtons.toString(), Text.translatable(details)).formatted(hiddenFormat));
+            out.add(Text.translatable("composer_reloaded.dynamic_tooltips.hidden", requiredButtons.toString(), Text.translatable(details)).formatted(hiddenFormat.toArray(new Formatting[]{})));
             return;
         }
 
-        if (!title.isBlank()) out.add(Text.translatable(title).formatted(titleFormat));
+        if (!title.isBlank()) out.add(Text.translatable(title).formatted(titleFormat.toArray(new Formatting[]{})));
 
         if (content != null) {
             String main = content.get(context);
             if (main != null && !main.isEmpty()) {
-                out.add(Text.translatable(main).formatted(contentFormat));
+                out.add(Text.translatable(main).formatted(contentFormat.toArray(new Formatting[]{})));
             }
         }
 
@@ -62,74 +69,6 @@ public class Section {
             for (Section child : nestedSections) {
                 child.append(context, out);
             }
-        }
-    }
-
-    public static class Builder {
-        private String title;
-        private String details = "";
-        private Function<TooltipContext, Modifier> requiredButtonProvider;
-        private ContentProvider content;
-        private final ListBuilder<Builder, Section> nestedSections = new ListBuilder<>(this);
-        private final ListBuilder<Builder, Formatting> titleFormatter = new ListBuilder<>(this);
-        private final ListBuilder<Builder, Formatting> contentFormatter = new ListBuilder<>(this, List.of(
-                Formatting.GRAY
-        ));
-        private final ListBuilder<Builder, Formatting> hiddenFormatter = new ListBuilder<>(this, List.of(
-                Formatting.GRAY
-        ));
-
-        private Builder() {
-
-        }
-
-        public Builder title(String value) {
-            this.title = value;
-            return this;
-        }
-
-        public Builder details(String value) {
-            this.details = value;
-            return this;
-        }
-
-        public Builder keyCombination(Function<TooltipContext, Modifier> provider) {
-            this.requiredButtonProvider = provider;
-            return this;
-        }
-
-        public Builder content(ContentProvider content) {
-            this.content = content;
-            return this;
-        }
-
-        public ListBuilder<Builder, Section> children() {
-            return nestedSections;
-        }
-
-        public ListBuilder<Builder, Formatting> titleFormat() {
-            return titleFormatter;
-        }
-
-        public ListBuilder<Builder, Formatting> contentFormat() {
-            return contentFormatter;
-        }
-
-        public ListBuilder<Builder, Formatting> hiddenFormat() {
-            return hiddenFormatter;
-        }
-
-        public Section build() {
-            BuilderFields.verify(this);
-            return new Section(
-                    title,
-                    details.isBlank() ? "details" : details,
-                    requiredButtonProvider,
-                    content,
-                    nestedSections.build(),
-                    titleFormatter.toArray(Formatting.class),
-                    contentFormatter.toArray(Formatting.class),
-                    hiddenFormatter.toArray(Formatting.class));
         }
     }
 }
