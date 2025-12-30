@@ -7,7 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-//? minecraft: >=1.21.4 {
+//? minecraft: >=1.21.3 {
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 //? }
@@ -22,7 +22,8 @@ public class DeferredEntityRegistry extends EmptyDeferredRegistry {
         return Registry.register(Registries.ENTITY_TYPE, id, type);
     }
 
+    @SuppressWarnings("deprecation")
     public <T extends Entity> EntityType<T> register(String name, FabricEntityTypeBuilder<T> builder) {
-        return register(name, builder.build(/*? if minecraft: >=1.21.4 { */RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(modId, name))/*?}*/));
+        return register(name, builder.build(/*? if minecraft: >=1.21.3 { */RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(modId, name))/*?}*/));
     }
 }

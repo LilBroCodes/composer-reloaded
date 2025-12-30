@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.internal.networking.handler.ClearToastsHandler;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import org.lilbrocodes.composer_reloaded.internal.networking.handler.ScrollActionHandler;
@@ -19,11 +19,11 @@ import net.minecraft.network.codec.PacketCodec;
 //? }
 
 public record ClearToastsPayload()
-        implements /*? if minecraft: <=1.20.1 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
+        implements /*? if minecraft: <=1.20.4 { *//*FabricPacket*//*? } else {*/CustomPayload/*?}*/ {
 
     public static final Identifier oID = ComposerReloaded.identify("clear_toasts_s2c");
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*public static final Identifier ID = oID;
 
     @Override
@@ -36,7 +36,7 @@ public record ClearToastsPayload()
     }
     *///?}
 
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*private static final PacketType<ClearToastsPayload> TYPE = PacketType.create(oID, ClearToastsPayload::new);
 
     @Override
@@ -54,7 +54,7 @@ public record ClearToastsPayload()
 
     @Environment(EnvType.CLIENT)
     public static void registerHandler() {
-        //? if minecraft: >=1.21.4 {
+        //? if minecraft: >=1.20.6 {
         PayloadTypeRegistry.playS2C().register(ID, CODEC);
         ClientPlayNetworking.registerGlobalReceiver(ID, new ClearToastsHandler());
         //?} else {

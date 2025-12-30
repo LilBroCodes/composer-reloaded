@@ -1,9 +1,6 @@
 package org.lilbrocodes.composer_reloaded.mixin.impl.scroll;
 
 import net.fabricmc.fabric.api.event.Event;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import org.lilbrocodes.composer_reloaded.api.v1.events.ClientScrollEvents;
@@ -11,11 +8,17 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+
+//? if minecraft: <=1.21 {
+/*import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+*///? }
 
 @Mixin(PlayerInventory.class)
 public class PlayerInventoryMixin {
@@ -29,8 +32,8 @@ public class PlayerInventoryMixin {
             ClientScrollEvents.LOW_PRIORITY
     );
 
-    //? if minecraft: <=1.20.1
-    //@Inject(method = "scrollInHotbar", at = @At("HEAD"), cancellable = true)
+    //? if minecraft: <=1.21 {
+    /*@Inject(method = "scrollInHotbar", at = @At("HEAD"), cancellable = true)
     public void composer_reloaded$triggerActions(double scrollAmount, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();
         ClientWorld world = client.world;
@@ -43,4 +46,5 @@ public class PlayerInventoryMixin {
             }
         }
     }
+    *///? }
 }

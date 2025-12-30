@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-//? if minecraft: >=1.21.4
+//? if minecraft: >=1.20.6
 import static org.lilbrocodes.composer_reloaded.internal.registry.ModDataComponentTypes.STEPS;
 
 /**
@@ -19,7 +19,7 @@ import static org.lilbrocodes.composer_reloaded.internal.registry.ModDataCompone
  */
 @SuppressWarnings("EmptyMethod")
 public abstract class AbstractProgressItem extends Item {
-    //? if minecraft: <=1.20.1
+    //? if minecraft: <=1.20.4
     //private static final String STEP_KEY = "Step";
     private final int maxSteps;
 
@@ -56,10 +56,10 @@ public abstract class AbstractProgressItem extends Item {
     }
 
     /** Returns the current step stored in the item's NBT. */
-    //? if minecraft: >=1.21.4
+    //? if minecraft: >=1.20.6
     @SuppressWarnings("DataFlowIssue")
     public static int getStep(ItemStack stack) {
-        //? if minecraft: <=1.20.1 {
+        //? if minecraft: <=1.20.4 {
         /*return stack.getOrCreateNbt().getInt(STEP_KEY);
         *///? } else {
         return stack.contains(STEPS) ? stack.get(STEPS) : 0;
@@ -68,7 +68,7 @@ public abstract class AbstractProgressItem extends Item {
 
     /** Sets the current step in the item's NBT. */
     public static void setStep(ItemStack stack, int value) {
-        //? if minecraft: <=1.20.1 {
+        //? if minecraft: <=1.20.4 {
         /*stack.getOrCreateNbt().putInt(STEP_KEY, value);
         *///? } else {
         stack.set(STEPS, value);

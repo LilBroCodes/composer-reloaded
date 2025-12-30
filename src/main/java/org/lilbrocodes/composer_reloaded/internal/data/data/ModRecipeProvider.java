@@ -12,23 +12,36 @@ import static org.lilbrocodes.composer_reloaded.internal.registry.ModItems.PLUSH
 
 //? if minecraft: <=1.20.1 {
 /*import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 
 import java.util.function.Consumer;
+*///? } else if minecraft: <=1.21.3 {
+/*import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+
+import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.concurrent.CompletableFuture;
 *///? } else {
 import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.data.recipe.ShapedRecipeJsonBuilder;
 
 import java.util.concurrent.CompletableFuture;
+import net.minecraft.data.recipe.RecipeGenerator;
 //?}
 
+//? if minecraft: =1.21.3
+//import net.minecraft.data.server.recipe.RecipeGenerator;
+
+//? if minecraft: >=1.21.3
+import net.minecraft.registry.RegistryKeys;
+
 public class ModRecipeProvider extends FabricRecipeProvider {
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.4 {
     /*public ModRecipeProvider(FabricDataOutput output) {
         super(output);
     }
@@ -46,10 +59,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     @Override
     //? if minecraft: <=1.20.1 {
     /*public void generate(Consumer<RecipeJsonProvider> exporter) {
+    *///? } else if minecraft: <1.21.3 {
+    /*public void generate(RecipeExporter exporter) {
     *///? } else {
     protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
     //?}
-        //? minecraft: >=1.21.4 {
+        //? minecraft: >=1.21.3 {
         return new RecipeGenerator(registryLookup, exporter) {
             @Override
             public void generate() {
@@ -75,7 +90,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         10
                 ).criterion("has_plush", items(PLUSHIE)).offerTo(exporter, "cook_plush");
 
-            //? if minecraft: >= 1.21.4 {
+            //? if minecraft: >= 1.21.3 {
             }};
             //? }
     }

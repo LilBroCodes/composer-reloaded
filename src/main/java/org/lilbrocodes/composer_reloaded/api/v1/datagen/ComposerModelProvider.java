@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.21.3 {
 /*import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.BlockStateSupplier;
@@ -24,7 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import java.util.HashSet;
 import java.util.Set;
-*///? } else if minecraft: >=1.21.4 {
+*///? } else {
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -42,7 +42,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.client.data.*;
 //? }
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.21.3 {
 /*public abstract class ComposerModelProvider implements DataProvider {
     private final DataOutput.PathResolver blockstatesPathResolver;
     private final DataOutput.PathResolver modelsPathResolver;
@@ -150,7 +150,7 @@ public abstract class ComposerModelProvider implements DataProvider {
         public void accept(Identifier identifier, ModelSupplier modelSupplier) {
             Supplier<JsonElement> supplier = this.modelSuppliers.put(identifier, modelSupplier);
             if (supplier != null) {
-                throw new IllegalStateException("Duplicate model definition for " + String.valueOf(identifier));
+                throw new IllegalStateException("Duplicate model definition for " + identifier);
             }
         }
 
@@ -171,7 +171,7 @@ public abstract class ComposerModelProvider implements DataProvider {
             Block block = blockStateSupplier.getBlock();
             BlockStateSupplier blockStateSupplier2 = this.blockStateSuppliers.put(block, blockStateSupplier);
             if (blockStateSupplier2 != null) {
-                throw new IllegalStateException("Duplicate blockstate definition for " + String.valueOf(block));
+                throw new IllegalStateException("Duplicate blockstate definition for " + block);
             }
         }
 
@@ -201,9 +201,9 @@ public abstract class ComposerModelProvider implements DataProvider {
         }
 
         private void accept(Item item, ItemAsset asset) {
-            ItemAsset itemAsset = (ItemAsset)this.itemAssets.put(item, asset);
+            ItemAsset itemAsset = this.itemAssets.put(item, asset);
             if (itemAsset != null) {
-                throw new IllegalStateException("Duplicate item model definition for " + String.valueOf(item));
+                throw new IllegalStateException("Duplicate item model definition for " + item);
             }
         }
 

@@ -76,7 +76,7 @@ public class ComposerReloaded implements ModInitializer {
         ModBlocks.initialize();
         ModItems.initialize();
 
-        //? if minecraft: >=1.21.4
+        //? if minecraft: >=1.20.6
         ModDataComponentTypes.initialize();
 
         ComposerConfig.initialize();

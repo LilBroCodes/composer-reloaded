@@ -5,7 +5,7 @@ import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 import org.lilbrocodes.composer_reloaded.internal.cca.entity.TargetedBlockComponent;
 import org.lilbrocodes.composer_reloaded.internal.cca.entity.TargetedEntityComponent;
 
-//? if minecraft: <=1.20.1 {
+//? if minecraft: <=1.20.4 {
 /*import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;

@@ -1,14 +1,17 @@
 package org.lilbrocodes.composer_reloaded.internal.client.config;
 
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
-import me.fzzyhmstrs.fzzy_config.api.FileType;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
-import me.fzzyhmstrs.fzzy_config.api.SaveType;
 import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.util.EnumTranslatable;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 import org.jetbrains.annotations.NotNull;
 import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
+
+//? if minecraft: <=1.20.1 || >=1.21 {
+import me.fzzyhmstrs.fzzy_config.api.FileType;
+import me.fzzyhmstrs.fzzy_config.api.SaveType;
+//? }
 
 @SuppressWarnings("CanBeFinal")
 public class ComposerConfig extends Config {
@@ -23,6 +26,7 @@ public class ComposerConfig extends Config {
         return 0;
     }
 
+    //? if minecraft: <=1.20.1 || >=1.21 {
     @Override
     public @NotNull FileType fileType() {
         return FileType.JSONC;
@@ -32,11 +36,17 @@ public class ComposerConfig extends Config {
     public @NotNull SaveType saveType() {
         return SaveType.SEPARATE;
     }
+    //? }
 
+    //? if minecraft: <=1.20.1 || >=1.21
     @Name("Rainbow Effect on Duplicate Keybinds")
-    public boolean rainbowDuplicateKeybinds = false;
+    public boolean rainbowEffectOnDuplicateKeybinds = false;
+
+    //? if minecraft: <=1.20.1 || >=1.21
     @Name("Rainbow Effect Speed")
     public ValidatedInt rainbowEffectSpeed = new ValidatedInt(3, 10, 1);
+
+    //? if minecraft: <=1.20.1 || >=1.21
     @Name("Allow Duplicate Keybinds")
     public BindsMode allowDuplicateKeybinds = BindsMode.MC_AND_CM;
 

@@ -1,8 +1,14 @@
 package org.lilbrocodes.composer_reloaded.internal.registry;
 
-//? if minecraft: >=1.21.4 {
-import com.mojang.serialization.Codec;
+
+//? if minecraft: >= 1.21 {
 import net.minecraft.component.ComponentType;
+//? } else if minecraft: >=1.20.6 {
+/*import net.minecraft.component.DataComponentType;
+*///? }
+
+//? if minecraft: >=1.20.6 {
+import com.mojang.serialization.Codec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.dynamic.Codecs;
 import org.lilbrocodes.composer_reloaded.api.v1.registry.lazy.DeferredDataComponentTypeRegistry;
@@ -11,23 +17,23 @@ import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 public class ModDataComponentTypes {
     private static final DeferredDataComponentTypeRegistry REGISTRY = new DeferredDataComponentTypeRegistry(ComposerReloaded.MOD_ID);
 
-    public static final ComponentType<Integer> STEPS = REGISTRY.register(
+    public static final /*? minecraft: >=1.21 {*/ComponentType/*? } else {*//*DataComponentType*//*? }*/<Integer> STEPS = REGISTRY.register(
             "steps",
-            builder -> builder.codec(Codecs.NON_NEGATIVE_INT).packetCodec(PacketCodecs.INTEGER)
+            builder -> builder.codec(Codecs./*? minecraft: >=1.21.3 {*/NON_NEGATIVE_INT/*? } else {*//*NONNEGATIVE_INT*//*? }*/).packetCodec(PacketCodecs.INTEGER)
     );
 
-    public static final ComponentType<Boolean> SOULBOUND = REGISTRY.register(
+    public static final /*? minecraft: >=1.21 {*/ComponentType/*? } else {*//*DataComponentType*//*? }*/<Boolean> SOULBOUND = REGISTRY.register(
             "soulbound",
             builder -> builder
                     .codec(Codec.BOOL)
-                    .packetCodec(PacketCodecs.BOOLEAN)
+                    .packetCodec(PacketCodecs./*? minecraft: >=1.21.4 {*/BOOLEAN/*? } else {*//*BOOL*//*? }*/)
     );
 
-    public static final ComponentType<Boolean> SOULBOUND_CAN_DROP = REGISTRY.register(
+    public static final /*? minecraft: >=1.21 {*/ComponentType/*? } else {*//*DataComponentType*//*? }*/<Boolean> SOULBOUND_CAN_DROP = REGISTRY.register(
             "soulbound_can_drop",
             builder -> builder
                     .codec(Codec.BOOL)
-                    .packetCodec(PacketCodecs.BOOLEAN)
+                    .packetCodec(PacketCodecs./*? minecraft: >=1.21.4 {*/BOOLEAN/*? } else {*//*BOOL*//*? }*/)
     );
 
     public static void initialize() {

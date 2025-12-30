@@ -8,7 +8,7 @@ import org.lilbrocodes.composer_reloaded.internal.registry.ModRegistries;
 
 import java.util.Objects;
 
-//? if minecraft: >=1.21.4 {
+//? if minecraft: >=1.20.4 {
 import net.minecraft.advancement.AdvancementEntry;
 //? } else {
 /*import net.minecraft.advancement.Advancement;

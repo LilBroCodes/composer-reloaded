@@ -7,10 +7,10 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-//? if minecraft: >=1.21.4 {
- import net.minecraft.network.RegistryByteBuf;
- import net.minecraft.network.codec.PacketCodec;
- import com.mojang.serialization.MapCodec;
+//? if minecraft: >=1.20.6 {
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import com.mojang.serialization.MapCodec;
 //?} else {
 /*import com.mojang.serialization.Codec;
 *///?}
@@ -20,7 +20,7 @@ public class DeferredParticleRegistry extends EmptyDeferredRegistry {
         super(modId);
     }
 
-    //? if minecraft: >=1.21.4 {
+    //? if minecraft: >=1.20.6 {
     public <T extends ParticleEffect> ParticleType<T> register(
             String name, MapCodec<T> codec, PacketCodec<? super RegistryByteBuf, T> packetCodec) {
 
@@ -40,7 +40,7 @@ public class DeferredParticleRegistry extends EmptyDeferredRegistry {
     }
     //?}
 
-    //? if minecraft: <=1.20.1{
+    //? if minecraft: <=1.20.4{
     /*public <T extends ParticleEffect> ParticleType<T> register(
             String name,
             Codec<T> codec,

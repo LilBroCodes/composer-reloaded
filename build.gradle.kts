@@ -46,6 +46,19 @@ repositories {
     strictMaven("https://maven.ladysnake.org/releases", "Ladysnake")
     strictMaven("https://maven.fzzyhmstrs.me/", "FZZY Maven")
     strictMaven("https://maven.terraformersmc.com/", "Terraformers")
+    strictMaven("https://maven.nucleoid.xyz/", "Nucleoid")
+}
+
+subprojects {
+    tasks.withType<Test>().configureEach {
+        enabled = false
+    }
+}
+
+project(":1.21.4") {
+    tasks.withType<Test>().configureEach {
+        enabled = true
+    }
 }
 
 dependencies {

@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//? minecraft: >=1.21.4
+//? minecraft: >=1.21
 import net.minecraft.client.render.RenderTickCounter;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/toast/ToastManager;draw(Lnet/minecraft/client/gui/DrawContext;)V", shift = At.Shift.AFTER))
-    //? if minecraft: <=1.20.1 {
+    //? if minecraft: <=1.20.6 {
     /*public void composerReloaded$renderToasts(float tickDelta, long startTime, boolean tick, CallbackInfo ci, @Local DrawContext drawContext) {
     *///? } else {
     public void composerReloaded$renderToasts(RenderTickCounter tickCounter, boolean tick, CallbackInfo ci, @Local DrawContext drawContext) {
