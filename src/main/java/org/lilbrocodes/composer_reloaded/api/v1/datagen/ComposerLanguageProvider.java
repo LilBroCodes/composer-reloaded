@@ -67,7 +67,7 @@ public abstract class ComposerLanguageProvider extends FabricLanguageProvider {
     // Custom
 
     public void feature(FeatureHandle feature, String translation) {
-        if (feature.id() != null) add(feature.getTranslationKey("feature.description"), translation);
+        if (feature.id() != null) add(feature.getTranslationKey(), translation);
     }
 
     public void feature(Feature feature, String translation) {

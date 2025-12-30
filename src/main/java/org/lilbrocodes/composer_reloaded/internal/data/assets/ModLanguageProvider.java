@@ -26,7 +26,7 @@ public class ModLanguageProvider extends ComposerLanguageProvider {
     @Override
     public void generate() {
         block(ModBlocks.PLUSH, "LilBro Plush");
-        //? if minecraft: >=1.21.4
+        //? if minecraft: >=1.21.3
         item(ModBlocks.PLUSH, "LilBro Plush");
         stat(ModStatistics.PLUSH_BOOP, "LilBro Plushies Booped");
         group(ModItemGroups.COMPOSER, "Composer's Silly Little Additions");

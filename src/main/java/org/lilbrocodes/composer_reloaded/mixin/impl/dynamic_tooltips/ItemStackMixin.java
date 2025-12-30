@@ -168,7 +168,7 @@ public abstract class ItemStackMixin {
         appendRegistered(copy(), list, AFTER_DISABLED_TEXT);
     }
 
-    //? if minecraft: >=1.21.3 {
+    //? if minecraft: >=1.21.4 {
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Ljava/util/List;addAll(Ljava/util/Collection;)Z", shift = At.Shift.AFTER))
     private void composer$append$20(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
         appendRegistered(copy(), list, AFTER_OPERATOR_WARNINGS);
