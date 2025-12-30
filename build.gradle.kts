@@ -116,6 +116,11 @@ java {
     sourceCompatibility = requiredJava
 }
 
+tasks.register<Delete>("cleanArtifacts") {
+    delete(rootProject.file("artifacts"))
+}
+
+
 val canPublish = present("CLOUDSMITH_USERNAME") && present("CLOUDSMITH_API_KEY")
 tasks {
     processResources {
@@ -148,10 +153,6 @@ tasks {
         from(remapJar.map { it.archiveFile }, remapSourcesJar.map { it.archiveFile })
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
         dependsOn("build")
-    }
-
-    register<Delete>("cleanArtifacts") {
-        delete(rootProject.file("artifacts"))
     }
 
     register<Copy>("collectArtifacts") {
