@@ -17,6 +17,11 @@ import static org.lilbrocodes.composer_reloaded.internal.ComposerReloaded.LOGGER
 public class DataFixerRegistry {
     public static final AbstractPseudoRegistry<Item> ITEM = new AbstractPseudoRegistry.Impl<>() {
         @Override
+        protected void bootstrap() {
+            identify(ComposerReloaded.identify("item_data_fixers"), this);
+        }
+
+        @Override
         @SuppressWarnings("unchecked")
         public Item register(Identifier id, Item value) {
             //? if minecraft: >=1.20.6

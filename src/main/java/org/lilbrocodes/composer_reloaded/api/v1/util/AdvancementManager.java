@@ -4,7 +4,7 @@ import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
-import org.lilbrocodes.composer_reloaded.internal.registry.ModRegistries;
+import org.lilbrocodes.composer_reloaded.api.v1.registry.ComposerRegistries;
 
 import java.util.Objects;
 
@@ -35,7 +35,7 @@ public class AdvancementManager {
 
     public static void tick(ServerWorld world) {
         for (ServerPlayerEntity player : world.getPlayers()) {
-            ModRegistries.COMPOSER_ADVANCEMENTS.streamEntries().forEach(advancementReference -> {
+            ComposerRegistries.COMPOSER_ADVANCEMENTS.streamEntries().forEach(advancementReference -> {
                 if (advancementReference.hasKeyAndValue() && advancementReference.value().advancementPredicate().test(player)) {
                     AdvancementManager.grantAdvancement(player, advancementReference.value().advancementIdentifier());
                 }

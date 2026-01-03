@@ -3,3 +3,8 @@ accessible method net/minecraft/sound/SoundEvent <init> (Lnet/minecraft/util/Ide
 accessible field net/minecraft/client/option/KeyBinding timesPressed I
 accessible field net/minecraft/recipe/BrewingRecipeRegistry POTION_RECIPES Ljava/util/List;
 accessible class net/minecraft/recipe/BrewingRecipeRegistry$Recipe
+accessible field net/minecraft/registry/Registries DEFAULT_ENTRIES Ljava/util/Map;
+accessible field net/minecraft/registry/Registries ROOT Lnet/minecraft/registry/MutableRegistry;
+accessible class net/minecraft/client/texture/ResourceTexture$TextureData
+accessible field net/minecraft/client/texture/ResourceTexture$TextureData image Lnet/minecraft/client/texture/NativeImage;
+accessible method net/minecraft/client/texture/ResourceTexture loadTextureData (Lnet/minecraft/resource/ResourceManager;)Lnet/minecraft/client/texture/ResourceTexture$TextureData;

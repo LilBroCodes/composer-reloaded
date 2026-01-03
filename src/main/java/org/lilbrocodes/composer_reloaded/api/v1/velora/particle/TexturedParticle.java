@@ -26,10 +26,10 @@ public class TexturedParticle extends SimpleParticle {
         double age = (System.currentTimeMillis() - creationTime) / 1000.0;
         double t = Math.min(Math.max(age / lifetimeSeconds, 0.0), 1.0);
 
-        double size = lerp(startSize, endSize, t);
-        double rotation = lerp(startRotation, endRotation, t);
-        int color = lerpColor(startColor, endColor, t);
-        Vec2 velocity = lerpVec2(startVelocity, endVelocity, t);
+        double size = sizeInterpolationFunction.apply(startSize, endSize, t);
+        double rotation = rotationInterpolationFunction.apply(startRotation, endRotation, t);
+        int color = lerpColor(colorInterpolationFunction, startColor, endColor, t);
+        Vec2 velocity = lerpVec2(velocityInterpolationFunction, startVelocity, endVelocity, t);
         Vec2 pos = new Vec2(origin.x + velocity.x * age, origin.y + velocity.y * age);
 
         if (frameCount > 1) {

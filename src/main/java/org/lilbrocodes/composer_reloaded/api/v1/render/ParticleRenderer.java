@@ -4,11 +4,11 @@ import net.minecraft.client.render.*;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.v1.util.Vec2;
 import org.lilbrocodes.composer_reloaded.api.v1.velora.particle.SimpleParticle;
+import com.mojang.blaze3d.systems.RenderSystem;
 
-//? if minecraft: <=1.20.6 {
-/*import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.List;
-*///?}
+//? if minecraft: >=1.21.3 {
+import net.minecraft.client.gl.ShaderProgramKeys;
+//? }
 
 @SuppressWarnings("ALL")
 public class ParticleRenderer {
@@ -39,14 +39,23 @@ public class ParticleRenderer {
     }
 
     private static void renderQuad(Vec2 center, double size, double rotation, int color) {
-        //? if minecraft: <=1.20.6 {
-        /*RenderSystem.enableBlend();
+        RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
 
+        //? if minecraft: >=1.21.3 {
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+        //?} else {
+        /*RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        *///?}
+        
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+        BufferBuilder buffer = tessellator
+            //? if minecraft: <=1.20.6 {
+            /*.getBuffer();
+            buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+            *///?} else {
+            .begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+            //?}
 
         int r = (color >> 24) & 0xFF;
         int g = (color >> 16) & 0xFF;
@@ -68,13 +77,16 @@ public class ParticleRenderer {
         }
 
         for (Vec2 p : vertices) {
-            buffer.vertex(p.x, p.y, 0f).color(r, g, b, a).next();
+            //? if minecraft: <=1.20.6 {
+            /*buffer.vertex(p.x, p.y, 0f).color(r, g, b, a).next();
+            *///? } else {
+            buffer.vertex((float) p.x, (float) p.y, 0f).color(r, g, b, a);
+            //? }
         }
 
-        tessellator.draw();
+        //? if minecraft: <=1.20.6
+        //tessellator.draw();
         RenderSystem.disableBlend();
-        *///? }
-        // TODO: Reimplement for 1.21.4
     }
 
     private static void renderTriangle(Vec2 center, double size, double rotation, int color) {
@@ -107,50 +119,72 @@ public class ParticleRenderer {
      *  If someone wants to fix this, please do as I have no clue how to do so.
      */
     private static void drawTriangle(Vec2 v1, Vec2 v2, Vec2 v3, int color) {
-        //? if minecraft: <=1.20.6 {
-        /*double cross = (v2.x - v1.x) * (v3.y - v1.y) - (v2.y - v1.y) * (v3.x - v1.x);
-
+        // cross-product decides winding
+        double cross = (v2.x - v1.x) * (v3.y - v1.y) - (v2.y - v1.y) * (v3.x - v1.x);
         boolean ccw = cross > 0;
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+
+        //? if minecraft: >=1.21.3 {
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+        //? } else {
+        /*RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+         *///?}
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION_COLOR);
+        BufferBuilder buffer = tessellator
+                //? if minecraft: <=1.20.6 {
+                /*.getBuffer();
+                buffer.begin(VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION_COLOR);
+                *///? } else {
+                .begin(VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION_COLOR);
+        //?}
 
         int r = (color >> 24) & 0xFF;
         int g = (color >> 16) & 0xFF;
         int b = (color >> 8) & 0xFF;
         int a = color & 0xFF;
 
-        if (!ccw) {
-            for (Vec2 vert : List.of(v1, v2, v3)) {
-                buffer.vertex(vert.x, vert.y, 0f).color(r, g, b, a).next();
-            }
-        } else {
-            for (Vec2 vert : List.of(v1, v3, v2)) {
-                buffer.vertex(vert.x, vert.y, 0f).color(r, g, b, a).next();
-            }
+        Vec2[] order = ccw ? new Vec2[]{v1, v3, v2} : new Vec2[]{v1, v2, v3};
+        for (Vec2 p : order) {
+            //? if minecraft: <=1.20.6 {
+            /*buffer.vertex(p.x, p.y, 0f).color(r, g, b, a).next();
+             *///? } else {
+            buffer.vertex((float) p.x, (float) p.y, 0f).color(r, g, b, a);
+            //?}
         }
 
-        tessellator.draw();
+        //? if minecraft: <=1.20.6
+        //tessellator.draw();
+
         RenderSystem.disableBlend();
-        *///? }
-        // TODO: Reimplement for 1.21.4
     }
 
-    public static void renderTexturedQuad(Identifier texture, Vec2 center, double size, double rotation, int color) {
-        //? if minecraft: <=1.20.6 {
-        /*RenderSystem.setShaderTexture(0, texture);
+    public static void renderTexturedQuad(Identifier texture,
+                                          Vec2 center,
+                                          double size,
+                                          double rotation,
+                                          int color) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
+
+        //? if minecraft: >=1.21.3 {
+        RenderSystem.setShaderTexture(0, texture);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
+        //? } else {
+        /*RenderSystem.setShaderTexture(0, texture);
         RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
+        *///?}
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+        BufferBuilder buffer = tessellator
+                //? if minecraft: <=1.20.6 {
+                /*.getBuffer();
+                buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+                *///? } else {
+                .begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+        //?}
 
         int r = (color >> 24) & 0xFF;
         int g = (color >> 16) & 0xFF;
@@ -158,34 +192,33 @@ public class ParticleRenderer {
         int a = color & 0xFF;
 
         double half = size / 2;
-
-        Vec2[] corners = new Vec2[]{
+        Vec2[] corners = {
                 new Vec2(-half, -half),
-                new Vec2(-half, half),
-                new Vec2(half, half),
-                new Vec2(half, -half)
+                new Vec2(-half,  half),
+                new Vec2( half,  half),
+                new Vec2( half, -half)
         };
-
-        float[] uvs = {
-                0f, 0f,
-                0f, 1f,
-                1f, 1f,
-                1f, 0f
-        };
+        float[] u = {0f, 0f, 1f, 1f};
+        float[] v = {0f, 1f, 1f, 0f};
 
         for (int i = 0; i < 4; i++) {
-            Vec2 rotated = rotateVec(corners[i], rotation);
-            Vec2 finalPos = new Vec2(center.x + rotated.x, center.y + rotated.y);
-            buffer.vertex(finalPos.x, finalPos.y, 0)
-                    .texture(uvs[i * 2], uvs[i * 2 + 1])
-                    .color(r, g, b, a)
-                    .next();
+            Vec2 rot = rotateVec(corners[i], rotation);
+            //? if minecraft: <=1.20.6 {
+            /*buffer.vertex(center.x + rot.x, center.y + rot.y, 0)
+                .texture(u[i], v[i])
+                .color(r, g, b, a)
+                .next();
+            *///? } else {
+            buffer.vertex((float)(center.x + rot.x), (float)(center.y + rot.y), 0f)
+                    .texture(u[i], v[i])
+                    .color(r, g, b, a);
+            //?}
         }
 
-        tessellator.draw();
+        //? if minecraft: <=1.20.6
+        //tessellator.draw();
+
         RenderSystem.disableBlend();
-        *///? }
-        // TODO: Reimplement for 1.21.4
     }
 
     public static void renderAnimatedQuad(
@@ -197,15 +230,25 @@ public class ParticleRenderer {
             int frameIndex,
             int totalFrames
     ) {
-        //? if minecraft: <=1.20.6 {
-        /*RenderSystem.setShaderTexture(0, texture);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
+
+        //? if minecraft: >=1.21.3 {
+        RenderSystem.setShaderTexture(0, texture);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
+        //? } else {
+        /*RenderSystem.setShaderTexture(0, texture);
         RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
+        *///?}
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+        BufferBuilder buffer = tessellator
+                //? if minecraft: <=1.20.6 {
+                /*.getBuffer();
+                buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+                *///? } else {
+                .begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+        //?}
 
         int r = (color >> 24) & 0xFF;
         int g = (color >> 16) & 0xFF;
@@ -213,39 +256,37 @@ public class ParticleRenderer {
         int a = color & 0xFF;
 
         double half = size / 2;
-
-        // Calculate vertical UVs for the current frame
         float vFrameHeight = 1f / totalFrames;
         float vMin = vFrameHeight * frameIndex;
         float vMax = vMin + vFrameHeight;
 
         Vec2[] corners = new Vec2[]{
                 new Vec2(-half, -half),
-                new Vec2(-half, half),
-                new Vec2(half, half),
-                new Vec2(half, -half)
+                new Vec2(-half,  half),
+                new Vec2( half,  half),
+                new Vec2( half, -half)
         };
 
-        float[] uvs = {
-                0f, vMin,
-                0f, vMax,
-                1f, vMax,
-                1f, vMin
-        };
+        float[] u = {0f, 0f, 1f, 1f};
+        float[] v = {vMin, vMax, vMax, vMin};
 
         for (int i = 0; i < 4; i++) {
-            Vec2 rotated = rotateVec(corners[i], rotation);
-            Vec2 finalPos = new Vec2(center.x + rotated.x, center.y + rotated.y);
-            buffer.vertex(finalPos.x, finalPos.y, 0)
-                    .texture(uvs[i * 2], uvs[i * 2 + 1])
-                    .color(r, g, b, a)
-                    .next();
+            Vec2 rot = rotateVec(corners[i], rotation);
+            //? if minecraft: <=1.20.6 {
+            /*buffer.vertex(center.x + rot.x, center.y + rot.y, 0f)
+                .texture(u[i], v[i])
+                .color(r, g, b, a)
+                .next();
+            *///? } else {
+            buffer.vertex((float)(center.x + rot.x), (float)(center.y + rot.y), 0f)
+                    .texture(u[i], v[i])
+                    .color(r, g, b, a);
+            //?}
         }
 
-        tessellator.draw();
-        RenderSystem.disableBlend();
-        *///? }
-        // TODO: Reimplement for 1.21.4
-    }
+        //? if minecraft: <=1.20.6
+        //tessellator.draw();
 
+        RenderSystem.disableBlend();
+    }
 }

@@ -16,12 +16,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.lilbrocodes.composer_reloaded.api.v1.commands.ComposerCommand;
 import org.lilbrocodes.composer_reloaded.api.v1.toast.ToastManager;
+import org.lilbrocodes.composer_reloaded.api.v1.toast.impl.NotifyToast;
+import org.lilbrocodes.composer_reloaded.api.v1.toast.impl.SimpleToast;
 import org.lilbrocodes.composer_reloaded.api.v1.util.PredicateVoid;
 import org.lilbrocodes.composer_reloaded.api.v1.util.command.ColorArgumentType;
 import org.lilbrocodes.composer_reloaded.api.v1.util.command.ToastCornerArgumentType;
 import org.lilbrocodes.composer_reloaded.internal.networking.ClearToastsPayload;
-import org.lilbrocodes.composer_reloaded.internal.networking.NotifyToastPayload;
-import org.lilbrocodes.composer_reloaded.internal.networking.SimpleToastPayload;
+import org.lilbrocodes.composer_reloaded.internal.networking.TriggerToastPayload;
 
 public class ToastCommand extends ComposerCommand {
     @Override
@@ -47,8 +48,8 @@ public class ToastCommand extends ComposerCommand {
     private ArgumentBuilder<ServerCommandSource, ?> toastOptions(Command<ServerCommandSource> command) {
         return CommandManager.argument("where", ToastCornerArgumentType.corners()).then(
                 CommandManager.argument("message", StringArgumentType.string()).then(
-                        CommandManager.argument("background_color", ColorArgumentType.color()).then(
-                                CommandManager.argument("border_color", ColorArgumentType.color()).executes(command)
+                        CommandManager.argument("background_color", ColorArgumentType.argb()).then(
+                                CommandManager.argument("border_color", ColorArgumentType.argb()).executes(command)
                         )
                 )
         );
@@ -78,7 +79,7 @@ public class ToastCommand extends ComposerCommand {
             Identifier iconTexture = Identifier.tryParse(StringArgumentType.getString(context, "icon_texture"));
             if (iconTexture == null) throw new Exception();
 
-            players.forEach(player -> ServerPlayNetworking.send(player, new SimpleToastPayload(iconTexture, message, corner, backgroundColor, borderColor)));
+            players.forEach(player -> ServerPlayNetworking.send(player, new TriggerToastPayload<>(new SimpleToast(iconTexture, message, backgroundColor, borderColor), corner)));
 
             return feedback(context, Text.translatable(
                     "composer_reloaded.toast.sent_simple",
@@ -102,7 +103,7 @@ public class ToastCommand extends ComposerCommand {
             int backgroundColor = context.getArgument("background_color", Integer.class);
             int borderColor = context.getArgument("border_color", Integer.class);
 
-            players.forEach(player -> ServerPlayNetworking.send(player, new NotifyToastPayload(message, corner, backgroundColor, borderColor)));
+            players.forEach(player -> ServerPlayNetworking.send(player, new TriggerToastPayload<>(new NotifyToast(message, backgroundColor, borderColor), corner)));
 
             return feedback(context, Text.translatable(
                     "composer_reloaded.toast.sent_notify",

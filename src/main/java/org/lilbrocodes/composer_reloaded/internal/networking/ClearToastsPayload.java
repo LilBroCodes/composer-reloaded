@@ -11,7 +11,6 @@ import org.lilbrocodes.composer_reloaded.internal.networking.handler.ClearToasts
 //? if minecraft: <=1.20.4 {
 /*import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
-import org.lilbrocodes.composer_reloaded.internal.networking.handler.ScrollActionHandler;
 *///? } else {
 import net.minecraft.network.packet.CustomPayload;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;

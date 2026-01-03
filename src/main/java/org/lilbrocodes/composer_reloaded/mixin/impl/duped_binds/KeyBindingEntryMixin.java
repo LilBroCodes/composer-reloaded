@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(ControlsListWidget.KeyBindingEntry.class)
-public abstract class RecolorKeybindMixin {
+public abstract class KeyBindingEntryMixin {
     @Shadow
     @Final
     private KeyBinding binding;

@@ -1,23 +1,32 @@
 package org.lilbrocodes.composer_reloaded.api.v1.util.command;
 
+import com.google.gson.JsonObject;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import net.minecraft.command.CommandRegistryAccess;
+import net.minecraft.command.argument.serialize.ArgumentSerializer;
+import net.minecraft.network.PacketByteBuf;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ColorArgumentType implements ArgumentType<Integer> {
     private static final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
+    private final boolean includeAlpha;
 
-    protected ColorArgumentType() {
-
+    protected ColorArgumentType(boolean includeAlpha) {
+        this.includeAlpha = includeAlpha;
     }
 
-    public static ColorArgumentType color() {
-        return new ColorArgumentType();
+    public static ColorArgumentType rgb() {
+        return new ColorArgumentType(false);
+    }
+
+    public static ColorArgumentType argb() {
+        return new ColorArgumentType(true);
     }
 
     @Override
@@ -64,5 +73,47 @@ public class ColorArgumentType implements ArgumentType<Integer> {
         }
 
         return builder.buildFuture();
+    }
+
+    public enum Serializer implements ArgumentSerializer<ColorArgumentType, Serializer.Properties> {
+        INSTANCE;
+
+        @Override
+        public void writePacket(Properties properties, PacketByteBuf buf) {
+            buf.writeBoolean(properties.includeAlpha);
+        }
+
+        @Override
+        public Properties fromPacket(PacketByteBuf buf) {
+            return new Properties(buf.readBoolean());
+        }
+
+        @Override
+        public void writeJson(Properties properties, JsonObject json) {
+            json.addProperty("include_alpha", properties.includeAlpha);
+        }
+
+        @Override
+        public Properties getArgumentTypeProperties(ColorArgumentType argumentType) {
+            return new Properties(argumentType.includeAlpha);
+        }
+
+        public static class Properties implements ArgumentSerializer.ArgumentTypeProperties<ColorArgumentType> {
+            private final boolean includeAlpha;
+
+            public Properties(boolean includeAlpha) {
+                this.includeAlpha = includeAlpha;
+            }
+
+            @Override
+            public ColorArgumentType createType(CommandRegistryAccess registryAccess) {
+                return new ColorArgumentType(includeAlpha);
+            }
+
+            @Override
+            public ArgumentSerializer<ColorArgumentType, ?> getSerializer() {
+                return Serializer.INSTANCE;
+            }
+        }
     }
 }

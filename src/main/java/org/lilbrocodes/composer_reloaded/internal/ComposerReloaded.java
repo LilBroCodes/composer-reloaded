@@ -15,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lilbrocodes.composer_reloaded.api.v1.easytags.impl.DefaultSerializers;
 import org.lilbrocodes.composer_reloaded.api.v1.events.composite.ComposerCompositeEvents;
-import org.lilbrocodes.composer_reloaded.api.v1.events.composite.CompositeEventRegistry;
 import org.lilbrocodes.composer_reloaded.api.v1.feature.ComposerFeatures;
 import org.lilbrocodes.composer_reloaded.api.v1.runtime.ServerHolder;
 import org.lilbrocodes.composer_reloaded.api.v1.util.AdvancementManager;
@@ -23,6 +22,8 @@ import org.lilbrocodes.composer_reloaded.api.v1.util.misc.AbstractPseudoRegistry
 import org.lilbrocodes.composer_reloaded.api.v1.util.misc.EventStacker;
 import org.lilbrocodes.composer_reloaded.internal.client.config.ComposerConfig;
 import org.lilbrocodes.composer_reloaded.internal.command.FeatureCommand;
+import org.lilbrocodes.composer_reloaded.internal.command.OverlayCommand;
+import org.lilbrocodes.composer_reloaded.internal.command.RegistryCommand;
 import org.lilbrocodes.composer_reloaded.internal.command.ToastCommand;
 import org.lilbrocodes.composer_reloaded.internal.data.loader.FeatureStateLoader;
 import org.lilbrocodes.composer_reloaded.internal.data.loader.SimpleItemFixerLoader;
@@ -81,6 +82,8 @@ public class ComposerReloaded implements ModInitializer {
 
         ComposerConfig.initialize();
         ModRegistries.initialize();
+        ModOverlaySerializers.initialize();
+        ModToastSerializers.initialize();
         DefaultSerializers.initialize();
 
         TargetEntityPayload.registerHandler();
@@ -90,10 +93,10 @@ public class ComposerReloaded implements ModInitializer {
         EventStacker.registerAll(
                 CommandRegistrationCallback.EVENT,
                 new FeatureCommand(),
-                new ToastCommand()
+                new ToastCommand(),
+                new OverlayCommand(),
+                new RegistryCommand()
         );
-
-        AbstractPseudoRegistry.identify(identify("composite_events"), CompositeEventRegistry.getInstance());
 
         ServerTickEvents.END_WORLD_TICK.register(AdvancementManager::tick);
         EventStacker.registerAll(

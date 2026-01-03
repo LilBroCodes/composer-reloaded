@@ -4,3 +4,6 @@ accessible field net/minecraft/client/option/KeyBinding timesPressed I
 accessible class net/minecraft/client/data/ModelProvider$BlockStateSuppliers
 accessible class net/minecraft/client/data/ModelProvider$ItemAssets
 accessible class net/minecraft/client/data/ModelProvider$ModelSuppliers
+accessible field net/minecraft/client/gui/DrawContext vertexConsumers Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;
+accessible field net/minecraft/registry/Registries ROOT Lnet/minecraft/registry/MutableRegistry;
+accessible method net/minecraft/client/gui/DrawContext drawTexturedQuad (Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIIIFFFFI)V

@@ -2,6 +2,7 @@ package org.lilbrocodes.composer_reloaded.internal.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.data.report.*;
 import org.lilbrocodes.composer_reloaded.internal.data.assets.ModLanguageProvider;
 import org.lilbrocodes.composer_reloaded.internal.data.data.ModBlockLootTableProvider;
 import org.lilbrocodes.composer_reloaded.internal.data.data.ModRecipeProvider;

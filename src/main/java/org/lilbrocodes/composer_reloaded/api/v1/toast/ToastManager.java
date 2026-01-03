@@ -3,6 +3,7 @@ package org.lilbrocodes.composer_reloaded.api.v1.toast;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.StringIdentifiable;
+import org.lilbrocodes.composer_reloaded.api.v1.toast.impl.AbstractToast;
 
 import java.util.ArrayList;
 import java.util.HashMap;

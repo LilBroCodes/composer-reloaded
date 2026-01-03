@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeyBinding.class)
-public class TriggerAllBindsMixin {
+public class KeyBindingMixin {
     @Inject(method = "onKeyPressed", at = @At("TAIL"))
     private static void flowed_combat$triggerOtherBinds(InputUtil.Key key, CallbackInfo ci, @Local KeyBinding keyBinding) {
         if (!ComposerReloaded.dupedBinds()) return;

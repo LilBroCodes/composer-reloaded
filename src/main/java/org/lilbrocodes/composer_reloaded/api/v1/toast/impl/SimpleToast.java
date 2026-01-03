@@ -1,12 +1,14 @@
-package org.lilbrocodes.composer_reloaded.api.v1.toast;
+package org.lilbrocodes.composer_reloaded.api.v1.toast.impl;
 
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.joml.Vector2i;
-import org.lilbrocodes.composer_reloaded.api.v1.render.ColorProgram;
 import org.lilbrocodes.composer_reloaded.api.v1.render.ToastDrawUtils;
+import org.lilbrocodes.composer_reloaded.api.v1.util.misc.PacketSerializer;
+import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
 
 import java.util.List;
 
@@ -18,8 +20,6 @@ public class SimpleToast extends AbstractToast {
     private final String message;
     private final int backgroundColor;
     private final int borderColor;
-    private final ColorProgram backgroundColorProgram;
-    private final ColorProgram borderColorProgram;
 
     private static final int HEIGHT = 40;
     private static final int MAX_WIDTH = 200;
@@ -34,22 +34,10 @@ public class SimpleToast extends AbstractToast {
         this.message = message;
         this.backgroundColor = backgroundColor;
         this.borderColor = borderColor;
-        this.backgroundColorProgram = null;
-        this.borderColorProgram = null;
-    }
-
-    public SimpleToast(Identifier iconTexture, String message, ColorProgram backgroundColorProgram, ColorProgram borderColorProgram) {
-        super();
-        this.iconTexture = iconTexture;
-        this.message = message;
-        this.backgroundColorProgram = backgroundColorProgram;
-        this.borderColorProgram = borderColorProgram;
-        this.backgroundColor = -1;
-        this.borderColor = -1;
     }
 
     @Override
-    protected void draw(DrawContext context, long timeAlive, int x, int y) {
+    public void draw(DrawContext context, long timeAlive, int x, int y) {
         float scaleX = getHorizontalScaleFactor(timeAlive);
 
         context.getMatrices().push();
@@ -68,13 +56,18 @@ public class SimpleToast extends AbstractToast {
     }
 
     @Override
-    protected Vector2i size() {
+    public Vector2i size() {
         return new Vector2i(MAX_WIDTH, HEIGHT);
     }
 
     @Override
-    protected int margin() {
+    public int margin() {
         return MARGIN;
+    }
+
+    @Override
+    public Identifier getId() {
+        return ComposerReloaded.identify("simple");
     }
 
     private void drawIcon(DrawContext ctx) {
@@ -84,9 +77,25 @@ public class SimpleToast extends AbstractToast {
         ctx.drawTexture(/*? minecraft: >=1.21.3 { */RenderLayer::getGuiTextured, /*?}*/ iconTexture, x, y, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
     }
 
+    public Identifier getIconTexture() {
+        return iconTexture;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public int getBorderColor() {
+        return borderColor;
+    }
+
     private void drawBox(DrawContext ctx) {
-        ToastDrawUtils.drawCenteredBox(ctx, 0, 0, MAX_WIDTH, HEIGHT, backgroundColorProgram == null ? backgroundColor : backgroundColorProgram.pick());
-        ToastDrawUtils.drawCenteredOutline(ctx, 0, 0, MAX_WIDTH, HEIGHT, borderColorProgram == null ? borderColor : borderColorProgram.pick(), 1);
+        ToastDrawUtils.drawCenteredBox(ctx, 0, 0, MAX_WIDTH, HEIGHT, backgroundColor);
+        ToastDrawUtils.drawCenteredOutline(ctx, 0, 0, MAX_WIDTH, HEIGHT, borderColor, 1);
     }
 
     private void drawText(DrawContext ctx) {
@@ -105,6 +114,26 @@ public class SimpleToast extends AbstractToast {
             return 1.0f - (1.0f - (float) Math.pow(1.0f - t, 3));
         } else {
             return 1.0f;
+        }
+    }
+
+    public static class Serializer implements PacketSerializer<SimpleToast> {
+        @Override
+        public void write(SimpleToast toast, PacketByteBuf buf) {
+            buf.writeIdentifier(toast.getIconTexture());
+            buf.writeString(toast.getMessage());
+            buf.writeInt(toast.getBackgroundColor());
+            buf.writeInt(toast.getBorderColor());
+        }
+
+        @Override
+        public SimpleToast read(PacketByteBuf buf) {
+            return new SimpleToast(
+                    buf.readIdentifier(),
+                    buf.readString(),
+                    buf.readInt(),
+                    buf.readInt()
+            );
         }
     }
 }

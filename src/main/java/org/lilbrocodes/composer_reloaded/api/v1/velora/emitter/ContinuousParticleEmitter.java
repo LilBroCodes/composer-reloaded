@@ -9,7 +9,7 @@ import org.lilbrocodes.constructive.api.v1.anno.builder.HardRequire;
 import org.lilbrocodes.constructive.api.v1.anno.builder.Transient;
 
 import java.util.Random;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 @Constructive(builder = true)
 public class ContinuousParticleEmitter {
@@ -17,18 +17,19 @@ public class ContinuousParticleEmitter {
     private final int interval;
     private final double spread;
     @HardRequire
-    private final Function<Vec2, VeloraParticle> particleSupplier;
+    private final BiFunction<Vec2, Vec2, VeloraParticle> particleSupplier;
 
     @Transient
     private long lastSpawnTime;
     @Transient
     private boolean enabled;
 
-    ContinuousParticleEmitter(int interval, double spread, Function<Vec2, VeloraParticle> particleSupplier) {
+    ContinuousParticleEmitter(int interval, double spread, BiFunction<Vec2, Vec2, VeloraParticle> particleSupplier) {
         this.interval = interval;
         this.spread = spread;
         this.particleSupplier = particleSupplier;
         this.lastSpawnTime = System.currentTimeMillis();
+        this.enabled = true;
     }
 
     protected void tick(Vec2 origin) {
@@ -56,6 +57,6 @@ public class ContinuousParticleEmitter {
             spawnPos = origin.copy().add(new Vec2(offsetX, offsetY));
         }
 
-        VeloraParticleManager.getInstance().spawnParticle(spawnPos, particleSupplier.apply(spawnPos));
+        VeloraParticleManager.getInstance().spawnParticle(spawnPos, particleSupplier.apply(origin, spawnPos));
     }
 }

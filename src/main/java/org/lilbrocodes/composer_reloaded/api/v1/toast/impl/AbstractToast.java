@@ -1,7 +1,8 @@
-package org.lilbrocodes.composer_reloaded.api.v1.toast;
+package org.lilbrocodes.composer_reloaded.api.v1.toast.impl;
 
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.util.Identifier;
 import org.joml.Vector2i;
 
 public abstract class AbstractToast {
@@ -9,7 +10,7 @@ public abstract class AbstractToast {
     private boolean removed = false;
     public TextRenderer textRenderer;
 
-    protected void init(TextRenderer textRenderer) {
+    public void init(TextRenderer textRenderer) {
         this.textRenderer = textRenderer;
     }
 
@@ -26,11 +27,10 @@ public abstract class AbstractToast {
         removed = true;
     }
 
-    protected abstract void draw(DrawContext context, long timeAlive, int x, int y);
-
-    protected abstract Vector2i size();
-
-    protected abstract int margin();
+    public abstract void draw(DrawContext context, long timeAlive, int x, int y);
+    public abstract Vector2i size();
+    public abstract int margin();
+    public abstract Identifier getId();
 
     public boolean shouldRemove() {
         return removed;

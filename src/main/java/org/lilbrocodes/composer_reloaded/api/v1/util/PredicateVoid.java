@@ -20,11 +20,27 @@ public class PredicateVoid {
         return null;
     }
 
-    public static boolean always(Object obj) {
+    public static boolean always(Object... v) {
         return true;
     }
 
-    public static boolean never(Object obj) {
+    public static boolean never(Object... v) {
         return false;
+    }
+
+    public static <T> ConstantProvider<T> constant(T value) {
+        return new ConstantProvider<>(value);
+    }
+
+    public static class ConstantProvider<T> {
+        private final T value;
+
+        public ConstantProvider(T value) {
+            this.value = value;
+        }
+
+        public T get(Object... ignored) {
+            return value;
+        }
     }
 }

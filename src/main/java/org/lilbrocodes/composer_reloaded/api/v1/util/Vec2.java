@@ -1,6 +1,7 @@
 package org.lilbrocodes.composer_reloaded.api.v1.util;
 
 import java.lang.Math;
+import java.util.Random;
 
 @SuppressWarnings({"UnusedReturnValue", "CanBeFinal"})
 public class Vec2 {
@@ -14,6 +15,22 @@ public class Vec2 {
 
     public Vec2(int x, int y) {
         this(x, (double) y);
+    }
+
+    public static Vec2 random(double xMin, double xBound, double yMin, double yBound) {
+        Random random = new Random();
+        return new Vec2(
+                random.nextDouble(xMin, xBound),
+                random.nextDouble(yMin, yBound)
+        );
+    }
+
+    public static Vec2 random(double xBound, double yBound) {
+        return random(-xBound, xBound, -yBound, yBound);
+    }
+
+    public static Vec2 random(double bound) {
+        return random(bound, bound);
     }
 
     public Vec2 add(Vec2 b) {
@@ -48,6 +65,14 @@ public class Vec2 {
 
     public Vec2 copy() {
         return new Vec2(this.x, this.y);
+    }
+
+    public int x() {
+        return Math.toIntExact(Math.round(x));
+    }
+
+    public int y() {
+        return Math.toIntExact(Math.round(y));
     }
 
     @Override

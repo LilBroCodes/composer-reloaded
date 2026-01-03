@@ -18,5 +18,14 @@
         "weight": 30
       }
     ]
+  },
+  "vine_boom": {
+    "subtitle": "composer_reloaded.vine_boom",
+    "sounds": [
+      {
+        "name": "composer_reloaded:boom",
+        "stream": false
+      }
+    ]
   }
 }

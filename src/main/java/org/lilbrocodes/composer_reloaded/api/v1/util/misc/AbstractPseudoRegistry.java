@@ -1,11 +1,10 @@
 package org.lilbrocodes.composer_reloaded.api.v1.util.misc;
 
-
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
+import oshi.util.tuples.Pair;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractPseudoRegistry<V> {
     private static final Map<Identifier, AbstractPseudoRegistry<?>> identified = new HashMap<>();
@@ -17,7 +16,7 @@ public abstract class AbstractPseudoRegistry<V> {
     protected AbstractPseudoRegistry() {
         this.values = new HashMap<>();
         this.fileValues = new HashMap<>();
-        registerDefaults();
+        bootstrap();
     }
 
     public <T extends V> T register(Identifier id, T value) {
@@ -46,7 +45,7 @@ public abstract class AbstractPseudoRegistry<V> {
         return fileValues;
     }
 
-    protected void registerDefaults() {
+    protected void bootstrap() {
 
     }
 
@@ -74,8 +73,16 @@ public abstract class AbstractPseudoRegistry<V> {
         return identified.get(id);
     }
 
+    public static Pair<Identifier, AbstractPseudoRegistry<?>> entry(Identifier id) {
+        return new Pair<>(id, identified.get(id));
+    }
+
     public static void identify(Identifier string, AbstractPseudoRegistry<?> registry) {
         identified.put(string, registry);
+    }
+
+    public static Set<Identifier> identified() {
+        return Collections.unmodifiableSet(identified.keySet());
     }
 
     public static class Impl<V> extends AbstractPseudoRegistry<V> {

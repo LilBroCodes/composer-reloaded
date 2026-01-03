@@ -1,21 +1,21 @@
 package org.lilbrocodes.composer_reloaded.internal.registry;
 
-import net.minecraft.registry.*;
-import org.lilbrocodes.composer_reloaded.api.v1.advancement.ComposerAdvancement;
-import org.lilbrocodes.composer_reloaded.api.v1.util.PredicateVoid;
-import org.lilbrocodes.composer_reloaded.internal.ComposerReloaded;
+import org.jetbrains.annotations.ApiStatus;
+import org.lilbrocodes.composer_reloaded.api.v1.registry.lazy.DeferredRegistryRegistry;
 
+import static org.lilbrocodes.composer_reloaded.api.v1.registry.ComposerRegistryKeys.*;
+import static org.lilbrocodes.composer_reloaded.api.v1.registry.ComposerRegistries.*;
+
+@ApiStatus.Internal
 public class ModRegistries {
-    public static final RegistryKey<Registry<ComposerAdvancement>> COMPOSER_ADVANCEMENT_KEY =
-            RegistryKey.ofRegistry(ComposerReloaded.identify("composer_advancement"));
-    public static RegistryWrapper.Impl<ComposerAdvancement> COMPOSER_ADVANCEMENTS;
+    private static final DeferredRegistryRegistry REGISTRY = new DeferredRegistryRegistry();
 
+    @ApiStatus.Internal
     public static void initialize() {
-        RegistryBuilder builder = new RegistryBuilder();
+        COMPOSER_ADVANCEMENTS = REGISTRY.create(COMPOSER_ADVANCEMENT_KEY, ModComposerAdvancements::registerAndGetDefault);
+        TOAST_SERIALIZERS = REGISTRY.create(TOAST_SERIALIZERS_KEY, ModToastSerializers::registerAndGetDefault);
+        OVERLAY_SERIALIZERS = REGISTRY.create(OVERLAY_SERIALIZERS_KEY, ModOverlaySerializers::registerAndGetDefault);
 
-        builder.addRegistry(COMPOSER_ADVANCEMENT_KEY, PredicateVoid::nil);
-
-        RegistryWrapper.WrapperLookup lookup = builder.createWrapperLookup(DynamicRegistryManager.EMPTY);
-        COMPOSER_ADVANCEMENTS = lookup./*? if minecraft: <=1.21 { *//*getWrapperOrThrow*//*?} else {*/getOrThrow/*?}*/(COMPOSER_ADVANCEMENT_KEY);
+        REGISTRY.finalizeRegistries();
     }
 }

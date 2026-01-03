@@ -14,16 +14,17 @@
     "targeting.WorldMixin"
   ],
   "client": [
-    "duped_binds.GetBindsMixin",
-    "duped_binds.RecolorKeybindMixin",
-    "duped_binds.TriggerAllBindsMixin",
+    "duped_binds.GameOptionsMixin",
+    "duped_binds.KeyBindingEntryMixin",
+    "duped_binds.KeyBindingMixin",
     "dynamic_tooltips.CreativeInventoryScreenMixin",
     "local.BlockRenderManagerAccessor",
-    "render.GameRendererMixin",
     "scroll.MouseMixin",
     "scroll.PlayerInventoryMixin",
     "soul_binding.ClientPlayerEntityMixin",
     "targeting.MinecraftClientMixin",
+    "toasts_overlays.GameRendererMixin",
+    "toasts_overlays.MinecraftClientMixin",
     "velora.ParticleRenderHook"
   ],
   "injectors": {

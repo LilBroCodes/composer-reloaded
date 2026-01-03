@@ -5,21 +5,22 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import org.lilbrocodes.composer_reloaded.internal.client.render.block_entity.PlushBlockEntityRenderer;
+import org.lilbrocodes.composer_reloaded.internal.networking.ClearOverlaysPayload;
 import org.lilbrocodes.composer_reloaded.internal.networking.ClearToastsPayload;
-import org.lilbrocodes.composer_reloaded.internal.networking.NotifyToastPayload;
-import org.lilbrocodes.composer_reloaded.internal.networking.SimpleToastPayload;
+import org.lilbrocodes.composer_reloaded.internal.networking.ShowOverlayPayload;
+import org.lilbrocodes.composer_reloaded.internal.networking.TriggerToastPayload;
 import org.lilbrocodes.composer_reloaded.internal.registry.ModBlockEntities;
 import org.lilbrocodes.composer_reloaded.internal.registry.ModBlocks;
 
 public class ComposerReloadedClient implements ClientModInitializer {
-
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PLUSH, RenderLayer.getCutout());
         BlockEntityRendererFactories.register(ModBlockEntities.PLUSH, PlushBlockEntityRenderer::new);
 
         ClearToastsPayload.registerHandler();
-        NotifyToastPayload.registerHandler();
-        SimpleToastPayload.registerHandler();
+        ClearOverlaysPayload.registerHandler();
+        TriggerToastPayload.registerHandler();
+        ShowOverlayPayload.registerHandler();
     }
 }
