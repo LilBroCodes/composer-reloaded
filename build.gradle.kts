@@ -126,6 +126,7 @@ tasks {
         inputs.property("loader", project.property("deps.fabric_loader"))
         inputs.property("cca", project.property("deps.cca"))
         inputs.property("fapi", project.property("deps.fabric_api"))
+        inputs.property("aw", project.property("mod.mc_title"))
 
         val props = mapOf(
             "id" to project.property("mod.id"),
@@ -134,7 +135,8 @@ tasks {
             "minecraft" to project.property("mod.mc_dep"),
             "loader" to project.property("deps.fabric_loader"),
             "cca" to project.property("deps.cca"),
-            "fapi" to project.property("deps.fabric_api")
+            "fapi" to project.property("deps.fabric_api"),
+            "aw" to project.property("mod.mc_title")
         )
 
         filesMatching("fabric.mod.json") { expand(props) }

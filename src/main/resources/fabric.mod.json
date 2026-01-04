@@ -9,7 +9,7 @@
   "license": "All-Rights-Reserved",
   "icon": "assets/composer/icon.png",
   "environment": "*",
-  "access_widener": "composer.accesswidener",
+  "access_widener": "${aw}.accesswidener",
   "entrypoints": {
     "fabric-datagen": [
       "com.codex.composer.internal.data.ComposerDataGenerator"
