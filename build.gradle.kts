@@ -81,7 +81,7 @@ dependencies {
     modRuntimeOnly("${cca()}.cardinal-components-api:cardinal-components-api:${property("deps.cca")}")
     modLocalRuntime("com.terraformersmc:modmenu:${property("r.deps.mod_menu")}")
 
-    implementation("org.lilbrocodes:constructive-core:${property("constructive_version")}")
+    compileOnly("org.lilbrocodes:constructive-core:${property("constructive_version")}")
     annotationProcessor("org.lilbrocodes:constructive-processor:${property("constructive_version")}")
 
     testImplementation(platform("org.junit:junit-bom:${property("junit_version")}"))
