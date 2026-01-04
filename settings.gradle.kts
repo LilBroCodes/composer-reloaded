@@ -19,4 +19,4 @@ stonecutter {
     }
 }
 
-rootProject.name = "Composer Reloaded"
+rootProject.name = "Composer"

@@ -5,11 +5,10 @@ You are free to use it in any project, and are free to use any of it's code as a
 
 ---
 
-# Why is it reloaded?
-
-I made the original version of Composer a long time ago, when I was a lot worse at programming.
+# ~~Why is it reloaded?~~
+~~I made the original version of Composer a long time ago, when I was a lot worse at programming.
 It was set up in weird ways and never worked properly - so I remade it from scratch with actually good code, which is
-this mod.
+this mod.~~
 
 ---
 
@@ -45,10 +44,18 @@ composer_version = (latest_version)
 // build.gradle
 
 repositories {
+    // Before 3.0
     maven {
         name = "Composer Maven"
         url = "https://dl.cloudsmith.io/public/lilbrocodes/composer-reloaded/maven/"
     }
+    
+    // After 3.0
+    maven {
+        name = "Composer Maven"
+        url = "https://dl.cloudsmith.io/public/project-codex/composer/maven/"
+    }
+    
     maven {
         name = "Cardinal Components"
         url = "https://maven.ladysnake.org/releases"
@@ -60,11 +67,14 @@ repositories {
 }
 
 dependencies {
-    // Before 2.0
+    // <2.0
     modImplementation "org.lilbrocodes:composer-reloaded:$composer_version"
 
-    // After 2.0
+    // >=2.0 <3.0
     modImplementation "org.lilbrocodes:composer-reloaded:$composer_version+mc$minecraft_version"
+
+    // >=3.0
+    modImplementation "com.codex:composer:$composer_version+mc$minecraft_version"
 }
 ```
 
@@ -82,9 +92,16 @@ composer_version = (latest_version)
 // build.gradle.kts
 
 repositories {
+    // Before 3.0
     maven("https://dl.cloudsmith.io/public/lilbrocodes/composer-reloaded/maven/") {
         name = "Composer Maven"
     }
+    
+    // After 3.0
+    maven("https://dl.cloudsmith.io/public/project-codex/composer/maven/") {
+        name = "Composer Maven"
+    }
+    
     maven("https://maven.ladysnake.org/releases") {
         name = "Cardinal Components"
     }
@@ -94,11 +111,14 @@ repositories {
 }
 
 dependencies {
-    // Before 2.0
+    // <2.0
     modImplementation("org.lilbrocodes:composer-reloaded:$composer_version")
     
-    // After 2.0
+    // >=2.0 <3.0
     modImplementation("org.lilbrocodes:composer-reloaded:$composer_version+mc$minecraft_version")
+    
+    // >=3.0
+    modImplementation("com.codex:composer:$composer_version+mc$minecraft_version")
 }
 ```
 
@@ -109,9 +129,15 @@ dependencies {
 
 ```xml
 <repositories>
+    <!-- Before 3.0 -->
     <repository>
         <id>composer-maven</id>
         <url>https://dl.cloudsmith.io/public/lilbrocodes/composer-reloaded/maven/</url>
+    </repository>
+    <!-- After 3.0 -->
+    <repository>
+        <id>composer-maven</id>
+        <url>https://dl.cloudsmith.io/public/project-codex/composer/maven/</url>
     </repository>
     <repository>
         <id>cardinal-components</id>
@@ -124,7 +150,7 @@ dependencies {
 </repositories>
 
 <dependencies>
-    <!-- Before 2.0 -->
+    <!-- <2.0 -->
     <dependency>
         <groupId>org.lilbrocodes</groupId>
         <artifactId>composer-reloaded</artifactId>
@@ -132,10 +158,18 @@ dependencies {
         <scope>compile</scope>
     </dependency>
     
-    <!-- After 2.0 -->
+    <!-- >=2.0 <3.0 -->
     <dependency>
         <groupId>org.lilbrocodes</groupId>
         <artifactId>composer-reloaded</artifactId>
+        <version>${composer.version}+mc${minecraft.version}</version>
+        <scope>compile</scope>
+    </dependency>
+
+    <!-- >=3.0 -->
+    <dependency>
+        <groupId>com.codex</groupId>
+        <artifactId>composer</artifactId>
         <version>${composer.version}+mc${minecraft.version}</version>
         <scope>compile</scope>
     </dependency>

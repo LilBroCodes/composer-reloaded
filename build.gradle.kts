@@ -116,11 +116,6 @@ java {
     sourceCompatibility = requiredJava
 }
 
-tasks.register<Delete>("cleanArtifacts") {
-    delete(rootProject.file("artifacts"))
-}
-
-
 val canPublish = present("CLOUDSMITH_USERNAME") && present("CLOUDSMITH_API_KEY")
 tasks {
     processResources {
@@ -148,6 +143,10 @@ tasks {
         filesMatching("*.mixins.json") { expand("java" to mixinJava) }
     }
 
+    register<Delete>("cleanArtifacts") {
+        delete(rootProject.file("artifacts"))
+    }
+
     register<Copy>("buildAndCollect") {
         group = "build"
         from(remapJar.map { it.archiveFile }, remapSourcesJar.map { it.archiveFile })
@@ -157,7 +156,7 @@ tasks {
 
     register<Copy>("collectArtifacts") {
         group = "build"
-        dependsOn("cleanArtifacts", "buildAndCollect")
+        dependsOn("buildAndCollect")
 
         from(remapJar.map { it.archiveFile })
         into(rootProject.file("artifacts"))
@@ -264,7 +263,7 @@ publishing {
     }
 
     repositories {
-        maven("https://maven.cloudsmith.io/lilbrocodes/composer-reloaded/") {
+        maven("https://maven.cloudsmith.io/project-codex/composer/") {
             name = "cloudsmith"
 
             credentials {

@@ -7,25 +7,25 @@
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/composer_reloaded/icon.png",
+  "icon": "assets/composer/icon.png",
   "environment": "*",
-  "access_widener": "composer_reloaded.accesswidener",
+  "access_widener": "composer.accesswidener",
   "entrypoints": {
     "fabric-datagen": [
-      "org.lilbrocodes.composer_reloaded.internal.data.ComposerReloadedDataGenerator"
+      "com.codex.composer.internal.data.ComposerDataGenerator"
     ],
     "client": [
-      "org.lilbrocodes.composer_reloaded.internal.client.ComposerReloadedClient"
+      "com.codex.composer.internal.client.ComposerClient"
     ],
     "main": [
-      "org.lilbrocodes.composer_reloaded.internal.ComposerReloaded"
+      "com.codex.composer.internal.Composer"
     ],
     "cardinal-components": [
-      "org.lilbrocodes.composer_reloaded.internal.cca.ModCardinalComponents"
+      "com.codex.composer.internal.cca.ModCardinalComponents"
     ]
   },
   "mixins": [
-    "composer_reloaded.mixins.json"
+    "composer.mixins.json"
   ],
   "depends": {
     "fabric": "*",
@@ -36,8 +36,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "composer_reloaded:targeted_block",
-      "composer_reloaded:targeted_entity"
+      "composer:targeted_block",
+      "composer:targeted_entity"
     ],
     "modmenu": {
       "badges": [ "library" ],

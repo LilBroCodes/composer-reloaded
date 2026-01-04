@@ -1,0 +1,31 @@
+{
+  "lilbro_squish": {
+    "subtitle": "composer.lilbro_squish",
+    "sounds": [
+      {
+        "name": "composer:boom",
+        "stream": false,
+        "weight": 1
+      },
+      {
+        "name": "composer:horn1",
+        "stream": false,
+        "weight": 30
+      },
+      {
+        "name": "composer:horn2",
+        "stream": false,
+        "weight": 30
+      }
+    ]
+  },
+  "vine_boom": {
+    "subtitle": "composer.vine_boom",
+    "sounds": [
+      {
+        "name": "composer:boom",
+        "stream": false
+      }
+    ]
+  }
+}
