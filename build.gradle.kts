@@ -79,7 +79,7 @@ dependencies {
     include("${cca()}.cardinal-components-api:cardinal-components-base:${property("deps.cca")}")
     include("${cca()}.cardinal-components-api:cardinal-components-entity:${property("deps.cca")}")
     modRuntimeOnly("${cca()}.cardinal-components-api:cardinal-components-api:${property("deps.cca")}")
-    modLocalRuntime("com.terraformersmc:modmenu:${property("r.deps.mod_menu")}")
+//    modLocalRuntime("com.terraformersmc:modmenu:${property("r.deps.mod_menu")}")
 
     compileOnly("org.lilbrocodes:constructive-core:${property("constructive_version")}")
     annotationProcessor("org.lilbrocodes:constructive-processor:${property("constructive_version")}")
